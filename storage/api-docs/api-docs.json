@@ -1,0 +1,1086 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Viyar API",
+        "description": "Документация запросов",
+        "contact": {
+            "name": "Viyar API Support",
+            "email": "olegzharko@egmail.com"
+        },
+        "version": "2.0.0"
+    },
+    "paths": {
+        "/api/accounts": {
+            "get": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Получить список профилей",
+                "description": "Этот метод позволяет получить список аккаунтов",
+                "operationId": "f136bb019580ed6417bc9a70c9d41bf1",
+                "responses": {
+                    "200": {
+                        "description": "Список аккаунтов из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "fio": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/accounts/{account}": {
+            "get": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Получить данные одного аккаунта",
+                "description": "Этот метод позволяет получить данные одного аккаунта",
+                "operationId": "98db138f2846581f1419a5499519a17f",
+                "parameters": [
+                    {
+                        "name": "account",
+                        "in": "path",
+                        "description": "Идентификатор аккаунта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Аккаунт по идентификатору из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "fio": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что аккаунта с таким идентификатором не существует"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Удаление аккаунта по идентификатору",
+                "description": "Этот метод позволяет удалить один аккаунт по идентификатору",
+                "operationId": "23619cc076d6c1655111abd946ef3077",
+                "parameters": [
+                    {
+                        "name": "account",
+                        "in": "path",
+                        "description": "Идентификатор аккаунта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Ответ что аккаунт удален"
+                    },
+                    "404": {
+                        "description": "Ответ что аккаунта с таким идентификатором не существует"
+                    }
+                }
+            }
+        },
+        "/api/accounts/{account}/orders": {
+            "get": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Метод возвращает заказы для определенного аккаунта",
+                "description": "Этот метод позволяет получить список аккаунтов",
+                "operationId": "51480a2c4be94d0dcec8401a0c64fa30",
+                "parameters": [
+                    {
+                        "name": "account",
+                        "in": "path",
+                        "description": "Идентификатор аккаунта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список заказов для аккаунта из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "account_id": {
+                                                "type": "integer"
+                                            },
+                                            "fio": {
+                                                "type": "string"
+                                            },
+                                            "is_agree": {
+                                                "type": "boolean"
+                                            },
+                                            "status": {
+                                                "type": "string"
+                                            },
+                                            "payment_status": {
+                                                "type": "string"
+                                            },
+                                            "file_contract": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/entities": {
+            "get": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "Получить список сущностей",
+                "description": "Этот метод позволяет получить список сущностей",
+                "operationId": "8dbeea46da400f4013fcd42591853335",
+                "responses": {
+                    "200": {
+                        "description": "Список сущностей из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "Создание новой сущности",
+                "description": "Этот метод позволяет создать одну сущность",
+                "operationId": "9b693272252a2c701ba379edcb6c88f8",
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "parent_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о сущности после ее создания из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "parent_id": {
+                                            "type": "int64"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания сущности"
+                    }
+                }
+            }
+        },
+        "/api/entities/{entity}": {
+            "get": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "Получить данные одной сущности",
+                "description": "Этот метод позволяет получить данные одной сущности",
+                "operationId": "6885006a41a6cabc5852ecdecb11c5b6",
+                "parameters": [
+                    {
+                        "name": "entity",
+                        "in": "path",
+                        "description": "Идентификатор сущности",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Сущность по идентификатору из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что сущности с таким идентификатором не существует"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "Обновление текущей сущности по идентификатору",
+                "description": "Этот метод позволяет обновить одну сущность по идентификатору",
+                "operationId": "448e092d2485f81134bc8af159deaa15",
+                "parameters": [
+                    {
+                        "name": "entity",
+                        "in": "path",
+                        "description": "Идентификатор сущности",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "parent_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о сущности после ее обновления из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "parent_id": {
+                                            "type": "int64"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что сущности с таким идентификатором не существует"
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания сущности"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Entities"
+                ],
+                "summary": "Удаление текущей сущности по идентификатору",
+                "description": "Этот метод позволяет удалить одну сущность по идентификатору",
+                "operationId": "eb16d25353c03d46b8e5b702f4a34fac",
+                "parameters": [
+                    {
+                        "name": "entity",
+                        "in": "path",
+                        "description": "Идентификатор сущности",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Ответ что сущность удалена"
+                    },
+                    "404": {
+                        "description": "Ответ что сущности с таким идентификатором не существует"
+                    }
+                }
+            }
+        },
+        "/api/filters": {
+            "get": {
+                "tags": [
+                    "Filters"
+                ],
+                "summary": "Получить список фильтров",
+                "description": "Этот метод позволяет получить список фильтров",
+                "operationId": "0e15baa91683912ca32971407c2679ff",
+                "responses": {
+                    "200": {
+                        "description": "Список фильтров из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "is_default": {
+                                                "type": "boolean"
+                                            },
+                                            "is_required": {
+                                                "type": "boolean"
+                                            },
+                                            "entity_id": {
+                                                "type": "integer"
+                                            },
+                                            "type": {
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Filters"
+                ],
+                "summary": "Создание нового фильтра",
+                "description": "Этот метод позволяет создать новый фильтр",
+                "operationId": "ca5735028a8a20b88905846c4a7c5d93",
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "entity_id": {
+                                        "type": "integer"
+                                    },
+                                    "is_default": {
+                                        "type": "boolean"
+                                    },
+                                    "is_required": {
+                                        "type": "boolean"
+                                    },
+                                    "type": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о фильтре после ее создания из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "entity_id": {
+                                            "type": "integer"
+                                        },
+                                        "type": {
+                                            "type": "integer"
+                                        },
+                                        "is_default": {
+                                            "type": "boolean"
+                                        },
+                                        "is_required": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания фильтра"
+                    }
+                }
+            }
+        },
+        "/api/filters/types": {
+            "get": {
+                "tags": [
+                    "Filters"
+                ],
+                "summary": "Получить список видов фильтров",
+                "description": "Этот метод позволяет получить виды фильтров",
+                "operationId": "eed2aff729f78d90b3b3b7112388dd48",
+                "responses": {
+                    "200": {
+                        "description": "Список видов фильтров",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/filters/{filter}": {
+            "get": {
+                "tags": [
+                    "Filters"
+                ],
+                "summary": "Получить данные одного фильтра",
+                "description": "Этот метод позволяет получить данные одного фильтра",
+                "operationId": "fb80d4df973096ef985d5276d475cb15",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "path",
+                        "description": "Идентификатор фильтра",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Фильтр по идентификатору из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "is_default": {
+                                            "type": "boolean"
+                                        },
+                                        "is_required": {
+                                            "type": "boolean"
+                                        },
+                                        "entity_id": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что фильтра с таким идентификатором не существует"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Filters"
+                ],
+                "summary": "Обновление текущего фильтра по идентификатору",
+                "description": "Этот метод позволяет обновить один фильтр по идентификатору",
+                "operationId": "9faad119485461ad984cd4602e347008",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "path",
+                        "description": "Идентификатор фильтра",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "entity_id": {
+                                        "type": "integer"
+                                    },
+                                    "is_default": {
+                                        "type": "integer"
+                                    },
+                                    "is_required": {
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о сущности после ее обновления из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "entity_id": {
+                                            "type": "integer"
+                                        },
+                                        "type": {
+                                            "type": "integer"
+                                        },
+                                        "is_default": {
+                                            "type": "boolean"
+                                        },
+                                        "is_required": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что фильтра с таким идентификатором не существует"
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания фильтра"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Filters"
+                ],
+                "summary": "Удаление текущего фильтра по идентификатору",
+                "description": "Этот метод позволяет удалить один фильтр по идентификатору",
+                "operationId": "442b9a0f67bb78f712923fc6bebe4267",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "path",
+                        "description": "Идентификатор фильтра",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Ответ что фильтр удален"
+                    },
+                    "404": {
+                        "description": "Ответ что фильтра с таким идентификатором не существует"
+                    }
+                }
+            }
+        },
+        "/api/orders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Получить список заказов",
+                "description": "Этот метод позволяет получить список заказов",
+                "operationId": "da7dd791d58e4a36a56bb053a1379acc",
+                "responses": {
+                    "200": {
+                        "description": "Список заказов из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "account_id": {
+                                                "type": "integer"
+                                            },
+                                            "fio": {
+                                                "type": "string"
+                                            },
+                                            "is_agree": {
+                                                "type": "boolean"
+                                            },
+                                            "status": {
+                                                "type": "string"
+                                            },
+                                            "payment_status": {
+                                                "type": "string"
+                                            },
+                                            "file_contract": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{order}": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Получить данные одного заказа",
+                "description": "Этот метод позволяет получить данные одного сущности",
+                "operationId": "b214ffbc1835a31f720bbd90001ad636",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "Идентификатор заказа",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Заказ по идентификатору из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "account_id": {
+                                            "type": "integer"
+                                        },
+                                        "fio": {
+                                            "type": "string"
+                                        },
+                                        "is_agree": {
+                                            "type": "boolean"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "payment_status": {
+                                            "type": "string"
+                                        },
+                                        "file_contract": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что заказа с таким идентификатором не существует"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Удаление заказа по идентификатору",
+                "description": "Этот метод позволяет удалить заказ по идентификатору",
+                "operationId": "47c3434490d4be8ee15b2a123c0e2edf",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "Идентификатор заказа",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Ответ что заказ удален"
+                    },
+                    "404": {
+                        "description": "Ответ что заказа с таким идентификатором не существует"
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Получить список продуктов",
+                "description": "Этот метод позволяет получить список продуктов",
+                "operationId": "5c71b660915269e89969f1315a9fd169",
+                "responses": {
+                    "200": {
+                        "description": "Список продуктов из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Создание нового продуктак",
+                "description": "Этот метод позволяет создать один продукт",
+                "operationId": "1adc1f2c1a5d8bf445d573f82fac6ae5",
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о продукте после создания из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания продукта"
+                    }
+                }
+            }
+        },
+        "/api/products/{product}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Получить данные одного продукта",
+                "description": "Этот метод позволяет получить данные одного продукта",
+                "operationId": "e65fefda0dee4ce7fa56a96cef4f09dd",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "description": "Идентификатор продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Продукт по идентификатору из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что продукта с таким идентификатором не существует"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Обновление текущего продукта по идентификатору",
+                "description": "Этот метод позволяет обновить продукт по идентификатору",
+                "operationId": "9a4187a058e1e7069ffd1ef5c6299b62",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "description": "Идентификатор продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о продукте после обновления из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что продукта с таким идентификатором не существует"
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания продукта"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Удаление продукта по идентификатору",
+                "description": "Этот метод позволяет удалить продукт по идентификатору",
+                "operationId": "bfc41534d8c92d50e33f07f03ff0e2d9",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "description": "Идентификатор продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Ответ что продукт удален"
+                    },
+                    "404": {
+                        "description": "Ответ что продукт с таким идентификатором не существует"
+                    }
+                }
+            }
+        }
+    }
+}

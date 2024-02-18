@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Account;
+use Illuminate\Http\Request;
+
+class AccountController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $accounts = Account::all();
+
+        return response()->json($accounts);
+    }
+
+
+    public function show(Account $account)
+    {
+        return response()->json($account);
+    }
+
+
+
+    public function destroy(Account $account)
+    {
+        $account->delete();
+
+        return response()->json(null, 204);
+    }
+
+    public function orders(Account $account) {
+
+        $orders = $account->orders;
+
+        return response()->json($orders);
+
+    }
+}

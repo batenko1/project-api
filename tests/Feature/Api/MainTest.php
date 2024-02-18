@@ -1,0 +1,34 @@
+<?php
+
+namespace Tests\Feature\Api;
+
+
+use Tests\TestCase;
+
+
+/**
+ *
+ * @OA\Info(
+ *     version="2.0.0",
+ *     title="Viyar API",
+ *     description="Документация запросов",
+ *     @OA\Contact(
+ *         email="olegzharko@egmail.com",
+ *         name="Viyar API Support"
+ *     )
+ * )
+ *
+ */
+
+class MainTest extends TestCase
+{
+    /**
+     * A basic feature test example.
+     */
+    public function test_example(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+}
