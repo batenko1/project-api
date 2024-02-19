@@ -39,8 +39,6 @@ class EntityController extends Controller
 
         StoreFilters::save($entity, $request->get('filters'));
 
-//        $this->storeFilters($entity, $request->get('filters'));
-
         $this->storePermissions('entity '.$entity->id);
 
         return response()->json($entity, 201);
