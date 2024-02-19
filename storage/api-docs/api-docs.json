@@ -1081,6 +1081,271 @@
                     }
                 }
             }
+        },
+        "/api/settings": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Получить список настроек",
+                "description": "Этот метод позволяет получить список настроек",
+                "operationId": "7e775dc6c8457824f5069b076f10709d",
+                "responses": {
+                    "200": {
+                        "description": "Список настроек из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "key": {
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Создание новой настройки",
+                "description": "Этот метод позволяет создать новую настройку",
+                "operationId": "8b01c073840289b5e2f745c75c7bc2d9",
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "key",
+                                    "value"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "key": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о настройке после создания из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "key": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания настройки"
+                    }
+                }
+            }
+        },
+        "/api/settings/{setting}": {
+            "get": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Получить данные одной настройки",
+                "description": "Этот метод позволяет получить данные одной настройки",
+                "operationId": "8e624c9ba62fd5d492d4b9a25f03ca67",
+                "parameters": [
+                    {
+                        "name": "setting",
+                        "in": "path",
+                        "description": "Идентификатор настройки",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Настройка по идентификатору из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "key": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что настройки с таким идентификатором не существует"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Обновление текущей настройки по идентификатору",
+                "description": "Этот метод позволяет обновить настройку по идентификатору",
+                "operationId": "fb9775e51dcb114903ce78ff5bc766ca",
+                "parameters": [
+                    {
+                        "name": "setting",
+                        "in": "path",
+                        "description": "Идентификатор настройки",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "key",
+                                    "value"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "key": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о настройке после обновления из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "key": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что настройки с таким идентификатором не существует"
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания настройки"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Удаление настройки по идентификатору",
+                "description": "Этот метод позволяет удалить настройку по идентификатору",
+                "operationId": "4bc952b32e1185a8ec1ef103f759cd07",
+                "parameters": [
+                    {
+                        "name": "setting",
+                        "in": "path",
+                        "description": "Идентификатор настройки",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Ответ что настройка удалена"
+                    },
+                    "404": {
+                        "description": "Ответ что настройки с таким идентификатором не существует"
+                    }
+                }
+            }
         }
     }
 }

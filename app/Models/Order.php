@@ -38,6 +38,10 @@ class Order extends Model
     ];
 
 
+    protected $with = [
+        'products', 'account'
+    ];
+
     public function account() {
         return $this->belongsTo(Account::class, 'account_id');
     }

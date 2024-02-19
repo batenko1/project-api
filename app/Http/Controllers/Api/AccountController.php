@@ -19,11 +19,21 @@ class AccountController extends Controller
     }
 
 
+    public function store(Request $request) {
+
+    }
+
+
     public function show(Account $account)
     {
         return response()->json($account);
     }
 
+
+    public function update(Request $request, Account $account) {
+
+
+    }
 
 
     public function destroy(Account $account)

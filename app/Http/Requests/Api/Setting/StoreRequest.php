@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Product;
+namespace App\Http\Requests\Api\Setting;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,7 +23,8 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'entity_id' => 'required|exists:entities,id'
+            'key' => 'required|string',
+            'value' => 'required|string',
         ];
     }
 }

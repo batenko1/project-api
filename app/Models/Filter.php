@@ -9,6 +9,22 @@ class Filter extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'entity_id',
+        'type',
+        'is_default',
+        'is_required'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
+    protected $with = [
+        'values'
+    ];
 
     const CHECKBOX_FIELD = 'checkbox';
 

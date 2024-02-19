@@ -20,7 +20,7 @@ class Entity extends Model
         'updated_at'
     ];
 
-    protected $with = ['child'];
+    protected $with = ['child', 'filters'];
 
 
     public function parent() {
@@ -33,5 +33,9 @@ class Entity extends Model
 
     public function products() {
         return $this->hasMany(Product::class, 'entity_id');
+    }
+
+    public function filters() {
+        return $this->hasMany(Filter::class, 'entity_id');
     }
 }

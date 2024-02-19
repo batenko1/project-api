@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Product\StoreRequest;
+use App\Models\Entity;
+use App\Models\Filter;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,9 +14,26 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $data = $request->all();
+
+        $products = Product::query()
+            ->when(count($data), function ($query) use($data) {
+
+                foreach ($data as $key => $value) {
+
+                    $filterId = \Str::replace('filter_', '', $key);
+
+                    if(strpos($key, 'filter') !== false) {
+                        $query->whereHas('values', function ($query) use($value, $filterId) {
+                            $query->where('value', $value)->where('filter_id', $filterId);
+                        });
+                    }
+                }
+
+            })
+            ->get();
 
         return response()->json($products);
     }
@@ -26,6 +45,8 @@ class ProductController extends Controller
     {
         $product = Product::query()->create($request->validated());
 
+        $product->values()->sync($request->filter_values);
+
         return response()->json($product, 201);
     }
 
@@ -34,6 +55,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+
         return response()->json($product);
     }
 
@@ -43,6 +65,8 @@ class ProductController extends Controller
     public function update(StoreRequest $request, Product $product)
     {
         $product->update($request->validated());
+
+        $product->values()->sync($request->filter_values);
 
         return response()->json($product, 201);
     }
@@ -55,5 +79,30 @@ class ProductController extends Controller
         $product->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function getFilters($entityId) {
+
+        $entity = Entity::query()->findOrFail($entityId);
+
+        $entities = $this->triesEntities($entity);
+
+        $filters = Filter::query()->whereIn('entity_id', $entities)->get();
+
+        return response()->json($filters);
+
+    }
+
+    public function triesEntities($entity, &$parents = []) {
+
+        $parents[] = $entity->id;
+        if ($entity->parent_id) {
+            $parentEntity = Entity::find($entity->parent_id);
+            $this->triesEntities($parentEntity, $parents);
+        }
+
+        // Возвращаем массив родительских категорий
+        return $parents;
+
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Api\Product;
+namespace App\Http\Requests\Api\Template;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -17,13 +18,14 @@ class StoreRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
             'title' => 'required|string',
-            'entity_id' => 'required|exists:entities,id'
+            'variables' => 'required|string',
+            'file' => 'file'
         ];
     }
 }

@@ -5,10 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Entity\StoreRequest;
 use App\Models\Entity;
+use App\Models\Filter;
+use App\Models\FilterValue;
+use App\Services\StoreFilters;
+use App\Traits\RoleControlTrait;
 use Illuminate\Http\Request;
 
 class EntityController extends Controller
 {
+
+    use RoleControlTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -27,7 +34,14 @@ class EntityController extends Controller
      */
     public function store(StoreRequest $request)
     {
+
         $entity = Entity::query()->create($request->validated());
+
+        StoreFilters::save($entity, $request->get('filters'));
+
+//        $this->storeFilters($entity, $request->get('filters'));
+
+        $this->storePermissions('entity '.$entity->id);
 
         return response()->json($entity, 201);
 
@@ -48,6 +62,10 @@ class EntityController extends Controller
     {
         $entity->update($request->validated());
 
+        StoreFilters::save($entity, $request->get('filters'));
+
+        $this->storePermissions('entity '.$entity->id);
+
         return response()->json($entity, 201);
     }
 
@@ -60,4 +78,5 @@ class EntityController extends Controller
 
         return response()->json('Success delete', 204);
     }
+
 }
