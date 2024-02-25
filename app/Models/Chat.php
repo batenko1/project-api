@@ -9,6 +9,8 @@ class Chat extends Model
 {
     use HasFactory;
 
+    protected $with = ['messages', 'account', 'companion'];
+
     public function messages() {
         return $this->hasMany(Message::class, 'chat_id');
     }

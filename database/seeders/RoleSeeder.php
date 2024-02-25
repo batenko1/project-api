@@ -17,63 +17,58 @@ class RoleSeeder extends Seeder
 
 
         $roles = [
-            'user'
+            'user',
+            'admin'
         ];
 
         $permissions = [
-            'index account',
-            'show account',
-            'create account',
-            'update account',
-            'delete account',
+            'index account' => 'Список пользователей',
+            'show account' => 'Информация по одному пользователю',
+            'create account' => 'Создание пользователя',
+            'update account' => "Обновление пользователя",
+            'delete account' => 'Удаление пользователя',
 
-            'index product',
-            'show product',
-            'create product',
-            'update product',
-            'delete product',
+            'index role' => 'Список пользователей',
+            'show role' => 'Информация по одному пользователю',
+            'create role' => 'Создание пользователя',
+            'update role' => "Обновление пользователя",
+            'delete role' => 'Удаление пользователя',
 
-            'index role',
-            'show role',
-            'create role',
-            'update role',
-            'delete role',
+            'index setting' => 'Список пользователей',
+            'show setting' => 'Информация по одному пользователю',
+            'create setting' => 'Создание пользователя',
+            'update setting' => "Обновление пользователя",
+            'delete setting' => 'Удаление пользователя',
 
-            'index setting',
-            'show setting',
-            'create setting',
-            'update setting',
-            'delete setting',
+            'index template' => 'Список пользователей',
+            'show template' => 'Информация по одному пользователю',
+            'create template' => 'Создание пользователя',
+            'update template' => "Обновление пользователя",
+            'delete template' => 'Удаление пользователя',
 
-            'index template',
-            'show template',
-            'create template',
-            'update template',
-            'delete template',
+            'index order' => 'Список пользователей',
+            'show order' => 'Информация по одному пользователю',
+            'create order' => 'Создание пользователя',
+            'update order' => "Обновление пользователя",
+            'delete order' => 'Удаление пользователя',
 
-            'index order',
-            'show order',
-            'create order',
-            'update order',
-            'delete order',
+            'index entity' => 'Список пользователей',
+            'show entity' => 'Информация по одному пользователю',
+            'create entity' => 'Создание пользователя',
+            'update entity' => "Обновление пользователя",
+            'delete entity' => 'Удаление пользователя',
 
-            'index entity',
-            'show entity',
-            'create entity',
-            'update entity',
-            'delete entity',
+            'index product' => 'Список пользователей',
+            'show product' => 'Информация по одному пользователю',
+            'create product' => 'Создание пользователя',
+            'update product' => "Обновление пользователя",
+            'delete product' => 'Удаление пользователя',
 
-            'index product',
-            'show product',
-            'create product',
-            'update product',
-            'delete product',
-
-            'index filter',
-            'show filter',
-            'create filter',
-            'update filter',
-            'delete filter',
+            'index filter' => 'Список пользователей',
+            'show filter' => 'Информация по одному пользователю',
+            'create filter' => 'Создание пользователя',
+            'update filter' => "Обновление пользователя",
+            'delete filter' => 'Удаление пользователя',
 
 
         ];
@@ -85,14 +80,14 @@ class RoleSeeder extends Seeder
             }
         }
 
-        foreach ($permissions as $permission) {
+        foreach ($permissions as $key => $permission) {
 
-            if(!Permission::query()->where('name', $permission)->first()) {
-                Permission::query()->create(['name' => $permission]);
+            if(!Permission::query()->where('name', $key)->first()) {
+                Permission::query()->create(['name' => $key, 'title' => $permission]);
             }
 
             $role = Role::query()->where('name', 'admin')->first();
-            $role->givePermissionTo($permission);
+            $role->givePermissionTo($key);
 
         }
 

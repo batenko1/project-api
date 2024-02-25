@@ -5,20 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = Role::query()
-            ->with('permissions')
-            ->get();
+        $permissions = Permission::query()->get();
 
-        return response()->json($roles);
+        return response()->json($permissions);
     }
 
     /**
@@ -26,17 +23,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-
-        $role = Role::query()->create([
-            'name' => $request->get('name'),
-        ]);
-
-        foreach ($request->selectedPermissions as $permission) {
-            $permissionModel = Permission::findById($permission);
-            $role->givePermissionTo($permissionModel);
-        }
-
-        return response()->json('Success', 201);
+        //
     }
 
     /**
@@ -58,10 +45,8 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy(string $id)
     {
-        $role->delete();
-
-        return response()->json(null, 204);
+        //
     }
 }

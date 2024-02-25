@@ -33,7 +33,9 @@ class ProductController extends Controller
                 }
 
             })
-            ->get();
+            ->get()->each(function ($product) {
+                $product->entity_name = $product->entity->title;
+            });
 
         return response()->json($products);
     }
