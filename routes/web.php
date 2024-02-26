@@ -1,5 +1,16 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\ChatController;
+use App\Http\Controllers\Admin\EntityController;
+use App\Http\Controllers\Admin\MainController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TemplateController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +24,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+//Route::get('/', function () {
+//
+//    event(new \App\Events\SendMessage());
+//    return view('welcome');
+//});
 
-    event(new \App\Events\SendMessage());
-    return view('welcome');
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+//    'middleware' => 'checkAccount'
+], function () {
+    Route::get('/', MainController::class)->name('main');
+
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('entities', EntityController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('orders', OrderController::class);
+
+    Route::resource('templates', TemplateController::class);
+
+    Route::resource('chat', ChatController::class);
+
+    Route::resource('settings', SettingController::class);
+    Route::resource('accounts', AccountController::class);
+
+
 });
+
+
+
+Route::match(['get', 'post'],'/login', AuthController::class)->name('login');
