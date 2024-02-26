@@ -1346,6 +1346,288 @@
                     }
                 }
             }
+        },
+        "/api/templates": {
+            "get": {
+                "tags": [
+                    "Templates"
+                ],
+                "summary": "Получить список шаблонов",
+                "description": "Этот метод позволяет получить список шаблонов",
+                "operationId": "e50d4d575cbc9341e19cc8fa453ef96c",
+                "responses": {
+                    "200": {
+                        "description": "Список шаблонов из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "variables": {
+                                                "type": "string"
+                                            },
+                                            "file": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Templates"
+                ],
+                "summary": "Создание нового шаблона",
+                "description": "Этот метод позволяет создать новый шаблон",
+                "operationId": "6f9d7f7eec4009e712b05738e6f9ff36",
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "key",
+                                    "file",
+                                    "variables"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "key": {
+                                        "type": "string"
+                                    },
+                                    "variables": {
+                                        "type": "string"
+                                    },
+                                    "file": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о шаблоне после создания из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "variables": {
+                                                "type": "string"
+                                            },
+                                            "file": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания шаблона"
+                    }
+                }
+            }
+        },
+        "/api/templates/{template}": {
+            "get": {
+                "tags": [
+                    "Templates"
+                ],
+                "summary": "Получить данные одного шаблона",
+                "description": "Этот метод позволяет получить данные одного шаблона",
+                "operationId": "76ec21e3efdd82d6261a506de45a288e",
+                "parameters": [
+                    {
+                        "name": "template",
+                        "in": "path",
+                        "description": "Идентификатор шаблона",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Шаблон по идентификатору из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "variables": {
+                                                "type": "string"
+                                            },
+                                            "file": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что шаблона с таким идентификатором не существует"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Templates"
+                ],
+                "summary": "Обновление текущего шаблона по идентификатору",
+                "description": "Этот метод позволяет обновить шаблон по идентификатору",
+                "operationId": "a86617d134fd3cf82458377850c891b1",
+                "parameters": [
+                    {
+                        "name": "template",
+                        "in": "path",
+                        "description": "Идентификатор шаблона",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "key",
+                                    "file",
+                                    "variables"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "key": {
+                                        "type": "string"
+                                    },
+                                    "variables": {
+                                        "type": "string"
+                                    },
+                                    "file": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о шаблоне после обновления из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "variables": {
+                                                "type": "string"
+                                            },
+                                            "file": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что шаблона с таким идентификатором не существует"
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания шаблона"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Settings"
+                ],
+                "summary": "Удаление шаблона по идентификатору",
+                "description": "Этот метод позволяет удалить шаблон по идентификатору",
+                "operationId": "12ec57a8fa74b6a2f0c2fb643eb0a48f",
+                "parameters": [
+                    {
+                        "name": "template",
+                        "in": "path",
+                        "description": "Идентификатор шаблона",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Ответ что шаблон удален"
+                    },
+                    "404": {
+                        "description": "Ответ что шаблона с таким идентификатором не существует"
+                    }
+                }
+            }
         }
     }
 }

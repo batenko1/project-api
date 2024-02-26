@@ -12,7 +12,8 @@ class Setting extends Model
     protected $fillable = [
         'title',
         'key',
-        'value'
+        'value',
+        'is_not_deleted'
     ];
 
     protected $hidden = [

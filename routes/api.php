@@ -41,6 +41,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::apiResource('entities', EntityController::class);
 
 Route::get('filters/types', [FilterController::class, 'types']);
+
 Route::apiResource('filters', FilterController::class);
 
 Route::apiResource('products', ProductController::class);
