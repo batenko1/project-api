@@ -21,7 +21,6 @@ class OrderController extends Controller
 
         return view('orders.index', compact('orders'));
 
-//        return response()->json($orders);
     }
 
     public function show(Request $request, Order $order)

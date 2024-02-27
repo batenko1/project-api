@@ -9,9 +9,18 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Account extends Authenticatable
 {
-    use HasApiTokens, HasFactory, HasRoles;
+    use HasApiTokens, HasFactory;
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
     public function orders() {
         return $this->hasMany(Order::class, 'account_id');
+    }
+
+    public function photos() {
+        return $this->hasMany(AccountPhoto::class, 'account_id');
     }
 }

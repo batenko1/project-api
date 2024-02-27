@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\Api\User\StoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +47,11 @@ class UserController {
 
         return redirect()->route('admin.users.index')->with('message', 'Success');
 
+    }
+
+    public function show(Request $request, User $user) {
+
+        return response()->json($user);
     }
 
     public function edit(User $user) {

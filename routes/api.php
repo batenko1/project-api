@@ -8,9 +8,13 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Api\AcceptContractController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CreateOrderController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\RegistrationController;
+use App\Http\Controllers\ChangeStatusOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,3 +69,14 @@ Route::apiResource('settings', SettingController::class);
 Route::apiResource('templates', TemplateController::class);
 
 Route::resource('orders', OrderController::class);
+
+//-----------------------
+
+
+Route::post('registration', RegistrationController::class);
+
+Route::post('create-order', CreateOrderController::class);
+
+Route::post('accept-contract', AcceptContractController::class);
+
+Route::post('change-status-order', ChangeStatusOrderController::class);
