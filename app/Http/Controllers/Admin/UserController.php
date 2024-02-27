@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\User\StoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,27 @@ class UserController {
         return view('users.create', compact('roles'));
     }
 
-    public function store(Request $request) {
+    public function store(StoreRequest $request) {
 
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        $role = Role::findById($request->role_id);
+
+        $user->assignRole($role);
+
+        return redirect()->route('admin.users.index')->with('message', 'Success');
+
+    }
+
+    public function edit(User $user) {
+
+        $roles = Role::all();
+
+        return view('users.edit', compact('roles', 'user'));
     }
 
     public function update(Request $request, User $user) {

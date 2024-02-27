@@ -26,6 +26,7 @@
                             <th>#id</th>
                             <th>Имя</th>
                             <th>Почта</th>
+                            <th>Роль</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -37,6 +38,7 @@
                                 </td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->getRoleNames()->first() }}</td>
 
                                 <td>
                                     <div class="dropdown">
@@ -44,8 +46,8 @@
                                             <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('admin.users.edit', $user->id) }}"
-                                            ><i class="ti ti-pencil me-1"></i> Редактировать</a
+                                            <a class="dropdown-item" href="{{ route('admin.users.edit', $user->id) }}">
+                                                <i class="ti ti-pencil me-1"></i> Редактировать</a
                                             >
                                             <a class="dropdown-item" href="{{ route('admin.users.destroy', $user->id) }}"
                                             ><i class="ti ti-trash me-1"></i> Удалить</a
