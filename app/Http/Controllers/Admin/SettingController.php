@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Setting\StoreRequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SettingController extends Controller
 {
@@ -14,6 +15,9 @@ class SettingController extends Controller
      */
     public function index(Request $request)
     {
+
+        if (!Gate::allows('index setting')) abort(404);
+
         $settings = Setting::all();
 
         if($request->expectsJson()) {
@@ -29,6 +33,8 @@ class SettingController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        if (!Gate::allows('store setting')) abort(404);
+
         $setting = Setting::query()->create($request->validated());
 
         if($request->expectsJson()) {
@@ -45,6 +51,8 @@ class SettingController extends Controller
     public function show(Request $request, Setting $setting)
     {
 
+        if (!Gate::allows('show setting')) abort(404);
+
         if($request->expectsJson()) {
             return response()->json($setting);
         }
@@ -56,6 +64,8 @@ class SettingController extends Controller
      */
     public function update(StoreRequest $request, Setting $setting)
     {
+        if (!Gate::allows('update setting')) abort(404);
+
         $setting->update($request->validated());
 
         if($request->expectsJson()) {
@@ -71,6 +81,8 @@ class SettingController extends Controller
      */
     public function destroy(Request $request, Setting $setting)
     {
+        if (!Gate::allows('delete setting')) abort(404);
+
         $setting->delete();
 
         if($request->expectsJson()) {

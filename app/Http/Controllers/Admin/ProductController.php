@@ -8,6 +8,7 @@ use App\Models\Entity;
 use App\Models\Filter;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -16,6 +17,9 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+
+        if (!Gate::allows('index product')) abort(404);
+
         $data = $request->all();
 
         $products = Product::query()
@@ -51,6 +55,8 @@ class ProductController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        if (!Gate::allows('store order')) abort(404);
+
         $product = Product::query()->create($request->validated());
 
         $product->values()->sync($request->filter_values);
@@ -69,6 +75,8 @@ class ProductController extends Controller
     public function show(Request $request, Product $product)
     {
 
+        if (!Gate::allows('show order')) abort(404);
+
         if($request->expectsJson()) {
             return response()->json($product);
         }
@@ -81,6 +89,8 @@ class ProductController extends Controller
      */
     public function update(StoreRequest $request, Product $product)
     {
+        if (!Gate::allows('update order')) abort(404);
+
         $product->update($request->validated());
 
         $product->values()->sync($request->filter_values);
@@ -98,6 +108,9 @@ class ProductController extends Controller
      */
     public function destroy(Request $request, Product $product)
     {
+
+        if (!Gate::allows('delete order')) abort(404);
+
         $product->delete();
 
         if($request->expectsJson()) {

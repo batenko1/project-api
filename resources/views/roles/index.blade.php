@@ -14,8 +14,11 @@
 
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4><span class="text-muted fw-light">Роли</h4>
+
+            @can('create role')
             <a href="{{ route('admin.roles.create') }}"
                class="btn btn-primary waves-effect waves-light mb-4">Создать</a>
+            @endcan
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -42,12 +45,16 @@
                                             <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('admin.roles.edit', $role->id) }}"
-                                            ><i class="ti ti-pencil me-1"></i> Редактировать</a
-                                            >
-                                            <a class="dropdown-item" href="{{ route('admin.roles.destroy', $role->id) }}"
-                                            ><i class="ti ti-trash me-1"></i> Удалить</a
-                                            >
+
+                                            @can('edit role')
+                                            <a class="dropdown-item" href="{{ route('admin.roles.edit', $role->id) }}">
+                                                <i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                            @endcan
+
+                                            @can('delete role')
+                                            <a class="dropdown-item" href="{{ route('admin.roles.destroy', $role->id) }}">
+                                                <i class="ti ti-trash me-1"></i> Удалить</a>
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

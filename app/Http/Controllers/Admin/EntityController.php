@@ -8,6 +8,7 @@ use App\Models\Entity;
 use App\Services\StoreFilters;
 use App\Traits\RoleControlTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class EntityController extends Controller
 {
@@ -19,6 +20,8 @@ class EntityController extends Controller
      */
     public function index(Request $request)
     {
+
+        if (!Gate::allows('index entity')) abort(404);
 
         $entities = Entity::all();
 
@@ -37,6 +40,7 @@ class EntityController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        if (!Gate::allows('store entity')) abort(404);
 
         $entity = Entity::query()->create($request->validated());
 
@@ -60,6 +64,8 @@ class EntityController extends Controller
     public function show(Request $request, Entity $entity)
     {
 
+        if (!Gate::allows('show entity')) abort(404);
+
         if($request->expectsJson()) {
             return response()->json($entity);
         }
@@ -74,6 +80,9 @@ class EntityController extends Controller
      */
     public function update(StoreRequest $request, Entity $entity)
     {
+
+        if (!Gate::allows('update entity')) abort(404);
+
         $entity->update($request->validated());
 
         StoreFilters::save($entity, $request->get('filters'));
@@ -93,6 +102,8 @@ class EntityController extends Controller
      */
     public function destroy(Request $request, Entity $entity)
     {
+        if (!Gate::allows('delete entity')) abort(404);
+
         $entity->delete();
 
         if($request->expectsJson()) {

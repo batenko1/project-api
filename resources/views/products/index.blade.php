@@ -14,8 +14,11 @@
 
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4><span class="text-muted fw-light">Товары</h4>
-            <a href="{{ route('admin.entities.create') }}"
+
+            @can('create product')
+            <a href="{{ route('admin.products.create') }}"
                class="btn btn-primary waves-effect waves-light mb-4">Создать</a>
+            @endcan
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -42,12 +45,15 @@
                                             <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('admin.users.edit', $product->id) }}"
-                                            ><i class="ti ti-pencil me-1"></i> Редактировать</a
-                                            >
-                                            <a class="dropdown-item" href="{{ route('admin.users.destroy', $product->id) }}"
-                                            ><i class="ti ti-trash me-1"></i> Удалить</a
-                                            >
+                                            @can('edit product')
+                                            <a class="dropdown-item" href="{{ route('admin.products.edit', $product->id) }}">
+                                                <i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                            @endcan
+
+                                            @can('delete product')
+                                            <a class="dropdown-item" href="{{ route('admin.products.destroy', $product->id) }}">
+                                                <i class="ti ti-trash me-1"></i> Удалить</a>
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

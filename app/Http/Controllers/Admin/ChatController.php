@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ChatController extends Controller
 {
@@ -13,6 +14,9 @@ class ChatController extends Controller
      */
     public function index()
     {
+
+        if (!Gate::allows('index chat')) abort(404);
+
         $chats = Chat::query()->get();
 
         return view('chat.index', compact('chats'));

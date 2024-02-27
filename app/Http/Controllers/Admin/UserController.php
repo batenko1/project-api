@@ -7,11 +7,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Gate;
 
-class UserController {
+class UserController
+{
 
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
+
+        if (!Gate::allows('index user')) abort(404);
+
         $users = User::all();
 
 
@@ -22,14 +28,19 @@ class UserController {
         return view('users.index', compact('users'));
     }
 
-    public function create() {
+    public function create()
+    {
+        if (!Gate::allows('create user')) abort(404);
 
         $roles = Role::all();
 
         return view('users.create', compact('roles'));
     }
 
-    public function store(StoreRequest $request) {
+    public function store(StoreRequest $request)
+    {
+
+        if (!Gate::allows('store user')) abort(404);
 
         $user = new User();
         $user->name = $request->name;
@@ -41,7 +52,7 @@ class UserController {
 
         $user->assignRole($role);
 
-        if($request->expectsJson()) {
+        if ($request->expectsJson()) {
             return response()->json($user, 201);
         }
 
@@ -49,27 +60,36 @@ class UserController {
 
     }
 
-    public function show(Request $request, User $user) {
+    public function show(Request $request, User $user)
+    {
+        if (!Gate::allows('show user')) abort(404);
 
         return response()->json($user);
     }
 
-    public function edit(User $user) {
+    public function edit(User $user)
+    {
+
+        if (!Gate::allows('edit user')) abort(404);
 
         $roles = Role::all();
 
         return view('users.edit', compact('roles', 'user'));
     }
 
-    public function update(Request $request, User $user) {
-
+    public function update(Request $request, User $user)
+    {
+        if (!Gate::allows('update user')) abort(404);
     }
 
-    public function destroy(Request $request, User $user) {
+    public function destroy(Request $request, User $user)
+    {
+
+        if (!Gate::allows('delete user')) abort(404);
 
         $user->delete();
 
-        if($request->expectsJson()) {
+        if ($request->expectsJson()) {
             return response()->json(null, 204);
         }
 

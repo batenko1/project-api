@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Template\StoreRequest;
 use App\Models\Template;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TemplateController extends Controller
 {
@@ -14,6 +15,8 @@ class TemplateController extends Controller
      */
     public function index(Request $request)
     {
+        if (!Gate::allows('index setting')) abort(404);
+
         $templates = Template::all();
 
         if($request->expectsJson()) {
@@ -22,7 +25,7 @@ class TemplateController extends Controller
 
         return view('templates.index', compact('templates'));
 
-//        return response()->json($templates);
+
     }
 
     /**
@@ -30,6 +33,8 @@ class TemplateController extends Controller
      */
     public function store(StoreRequest $request)
     {
+
+        if (!Gate::allows('store template')) abort(404);
 
         $data = $request->validated();
 
@@ -58,6 +63,8 @@ class TemplateController extends Controller
      */
     public function show(Template $template)
     {
+        if (!Gate::allows('show template')) abort(404);
+
         return response()->json($template);
     }
 
@@ -66,6 +73,8 @@ class TemplateController extends Controller
      */
     public function update(StoreRequest $request, Template $template)
     {
+        if (!Gate::allows('update template')) abort(404);
+
         $data = $request->validated();
 
         $file = $data['file'];
@@ -92,6 +101,9 @@ class TemplateController extends Controller
      */
     public function destroy(Request $request, Template $template)
     {
+
+        if (!Gate::allows('delete template')) abort(404);
+
         $template->delete();
 
         if($request->expectsJson()) {

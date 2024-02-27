@@ -10,8 +10,11 @@
 
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4><span class="fw-light text-muted">Категории</h4>
+
+            @can('create entity')
             <a href="{{ route('admin.entities.create') }}"
                class="btn btn-primary waves-effect waves-light mb-4">Создать</a>
+            @endcan
 
             <!-- JSTree -->
             <div class="row">

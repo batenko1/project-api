@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Role\StoreRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -14,6 +16,9 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
+
+        if (!Gate::allows('index role')) abort(404);
+
         $roles = Role::query()
             ->with('permissions')
             ->get();
@@ -28,14 +33,18 @@ class RoleController extends Controller
 
     public function create() {
 
+        if (!Gate::allows('create role')) abort(404);
+
         return view('roles.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
+
+        if (!Gate::allows('store role')) abort(404);
 
         $role = Role::query()->create([
             'name' => $request->get('name'),
@@ -60,6 +69,8 @@ class RoleController extends Controller
     public function show(Request $request, Role $role)
     {
 
+        if (!Gate::allows('show role')) abort(404);
+
         if($request->expectsJson()) {
             return response()->json($role);
         }
@@ -70,15 +81,17 @@ class RoleController extends Controller
 
     public function edit(Role $role) {
 
+        if (!Gate::allows('edit role')) abort(404);
+
         return view('roles.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(StoreRequest $request, Role $role)
     {
-        //
+        if (!Gate::allows('update role')) abort(404);
     }
 
     /**
@@ -86,6 +99,8 @@ class RoleController extends Controller
      */
     public function destroy(Request $request, Role $role)
     {
+        if (!Gate::allows('delete role')) abort(404);
+
         $role->delete();
 
         if($request->expectsJson()) {

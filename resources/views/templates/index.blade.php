@@ -14,8 +14,10 @@
 
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4><span class="text-muted fw-light">Шаблоны</h4>
-            <a href="{{ route('admin.entities.create') }}"
+            @can('create template')
+            <a href="{{ route('admin.templates.create') }}"
                class="btn btn-primary waves-effect waves-light mb-4">Создать</a>
+            @endcan
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -43,12 +45,18 @@
                                             <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
+
+                                            @can('edit template')
                                             <a class="dropdown-item"
-                                               href="{{ route('admin.templates.edit', $template->id) }}"
-                                            ><i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                               href="{{ route('admin.templates.edit', $template->id) }}">
+                                                <i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                            @endcan
+
+                                            @can('delete template')
                                             <a class="dropdown-item"
-                                               href="{{ route('admin.templates.destroy', $template->id) }}"
-                                            ><i class="ti ti-trash me-1"></i> Удалить</a>
+                                               href="{{ route('admin.templates.destroy', $template->id) }}">
+                                                <i class="ti ti-trash me-1"></i> Удалить</a>
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

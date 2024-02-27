@@ -21,8 +21,10 @@
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <h4><span class="text-muted fw-light">Настройки</h4>
 
+                    @can('create setting')
                     <a href="{{ route('admin.settings.create') }}"
                        class="btn btn-primary waves-effect waves-light mb-4">Создать</a>
+                    @endcan
 
                     <!-- Basic Bootstrap Table -->
                     <div class="card">
@@ -39,9 +41,9 @@
                                 @foreach($settings as $setting)
                                     <tr>
                                         <td>
-                                            <span class="fw-medium">{{ $order->id }}</span>
+                                            <span class="fw-medium">{{ $setting->id }}</span>
                                         </td>
-                                        <td>{{ $order->title }}</td>
+                                        <td>{{ $setting->title }}</td>
 
                                         <td>
                                             <div class="dropdown">
@@ -50,12 +52,18 @@
                                                     <i class="ti ti-dots-vertical"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
+
+                                                    @can('edit setting')
                                                     <a class="dropdown-item"
-                                                       href="{{ route('admin.orders.edit', $order->id) }}"
-                                                    ><i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                                       href="{{ route('admin.settings.edit', $setting->id) }}">
+                                                        <i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                                    @endcan
+
+                                                    @can('delete setting')
                                                     <a class="dropdown-item"
-                                                       href="{{ route('admin.orders.destroy', $order->id) }}"
-                                                    ><i class="ti ti-trash me-1"></i> Удалить</a>
+                                                       href="{{ route('admin.settings.destroy', $setting->id) }}">
+                                                        <i class="ti ti-trash me-1"></i> Удалить</a>
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </td>

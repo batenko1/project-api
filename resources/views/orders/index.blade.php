@@ -18,8 +18,10 @@
             <div class="container-xxl flex-grow-1 container-p-y">
                 <h4><span class="text-muted fw-light">Заказы</h4>
 
-                <a href="{{ route('admin.entities.create') }}"
+                @can('create order')
+                <a href="{{ route('admin.orders.create') }}"
                    class="btn btn-primary waves-effect waves-light mb-4">Создать</a>
+                @endcan
 
                 <!-- Basic Bootstrap Table -->
                 <div class="card">
@@ -47,12 +49,17 @@
                                                 <i class="ti ti-dots-vertical"></i>
                                             </button>
                                             <div class="dropdown-menu">
+                                                @can('edit order')
                                                 <a class="dropdown-item"
-                                                   href="{{ route('admin.orders.edit', $order->id) }}"
-                                                ><i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                                   href="{{ route('admin.orders.edit', $order->id) }}">
+                                                    <i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                                @endcan
+
+                                                @can('delete order')
                                                 <a class="dropdown-item"
-                                                   href="{{ route('admin.orders.destroy', $order->id) }}"
-                                                ><i class="ti ti-trash me-1"></i> Удалить</a>
+                                                   href="{{ route('admin.orders.destroy', $order->id) }}">
+                                                    <i class="ti ti-trash me-1"></i> Удалить</a>
+                                                @endcan
                                             </div>
                                         </div>
                                     </td>
