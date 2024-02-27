@@ -31,14 +31,10 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
 
-
-
         return [
             'name' => 'required|min:2',
-            'email' => [
-                !$this->user ? 'required|email|unique:users,email': ''
-            ],
-            'password' => 'required|min:8',
+            'email' => !$this->user ? 'required|email|unique:users,email': '',
+            'password' => !$this->user ? 'required|min:8' : '',
             'role_id' => 'required|exists:roles,id'
         ];
     }

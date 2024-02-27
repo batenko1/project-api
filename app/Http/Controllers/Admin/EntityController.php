@@ -23,7 +23,10 @@ class EntityController extends Controller
 
         if (!Gate::allows('index entity')) abort(404);
 
-        $entities = Entity::all();
+        $entities = Entity::query()
+            ->whereNull('parent_id')
+            ->orderBy('id', 'desc')
+            ->get();
 
         if($request->expectsJson()) {
             return response()->json($entities);
@@ -31,7 +34,15 @@ class EntityController extends Controller
 
         return view('entities.index', compact('entities'));
 
+    }
 
+    public function create() {
+
+        $entities = Entity::query()->get();
+
+
+
+        return view('entities.create', compact('entities'));
     }
 
 
@@ -44,7 +55,9 @@ class EntityController extends Controller
 
         $entity = Entity::query()->create($request->validated());
 
-        StoreFilters::save($entity, $request->get('filters'));
+        if($request->get('filter_type')) {
+            StoreFilters::save($entity, $request);
+        }
 
         $this->storePermissions('entity '.$entity->id);
 
@@ -52,7 +65,7 @@ class EntityController extends Controller
             return response()->json($entity, 201);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.entities.index')->with('message', 'Success');
 
 
 
@@ -72,7 +85,11 @@ class EntityController extends Controller
 
         return view('entities.show', compact('entity'));
 
+    }
 
+    public function edit(Entity $entity) {
+
+        return view('entities.edit', compact('entity'));
     }
 
     /**
@@ -85,7 +102,9 @@ class EntityController extends Controller
 
         $entity->update($request->validated());
 
-        StoreFilters::save($entity, $request->get('filters'));
+        if($request->get('filters')) {
+            StoreFilters::save($entity, $request->get('filters'));
+        }
 
         $this->storePermissions('entity '.$entity->id);
 
@@ -93,7 +112,7 @@ class EntityController extends Controller
             return response()->json($entity, 201);
         }
 
-        return redirect()->back('entities')->with('message', 'Success');
+        return redirect()->route('admin.entities.index')->with('message', 'Success');
 
     }
 

@@ -28,6 +28,13 @@ class TemplateController extends Controller
 
     }
 
+    public function create() {
+
+        return view('templates.create');
+
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */
@@ -43,18 +50,23 @@ class TemplateController extends Controller
         // Сохранение файла на сервере
         $filePath = $file->store('templates');
 
-        $template = Template::query()->create([
-            'title' => $data['title'],
-            'file' => $filePath,
-            'variables' => $data['variables']
-        ]);
+        $template = new Template();
+        $template->title = $data['title'];
+        $template->variables = $data['variables'];
+
+        if($file) {
+            $template->file = $filePath;
+        }
+
+        $template->save();
+
 
         if($request->expectsJson()) {
             return response()->json($template, 201);
         }
 
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.templates.index')->with('message', 'Success');
 
     }
 
@@ -68,6 +80,12 @@ class TemplateController extends Controller
         return response()->json($template);
     }
 
+    public function edit(Request $request, Template $template) {
+
+        return view('templates.edit', compact('template'));
+
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -77,22 +95,31 @@ class TemplateController extends Controller
 
         $data = $request->validated();
 
-        $file = $data['file'];
 
-        // Сохранение файла на сервере
-        $filePath = $file->store('templates');
+        $template->title = $data['title'];
+        $template->variables = $data['variables'];
 
-        $template->update([
-            'title' => $data['title'],
-            'file' => $filePath,
-            'variables' => $data['variables']
-        ]);
+        if(isset($data['file'])) {
+            $file = $data['file'];
+
+            // Сохранение файла на сервере
+            $filePath = $file->store('templates');
+
+
+
+            if($file) {
+                $template->file = $filePath;
+            }
+        }
+
+
+        $template->save();
 
         if($request->expectsJson()) {
             return response()->json($template, 201);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.templates.index')->with('message', 'Success');
 
     }
 

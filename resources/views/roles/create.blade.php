@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css') }}"/>
 @endsection
 
 @section('content')
@@ -23,22 +23,27 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Имя</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="basic-default-name" value="{{ old('name') }}" name="name"/>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Почта</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="basic-default-name" value="{{ old('email') }}" name="email" />
+                                        <input type="text" class="form-control @if($errors->first('name')) is-invalid @endif"
+                                               id="basic-default-name"
+                                               value="{{ old('name') }}" name="name"/>
                                     </div>
                                 </div>
 
 
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Пароль</label>
+                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Права</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="basic-default-name" name="password" />
+                                        @foreach($permissions as $permission)
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="permissions[]" type="checkbox" value="{{ $permission->id }}"
+                                                       id="defaultCheck3">
+                                                <label class="form-check-label" for="defaultCheck3"> {{ $permission->title }} </label>
+                                            </div>
+                                        @endforeach
+
+                                        @if($errors->first('permissions'))
+                                                <div class="invalid-feedback">{{ $errors->first('permissions') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 

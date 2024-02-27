@@ -30,6 +30,6 @@ class Product extends Model
     }
 
     public function values() {
-        return $this->belongsToMany(FilterValue::class, 'product_value', 'product_id', 'filter_value_id');
+        return $this->hasMany(ProductValue::class);
     }
 }

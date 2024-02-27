@@ -8,12 +8,14 @@ use App\Models\FilterValue;
 class StoreFilters
 {
 
-    public static function save($entity, $filters)
+    public static function save($entity, $request)
     {
 
-        $filters = json_decode($filters);
+        $filters = $request->filter_type;
 
-        foreach ($filters as $filter) {
+        foreach ($filters as $key => $filter) {
+
+            $title = $request->filter_name[$key];
 
             $newFilter = new Filter();
 
@@ -22,8 +24,8 @@ class StoreFilters
             }
 
             $newFilter->entity_id = $entity->id;
-            $newFilter->title = $filter->title;
-            $newFilter->type = $filter->type ?? null;
+            $newFilter->title = $title;
+            $newFilter->type = $filter;
             $newFilter->is_required = $filter->is_required ?? 0;
             $newFilter->is_default = $filter->is_default ?? 0;
 
@@ -35,7 +37,9 @@ class StoreFilters
 
                 foreach ($values as $value) {
 
-                    if(!FilterValue::query()->where('filter_id', $newFilter->id)->where('value', $value)->first()) {
+                    if(!FilterValue::query()->where('filter_id', $newFilter->id)
+                        ->where('value', $value)
+                        ->first()) {
                         FilterValue::query()->create([
                             'filter_id' => $newFilter->id,
                             'value' => $value

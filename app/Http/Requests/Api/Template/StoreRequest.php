@@ -15,6 +15,11 @@ class StoreRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this->template = $this->route()->template;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,7 +30,7 @@ class StoreRequest extends FormRequest
         return [
             'title' => 'required|string',
             'variables' => 'required|string',
-            'file' => 'file'
+            'file' => !$this->template ? 'required|file' : ''
         ];
     }
 }

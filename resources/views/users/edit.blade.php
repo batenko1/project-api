@@ -24,16 +24,24 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Имя</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="basic-default-name" value="{{ $user->name }}" name="name"/>
+                                        <input type="text" class="form-control @if($errors->first('name')) is-invalid @endif"
+                                               id="basic-default-name" value="{{ $user->name }}" name="name"/>
+                                        @if($errors->first('name'))
+                                            <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Почта</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control"
+                                        <input type="email" class="form-control @if($errors->first('email')) is-invalid @endif"
                                                disabled
                                                id="basic-default-name" value="{{ $user->email }}" name="email" />
+
+                                        @if($errors->first('email'))
+                                            <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -41,21 +49,29 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Пароль</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="basic-default-name" name="password" />
+                                        <input type="password" class="form-control @if($errors->first('password')) is-invalid @endif"
+                                               id="basic-default-name" name="password" />
+                                        @if($errors->first('password'))
+                                            <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="multicol-country">Роль</label>
                                     <div class="col-sm-10">
-                                        <select id="multicol-country" name="role_id" class="select2 form-select" data-allow-clear="true">
+                                        <select id="multicol-country" name="role_id" class="select2 form-select @if($errors->first('role_id')) is-invalid @endif"
+                                                data-allow-clear="true">
                                             <option value="">Укажите роль</option>
                                             @foreach($roles as $role)
                                                 <option @if($user->getRoleNames()->first() == $role->name) selected @endif
                                                             value="{{ $role->id }}">{{ $role->name }}</option>
                                             @endforeach
-
                                         </select>
+
+                                        @if($errors->first('role_id'))
+                                            <div class="invalid-feedback">{{ $errors->first('role_id') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 

@@ -28,6 +28,8 @@
                         <tr>
                             <th>#id</th>
                             <th>Имя</th>
+                            <th>Категория</th>
+                            <th>Цена</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -38,6 +40,8 @@
                                     <span class="fw-medium">{{ $product->id }}</span>
                                 </td>
                                 <td>{{ $product->title }}</td>
+                                <td>{{ $product->entity->title }}</td>
+                                <td>{{ $product->price }}</td>
 
                                 <td>
                                     <div class="dropdown">
@@ -51,9 +55,14 @@
                                             @endcan
 
                                             @can('delete product')
-                                            <a class="dropdown-item" href="{{ route('admin.products.destroy', $product->id) }}">
-                                                <i class="ti ti-trash me-1"></i> Удалить</a>
+                                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="dropdown-item">
+                                                        <i class="ti ti-trash me-1"></i> Удалить</button>
+                                                </form>
                                             @endcan
+
                                         </div>
                                     </div>
                                 </td>

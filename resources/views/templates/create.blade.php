@@ -18,30 +18,44 @@
                     <div class="card mb-4">
 
                         <div class="card-body">
-                            <form method="post" action="{{ route('admin.templates.store') }}">
+                            <form method="post" action="{{ route('admin.templates.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Имя</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="basic-default-name" value="{{ old('name') }}" name="name"/>
+                                        <input type="text" class="form-control @if($errors->first('title')) is-invalid @endif"
+                                               id="basic-default-name"
+                                               value="{{ old('title') }}"
+                                               name="title"/>
+                                        @if($errors->first('title'))
+                                            <div class="invalid-feedback">{{ $errors->first('title') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Почта</label>
+                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Переменные <br>(через запятую)</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="basic-default-name" value="{{ old('email') }}" name="email" />
+                                        <input type="text" class="form-control @if($errors->first('variables')) is-invalid @endif"
+                                               id="basic-default-name"
+                                               value="{{ old('variables') }}" name="variables" />
+                                        @if($errors->first('variables'))
+                                            <div class="invalid-feedback">{{ $errors->first('variables') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 
 
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Пароль</label>
+                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Файл</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="basic-default-name" name="password" />
+                                        <input type="file" class="form-control @if($errors->first('file')) is-invalid @endif"
+                                               id="basic-default-name" name="file" />
+                                        @if($errors->first('file'))
+                                            <div class="invalid-feedback">{{ $errors->first('file') }}</div>
+                                        @endif
                                     </div>
                                 </div>
-
 
 
                                 <div class="row justify-content-end">

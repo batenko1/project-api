@@ -23,22 +23,33 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Имя</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="basic-default-name" value="{{ old('name') }}" name="name"/>
+                                        <input type="text" class="form-control @if($errors->first('title')) is-invalid @endif"
+                                               id="basic-default-name" value="{{ old('title') }}" name="title"/>
+                                        @if($errors->first('title'))
+                                            <div class="invalid-feedback">{{ $errors->first('title') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Почта</label>
+                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Ключ</label>
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="basic-default-name" value="{{ old('email') }}" name="email" />
+                                        <input type="text" class="form-control @if($errors->first('key')) is-invalid @endif"
+                                               id="basic-default-name" value="{{ old('key') }}" name="key"/>
+                                        @if($errors->first('key'))
+                                            <div class="invalid-feedback">{{ $errors->first('key') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 
-
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Пароль</label>
+                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Значение</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="basic-default-name" name="password" />
+                                        <input type="text" class="form-control @if($errors->first('value')) is-invalid @endif"
+                                               id="basic-default-name" value="{{ old('value') }}" name="value"/>
+                                        @if($errors->first('value'))
+                                            <div class="invalid-feedback">{{ $errors->first('value') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 

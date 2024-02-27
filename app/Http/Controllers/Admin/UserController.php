@@ -77,9 +77,27 @@ class UserController
         return view('users.edit', compact('roles', 'user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(StoreRequest $request, User $user)
     {
         if (!Gate::allows('update user')) abort(404);
+
+        $user->name = $request->name;
+
+        if($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
+
+        $role = Role::findById($request->role_id);
+
+        $user->assignRole($role);
+
+        if ($request->expectsJson()) {
+            return response()->json($user, 201);
+        }
+
+        return redirect()->route('admin.users.index')->with('message', 'Success');
+
     }
 
     public function destroy(Request $request, User $user)

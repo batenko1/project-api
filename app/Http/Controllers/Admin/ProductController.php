@@ -7,8 +7,10 @@ use App\Http\Requests\Api\Product\StoreRequest;
 use App\Models\Entity;
 use App\Models\Filter;
 use App\Models\Product;
+use App\Services\StoreFilterProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -53,20 +55,47 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+    public function create() {
+
+        $entities = Entity::all();
+
+        return view('products.create', compact('entities'));
+    }
+
     public function store(StoreRequest $request)
     {
         if (!Gate::allows('store order')) abort(404);
 
-        $product = Product::query()->create($request->validated());
+        DB::beginTransaction();
 
-        $product->values()->sync($request->filter_values);
+        try {
+
+            $product = Product::query()->create($request->validated());
+
+            StoreFilterProduct::save($product, $request);
+
+            DB::commit();
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
 
         if($request->expectsJson()) {
             return response()->json($product, 201);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.products.index')->with('message', 'Success');
 
+    }
+
+    public function edit(Product $product) {
+
+        $entities = Entity::all();
+
+        return view('products.edit', compact('product', 'entities'));
     }
 
     /**
@@ -99,7 +128,7 @@ class ProductController extends Controller
             return response()->json($product, 201);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.products.index')->with('message', 'Success');
 
     }
 
@@ -120,13 +149,19 @@ class ProductController extends Controller
         return redirect()->back()->with('message', 'Success');
     }
 
-    public function getFilters($entityId) {
+    public function getFilters(Request $request, $entityId) {
 
         $entity = Entity::query()->findOrFail($entityId);
 
         $entities = $this->triesEntities($entity);
 
         $filters = Filter::query()->whereIn('entity_id', $entities)->get();
+
+        if($request->ajax()) {
+            $html = view('filters.template', compact('filters'))->render();
+
+            return $html;
+        }
 
         return response()->json($filters);
 

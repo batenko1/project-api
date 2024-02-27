@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'selectedPermissions' => 'required|array'
+            'permissions' => 'required|array'
         ];
     }
 }

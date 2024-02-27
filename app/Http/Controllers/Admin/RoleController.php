@@ -21,6 +21,7 @@ class RoleController extends Controller
 
         $roles = Role::query()
             ->with('permissions')
+            ->orderBy('id', 'desc')
             ->get();
 
         if($request->expectsJson()) {
@@ -35,7 +36,9 @@ class RoleController extends Controller
 
         if (!Gate::allows('create role')) abort(404);
 
-        return view('roles.create');
+        $permissions = Permission::all();
+
+        return view('roles.create', compact('permissions'));
     }
 
     /**
@@ -50,7 +53,7 @@ class RoleController extends Controller
             'name' => $request->get('name'),
         ]);
 
-        foreach ($request->selectedPermissions as $permission) {
+        foreach ($request->permissions as $permission) {
             $permissionModel = Permission::findById($permission);
             $role->givePermissionTo($permissionModel);
         }
@@ -59,7 +62,7 @@ class RoleController extends Controller
             return response()->json('Success', 201);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.roles.index')->with('message', 'Success');
 
     }
 
@@ -83,7 +86,9 @@ class RoleController extends Controller
 
         if (!Gate::allows('edit role')) abort(404);
 
-        return view('roles.edit', compact('role'));
+        $permissions = Permission::all();
+
+        return view('roles.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -92,6 +97,22 @@ class RoleController extends Controller
     public function update(StoreRequest $request, Role $role)
     {
         if (!Gate::allows('update role')) abort(404);
+
+        $role->name = $request->get('name');
+        $role->save();
+
+        $role->syncPermissions([]);
+
+        foreach ($request->permissions as $permission) {
+            $permissionModel = Permission::findById($permission);
+            $role->givePermissionTo($permissionModel);
+        }
+
+        if($request->expectsJson()) {
+            return response()->json('Success', 201);
+        }
+
+        return redirect()->route('admin.roles.index')->with('message', 'Success');
     }
 
     /**

@@ -53,10 +53,14 @@
                                             @endcan
 
                                             @can('delete template')
-                                            <a class="dropdown-item"
-                                               href="{{ route('admin.templates.destroy', $template->id) }}">
-                                                <i class="ti ti-trash me-1"></i> Удалить</a>
+                                                <form action="{{ route('admin.templates.destroy', $template->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="dropdown-item">
+                                                        <i class="ti ti-trash me-1"></i> Удалить</button>
+                                                </form>
                                             @endcan
+
                                         </div>
                                     </div>
                                 </td>

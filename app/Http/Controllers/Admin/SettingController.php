@@ -18,7 +18,7 @@ class SettingController extends Controller
 
         if (!Gate::allows('index setting')) abort(404);
 
-        $settings = Setting::all();
+        $settings = Setting::query()->orderBy('id', 'desc')->get();
 
         if($request->expectsJson()) {
             return response()->json($settings);
@@ -26,6 +26,11 @@ class SettingController extends Controller
 
         return view('settings.index', compact('settings'));
 
+    }
+
+    public function create() {
+
+        return view('settings.create');
     }
 
     /**
@@ -41,7 +46,7 @@ class SettingController extends Controller
             return response()->json($setting, 201);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.settings.index')->with('message', 'Success');
 
     }
 
@@ -59,6 +64,11 @@ class SettingController extends Controller
 
     }
 
+    public function edit(Setting $setting) {
+
+        return view('settings.edit', compact('setting'));
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -72,7 +82,7 @@ class SettingController extends Controller
             return response()->json($setting, 201);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.settings.index')->with('message', 'Success');
 
     }
 
