@@ -12,11 +12,15 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $roles = Role::query()
             ->with('permissions')
             ->get();
+
+        if($request->expectsJson()) {
+            return response()->json($roles);
+        }
 
         return view('roles.index', compact('roles'));
 
@@ -24,6 +28,7 @@ class RoleController extends Controller
 
     public function create() {
 
+        return view('roles.create');
     }
 
     /**
@@ -41,25 +46,37 @@ class RoleController extends Controller
             $role->givePermissionTo($permissionModel);
         }
 
-        return response()->json('Success', 201);
+        if($request->expectsJson()) {
+            return response()->json('Success', 201);
+        }
+
+        return redirect()->back()->with('message', 'Success');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, Role $role)
     {
-        //
+
+        if($request->expectsJson()) {
+            return response()->json($role);
+        }
+
+        return view('roles.show', compact('role'));
+
     }
 
-    public function edit(string $id) {
+    public function edit(Role $role) {
 
+        return view('roles.edit', compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Role $role)
     {
         //
     }
@@ -67,10 +84,15 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy(Request $request, Role $role)
     {
         $role->delete();
 
-        return response()->json(null, 204);
+        if($request->expectsJson()) {
+            return response()->json(null, 204);
+        }
+
+        return redirect()->back()->with('message', 'Success');
+
     }
 }

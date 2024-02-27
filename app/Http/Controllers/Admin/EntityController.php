@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Entity\StoreRequest;
 use App\Models\Entity;
 use App\Services\StoreFilters;
 use App\Traits\RoleControlTrait;
+use Illuminate\Http\Request;
 
 class EntityController extends Controller
 {
@@ -16,14 +17,17 @@ class EntityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $entities = Entity::all();
 
+        if($request->expectsJson()) {
+            return response()->json($entities);
+        }
+
         return view('entities.index', compact('entities'));
 
-//        return response()->json($entities);
 
     }
 
@@ -40,16 +44,29 @@ class EntityController extends Controller
 
         $this->storePermissions('entity '.$entity->id);
 
-        return response()->json($entity, 201);
+        if($request->expectsJson()) {
+            return response()->json($entity, 201);
+        }
+
+        return redirect()->back()->with('message', 'Success');
+
+
 
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Entity $entity)
+    public function show(Request $request, Entity $entity)
     {
-        return response()->json($entity);
+
+        if($request->expectsJson()) {
+            return response()->json($entity);
+        }
+
+        return view('entities.show', compact('entity'));
+
+
     }
 
     /**
@@ -63,17 +80,27 @@ class EntityController extends Controller
 
         $this->storePermissions('entity '.$entity->id);
 
-        return response()->json($entity, 201);
+        if($request->expectsJson()) {
+            return response()->json($entity, 201);
+        }
+
+        return redirect()->back('entities')->with('message', 'Success');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Entity $entity)
+    public function destroy(Request $request, Entity $entity)
     {
         $entity->delete();
 
-        return response()->json('Success delete', 204);
+        if($request->expectsJson()) {
+            return response()->json('Success delete', 204);
+        }
+
+        return redirect()->back()->with('message', 'Success');
+
     }
 
 }

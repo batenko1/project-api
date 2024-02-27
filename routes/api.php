@@ -1,7 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\EntityController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TemplateController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\PermissionController;
@@ -44,8 +50,18 @@ Route::get('accounts/{id}/orders', [AccountController::class, 'orders']);
 
 Route::apiResource('accounts', AccountController::class);
 
-
+Route::apiResource('entities', EntityController::class);
 
 Route::apiResource('permissions', PermissionController::class);
 
+Route::apiResource('products', ProductController::class);
 
+Route::apiResource('users', UserController::class);
+
+Route::apiResource('roles', RoleController::class);
+
+Route::apiResource('settings', SettingController::class);
+
+Route::apiResource('templates', TemplateController::class);
+
+Route::resource('orders', OrderController::class);

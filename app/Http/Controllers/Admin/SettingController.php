@@ -5,15 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Setting\StoreRequest;
 use App\Models\Setting;
+use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $settings = Setting::all();
+
+        if($request->expectsJson()) {
+            return response()->json($settings);
+        }
 
         return view('settings.index', compact('settings'));
 
@@ -26,15 +31,24 @@ class SettingController extends Controller
     {
         $setting = Setting::query()->create($request->validated());
 
-        return response()->json($setting, 201);
+        if($request->expectsJson()) {
+            return response()->json($setting, 201);
+        }
+
+        return redirect()->back()->with('message', 'Success');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Setting $setting)
+    public function show(Request $request, Setting $setting)
     {
-        return response()->json($setting);
+
+        if($request->expectsJson()) {
+            return response()->json($setting);
+        }
+
     }
 
     /**
@@ -44,16 +58,25 @@ class SettingController extends Controller
     {
         $setting->update($request->validated());
 
-        return response()->json($setting, 201);
+        if($request->expectsJson()) {
+            return response()->json($setting, 201);
+        }
+
+        return redirect()->back()->with('message', 'Success');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Setting $setting)
+    public function destroy(Request $request, Setting $setting)
     {
         $setting->delete();
 
-        return response()->json(null, 204);
+        if($request->expectsJson()) {
+            return response()->json(null, 204);
+        }
+
+        return redirect()->back()->with('message', 'Success');
     }
 }

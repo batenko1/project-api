@@ -11,8 +11,13 @@ use Spatie\Permission\Models\Role;
 class UserController {
 
 
-    public function index() {
+    public function index(Request $request) {
         $users = User::all();
+
+
+        if ($request->expectsJson()) {
+            return response()->json($users);
+        }
 
         return view('users.index', compact('users'));
     }
@@ -36,6 +41,10 @@ class UserController {
 
         $user->assignRole($role);
 
+        if($request->expectsJson()) {
+            return response()->json($user, 201);
+        }
+
         return redirect()->route('admin.users.index')->with('message', 'Success');
 
     }
@@ -51,11 +60,16 @@ class UserController {
 
     }
 
-    public function destroy(User $user) {
+    public function destroy(Request $request, User $user) {
 
         $user->delete();
 
-        return response()->json(null, 204);
+        if($request->expectsJson()) {
+            return response()->json(null, 204);
+        }
+
+        return redirect()->back()->with('message', 'Success');
+
 
     }
 

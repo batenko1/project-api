@@ -37,6 +37,10 @@ class ProductController extends Controller
                 $product->entity_name = $product->entity->title;
             });
 
+        if($request->expectsJson()) {
+            return response()->json($products);
+        }
+
         return view('products.index', compact('products'));
 
 //        return response()->json($products);
@@ -51,16 +55,25 @@ class ProductController extends Controller
 
         $product->values()->sync($request->filter_values);
 
-        return response()->json($product, 201);
+        if($request->expectsJson()) {
+            return response()->json($product, 201);
+        }
+
+        return redirect()->back()->with('message', 'Success');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Request $request, Product $product)
     {
 
-        return response()->json($product);
+        if($request->expectsJson()) {
+            return response()->json($product);
+        }
+
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -72,17 +85,26 @@ class ProductController extends Controller
 
         $product->values()->sync($request->filter_values);
 
-        return response()->json($product, 201);
+        if($request->expectsJson()) {
+            return response()->json($product, 201);
+        }
+
+        return redirect()->back()->with('message', 'Success');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request, Product $product)
     {
         $product->delete();
 
-        return response()->json(null, 204);
+        if($request->expectsJson()) {
+            return response()->json(null, 204);
+        }
+
+        return redirect()->back()->with('message', 'Success');
     }
 
     public function getFilters($entityId) {
