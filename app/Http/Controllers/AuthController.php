@@ -32,4 +32,10 @@ class AuthController extends Controller
         return view('login');
     }
 
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->route('login');
+    }
+
 }

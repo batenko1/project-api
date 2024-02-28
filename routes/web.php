@@ -34,7 +34,7 @@ Route::get('/', HomeController::class);
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
-//    'middleware' => 'checkAccount'
+    'middleware' => 'checkUser'
 ], function () {
     Route::get('/', MainController::class)->name('main');
 
@@ -57,3 +57,5 @@ Route::group([
 
 
 Route::match(['get', 'post'],'/login', AuthController::class)->name('login');
+
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
