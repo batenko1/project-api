@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\Exception\CopyFileException;
@@ -42,12 +43,20 @@ class CreateOrderController extends Controller
                ]);
            }
 
-           $filePath = storage_path('app/public/templates/test.docx');
-           $replacements = [
-               'order_id' => $order->id,
-               'fio' => $order->fio,
-               'price' => $order->price
-           ];
+           $template = Template::query()->first();
+           $filePath = storage_path('app/public/'. $template->file);
+           $replacements = explode(',', $template->variables);
+
+           foreach ($replacements as $key => $item) {
+               $replacements[$key] = $order->{$item};
+           }
+
+//           $replacements = [
+//               'order_id' => $order->id,
+//               'fio' => $order->fio,
+//               'price' => $order->price
+//           ];
+
            $contract = $this->createContract($filePath, $replacements);
            $order->file_contract = $contract;
            $order->save();
@@ -62,7 +71,6 @@ class CreateOrderController extends Controller
 
 
        return response()->json($order, 201);
-
 
     }
 
