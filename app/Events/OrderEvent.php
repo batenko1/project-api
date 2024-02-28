@@ -10,26 +10,27 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMessage implements ShouldBroadcast
+class OrderEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-
-    public $profile;
-    public $message;
-
-    public function __construct($profile, $message)
+    public function __construct()
     {
-        $this->profile = $profile;
-        $this->message = $message;
+        //
     }
 
-
-    public function broadcastOn()
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return array<int, \Illuminate\Broadcasting\Channel>
+     */
+    public function broadcastOn(): array
     {
-        return new PrivateChannel('chat-message.'. $this->profile);
+        return [
+            new PrivateChannel('channel-name'),
+        ];
     }
 }

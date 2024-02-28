@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CreateOrderController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\PrepareFilterAction;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\ChangeStatusOrderController;
 use Illuminate\Support\Facades\Route;
@@ -80,3 +81,9 @@ Route::post('create-order', CreateOrderController::class);
 Route::post('accept-contract', AcceptContractController::class);
 
 Route::post('change-status-order', ChangeStatusOrderController::class);
+
+Route::get('prepare-filter', PrepareFilterAction::class);
+
+
+Route::post('/get-chat', 'ChatController@getChat');
+Route::post('/send-message', 'MessageController@sendMessage');

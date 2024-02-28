@@ -18,7 +18,7 @@
                     <div class="card mb-4">
 
                         <div class="card-body">
-                            <form method="post" action="{{ route('admin.products.store') }}">
+                            <form method="post" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Имя</label>

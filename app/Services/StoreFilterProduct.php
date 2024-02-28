@@ -20,12 +20,27 @@ class StoreFilterProduct {
 
                 switch ($filter->type) {
                     case('input_text'):
+                    case('input_date'):
+                    case('textarea'):
+                    case('checkbox'):
                         $productValue->value = $value;
-                        $productValue->filter_id = $filter->id;
-                        $productValue->product_id = $product->id;
-                        $productValue->save();
+                        break;
+                    case('select'):
+                        $productValue->filter_value_id = $value;
+                        break;
+                    case('file'):
+                        $file = $value;
+                        $value = $file->store('filters');
                         break;
                 }
+
+                if($value) {
+                    $productValue->value = $value;
+                    $productValue->filter_id = $filter->id;
+                    $productValue->product_id = $product->id;
+                    $productValue->save();
+                }
+
 
             }
 

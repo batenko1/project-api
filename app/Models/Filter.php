@@ -32,13 +32,19 @@ class Filter extends Model
 
     const INPUT_TEXT_FIELD = 'input_text';
 
+    const INPUT_DATE_FIELD = 'input_date';
+
+    const INPUT_FILE_FIELD = 'input_file';
+
     const TEXTAREA_FIELD = 'textarea';
 
     const FIELDS = [
         self::CHECKBOX_FIELD,
         self::SELECT_FIELD,
         self::INPUT_TEXT_FIELD,
-        self::TEXTAREA_FIELD
+        self::TEXTAREA_FIELD,
+        self::INPUT_DATE_FIELD,
+        self::INPUT_FILE_FIELD
     ];
 
 
