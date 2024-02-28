@@ -53,6 +53,7 @@
                                                 <i class="ti ti-pencil me-1"></i> Редактировать</a>
                                             @endcan
 
+                                            @if($user->getRoleNames()->first() != 'admin')
                                             @can('delete user')
                                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="post">
                                                     @csrf
@@ -61,6 +62,7 @@
                                                         <i class="ti ti-trash me-1"></i> Удалить</button>
                                                 </form>
                                             @endcan
+                                            @endif
                                         </div>
                                     </div>
                                 </td>

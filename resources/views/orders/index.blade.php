@@ -18,10 +18,10 @@
             <div class="container-xxl flex-grow-1 container-p-y">
                 <h4><span class="text-muted fw-light">Заказы</h4>
 
-                @can('create order')
-                <a href="{{ route('admin.orders.create') }}"
-                   class="btn btn-primary waves-effect waves-light mb-4">Создать</a>
-                @endcan
+{{--                @can('create order')--}}
+{{--                <a href="{{ route('admin.orders.create') }}"--}}
+{{--                   class="btn btn-primary waves-effect waves-light mb-4">Создать</a>--}}
+{{--                @endcan--}}
 
                 <!-- Basic Bootstrap Table -->
                 <div class="card">
@@ -30,7 +30,12 @@
                             <thead>
                             <tr>
                                 <th>#id</th>
+                                <th>Дата заказа</th>
                                 <th>Имя</th>
+                                <th>Покупатель</th>
+                                <th>Цена</th>
+                                <th>Статус</th>
+                                <th>Подтвержден ли документ</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -40,7 +45,22 @@
                                     <td>
                                         <span class="fw-medium">{{ $order->id }}</span>
                                     </td>
-                                    <td>{{ $order->title }}</td>
+                                    <td>{{ $order->created_at->format('d.m.Y') }}</td>
+                                    <td>{{ $order->fio }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.accounts.show', $order->account_id) }}" target="_blank">Посмотреть</a>
+                                    </td>
+                                    <th>{{ $order->price }}</th>
+                                    <th><span class="badge bg-info">{{ $order->status }}</span></th>
+                                    @if($order->is_verified)
+                                        <th>
+                                            <span class="badge bg-success">Да</span>
+                                        </th>
+                                    @else
+                                        <th>
+                                            <span class="badge bg-danger">Нет</span>
+                                        </th>
+                                    @endif
 
                                     <td>
                                         <div class="dropdown">

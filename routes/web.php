@@ -25,11 +25,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//\Illuminate\Support\Facades\Broadcast::routes();
+
+//\Illuminate\Support\Facades\Broadcast::routes(['middleware' => ['auth:api']]);
+
 Route::get('/', HomeController::class);
 
-
-//    event(new \App\Events\SendMessage());
-//    return view('welcome');
 
 Route::group([
     'prefix' => 'admin',

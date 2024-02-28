@@ -12,5 +12,11 @@ class ChatController extends Controller
 
         $chat = Chat::query()->where('id', $request->chat_id)->first();
 
+        $chat->messages()->update(['is_read' => 1]);
+
+        $html = view('chat.blocks.messages-render', compact('chat'));
+
+        return $html;
+
     }
 }

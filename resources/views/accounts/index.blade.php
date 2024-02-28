@@ -23,7 +23,10 @@
                         <thead>
                         <tr>
                             <th>#id</th>
+                            <th>Дата создания</th>
                             <th>Имя</th>
+                            <th>ИНН</th>
+                            <th>Верификация</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -33,7 +36,15 @@
                                 <td>
                                     <span class="fw-medium">{{ $account->id }}</span>
                                 </td>
+                                <td>{{ $account->created_at->format('d.m.Y') }}</td>
                                 <td>{{ $account->fio }}</td>
+                                <td>{{ $account->identification_code }}</td>
+                                @if($account->is_verified)
+                                    <td><span class="badge bg-success">да</span></td>
+                                @else
+                                    <td><span class="badge bg-danger">нет</span></td>
+                                @endif
+
 
                                 <td>
                                     <div class="dropdown">
@@ -44,13 +55,13 @@
                                         <div class="dropdown-menu">
                                             @can('edit account')
                                                 <a class="dropdown-item"
-                                                   href="{{ route('admin.accounts.edit', $user->id) }}">
+                                                   href="{{ route('admin.accounts.edit', $account->id) }}">
                                                     <i class="ti ti-pencil me-1"></i> Редактировать</a>
                                             @endcan
 
                                             @can('delete account')
                                                 <a class="dropdown-item"
-                                                   href="{{ route('admin.accounts.destroy', $user->id) }}">
+                                                   href="{{ route('admin.accounts.destroy', $account->id) }}">
                                                     <i class="ti ti-trash me-1"></i> Удалить</a>
                                             @endcan
                                         </div>

@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Api\AcceptContractController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Chat\ChatController;
+use App\Http\Controllers\Api\Chat\MessageController;
 use App\Http\Controllers\Api\CreateOrderController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\PermissionController;
@@ -67,7 +69,7 @@ Route::apiResource('roles', RoleController::class);
 
 Route::apiResource('settings', SettingController::class);
 
-Route::apiResource('templates', TemplateController::class);
+Route::apiResource('templates', TemplateController::class)->middleware('auth:sanctum');
 
 Route::resource('orders', OrderController::class);
 
@@ -85,5 +87,5 @@ Route::post('change-status-order', ChangeStatusOrderController::class);
 Route::get('prepare-filter', PrepareFilterAction::class);
 
 
-Route::post('/get-chat', 'ChatController@getChat');
-Route::post('/send-message', 'MessageController@sendMessage');
+Route::post('/get-chat', [ChatController::class, 'getChat']);
+Route::post('/send-message', [MessageController::class, 'sendMessage']);

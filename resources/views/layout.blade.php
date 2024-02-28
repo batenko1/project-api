@@ -63,6 +63,8 @@
 {{--    <script src="{{ asset('assets/vendor/js/template-customizer.js') }}"></script>--}}
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -137,6 +139,8 @@
 <!-- Page JS -->
 <script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
 
+<script src="{{ asset('build/assets/app-8UGkboQB.js') }}"></script>
+
 @yield('js')
 
 @if(session('message'))
@@ -144,5 +148,21 @@
         toastr.success('{{ session('message') }}');
     </script>
 @endif
+
+
+<script>
+
+    @if(auth()->user())
+    window.Echo.private('chat-message.{{ auth()->user()->id }}')
+        .listen('SendMessage', e => {
+            if(e) {
+                console.log('vlad')
+            }
+
+        })
+    @endif
+
+
+</script>
 </body>
 </html>

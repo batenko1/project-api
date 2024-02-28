@@ -15,7 +15,8 @@ class TemplateController extends Controller
      */
     public function index(Request $request)
     {
-        if (!Gate::allows('index setting')) abort(404);
+
+        if (!Gate::allows('index template')) abort(404);
 
         $templates = Template::all();
 
@@ -48,7 +49,7 @@ class TemplateController extends Controller
         $file = $data['file'];
 
         // Сохранение файла на сервере
-        $filePath = $file->store('templates');
+        $filePath = $file->store('public/templates');
 
         $template = new Template();
         $template->title = $data['title'];
@@ -103,7 +104,7 @@ class TemplateController extends Controller
             $file = $data['file'];
 
             // Сохранение файла на сервере
-            $filePath = $file->store('templates');
+            $filePath = $file->store('public/templates');
 
 
 

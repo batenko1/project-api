@@ -79,7 +79,7 @@
         @can('index product')
             <li class="menu-item @if(strpos(Route::currentRouteName(), 'admin.products') !== false) active @endif">
                 <a href="{{ route('admin.products.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-mail"></i>
+                    <i class="menu-icon tf-icons ti ti-brand-tabler"></i>
                     <div>Товары</div>
                 </a>
             </li>
@@ -108,7 +108,7 @@
         @can('index account')
             <li class="menu-item @if(str_contains(Route::currentRouteName(), 'admin.accounts')) active @endif">
                 <a href="{{ route('admin.accounts.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-calendar"></i>
+                    <i class="menu-icon tf-icons ti ti-id"></i>
                     <div>Покупатели</div>
                 </a>
             </li>

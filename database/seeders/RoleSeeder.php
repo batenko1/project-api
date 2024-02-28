@@ -93,6 +93,8 @@ class RoleSeeder extends Seeder
             'update filter' => "Обновление фильтра",
             'delete filter' => 'Удаление фильтра',
 
+            'index chat' => 'Доступ к чату'
+
 
         ];
 

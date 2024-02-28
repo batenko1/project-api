@@ -20,11 +20,15 @@ class SendMessage implements ShouldBroadcast
 
     public $profile;
     public $message;
+    public $html;
+    public $messageHtml;
 
-    public function __construct($profile, $message)
+    public function __construct($profile, $message, $html, $messageHtml)
     {
         $this->profile = $profile;
         $this->message = $message;
+        $this->html = $html;
+        $this->messageHtml = $messageHtml;
     }
 
 

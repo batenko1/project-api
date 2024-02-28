@@ -44,7 +44,7 @@ class CreateOrderController extends Controller
            }
 
            $template = Template::query()->first();
-           $filePath = storage_path('app/public/'. $template->file);
+           $filePath = storage_path('app/'. $template->file);
            $replacements = explode(',', $template->variables);
 
            foreach ($replacements as $key => $item) {

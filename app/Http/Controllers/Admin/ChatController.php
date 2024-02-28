@@ -17,7 +17,16 @@ class ChatController extends Controller
 
         if (!Gate::allows('index chat')) abort(404);
 
-        $chats = Chat::query()->get();
+        $chats = Chat::query()->get()
+            ->map(function($chat)  {
+                $chat->last_message_time = false;
+                if($chat->messages->last()) {
+                    $chat->last_message_time = $chat->messages->last()->created_at;
+                }
+
+                return $chat;
+            })
+            ->sortByDesc('last_message_time');
 
         return view('chat.index', compact('chats'));
     }
