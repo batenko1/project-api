@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class RegistrationRequest extends FormRequest
 {
@@ -24,10 +26,16 @@ class RegistrationRequest extends FormRequest
     {
         return [
             'fio' => 'required',
-            'identification_code' => 'required|min:14',
+            'identification_code' => 'required|string|min:7',
             'image1' => 'required|file|mimes:jpeg,png,jpg',
             'image2' => 'required|file|mimes:jpeg,png,jpg',
             'image3' => 'required|file|mimes:jpeg,png,jpg'
         ];
+    }
+
+    protected function failedValidation(Validator $validator): void
+    {
+        $response = response()->json($validator->errors());
+        throw new HttpResponseException($response, 422);
     }
 }

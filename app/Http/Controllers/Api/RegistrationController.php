@@ -15,6 +15,7 @@ class RegistrationController extends Controller
     public function __invoke(RegistrationRequest $request)
     {
 
+//        Account::query()->delete();
         $account = Account::query()
             ->where('identification_code', $request->identification_code)
             ->first();

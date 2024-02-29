@@ -22,9 +22,11 @@ class TesseractService {
 //        $ocr->psm(6);
 
         // Выполнение распознавания текста
-        $text = $ocr->executable('/opt/homebrew/Cellar/tesseract/5.3.4/bin/tesseract')->run();
+        $text = $ocr->executable(env('TESSERACT_PATH'))->run();
+//        $text = $ocr->executable('/opt/homebrew/Cellar/tesseract/5.3.4/bin/tesseract')->run();
 
         $text = \Str::replace(' ', '', $text);
+        $text = preg_replace('/\r?\n/', '', $text);
         // Вывод распознанного текста
 
         if(str_contains($text, $code)) {

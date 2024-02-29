@@ -42,6 +42,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::post('registration', RegistrationController::class);
+
 
 Route::group([
     'middleware' => 'auth:sanctum'
@@ -80,9 +82,6 @@ Route::get('products/get-filters/{entityId}', [ProductController::class, 'getFil
 
 
 //-----------------------
-
-
-Route::post('registration', RegistrationController::class);
 
 Route::post('create-order', CreateOrderController::class);
 
