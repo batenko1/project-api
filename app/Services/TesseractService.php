@@ -27,6 +27,7 @@ class TesseractService {
 
         $text = \Str::replace(' ', '', $text);
         $text = preg_replace('/\r?\n/', '', $text);
+        $text = preg_replace('/[^0-9]/', '', $text);
         // Вывод распознанного текста
 
         if(str_contains($text, $code)) {
