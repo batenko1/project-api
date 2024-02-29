@@ -22,8 +22,10 @@
                 <div class="col-md-6 col-12">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <div id="jstree-basic">
+                            @if($entities->count())
+                                <div id="jstree-basic">
                                 <ul>
+
                                     @foreach($entities as $entity)
                                         <li data-jstree='{"icon" : "ti ti-folder"}' data-id="{{ $entity->id }}">
                                             {{ $entity->title }}
@@ -47,33 +49,11 @@
                                             @endif
                                         </li>
                                     @endforeach
-{{--                                    <li data-jstree='{"icon" : "ti ti-folder"}'>--}}
-{{--                                        css--}}
-{{--                                        <ul>--}}
-{{--                                            <li data-jstree='{"icon" : "ti ti-folder"}'>app.css</li>--}}
-{{--                                            <li data-jstree='{"icon" : "ti ti-folder"}'>style.css</li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="jstree-open" data-jstree='{"icon" : "ti ti-folder"}'>--}}
-{{--                                        img--}}
-{{--                                        <ul data-jstree='{"icon" : "ti ti-folder"}'>--}}
-{{--                                            <li data-jstree='{"icon" : "ti ti-folder"}'>bg.jpg</li>--}}
-{{--                                            <li data-jstree='{"icon" : "ti ti-folder"}'>logo.png</li>--}}
-{{--                                            <li data-jstree='{"icon" : "ti ti-folder"}'>avatar.png</li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="jstree-open" data-jstree='{"icon" : "ti ti-folder"}'>--}}
-{{--                                        js--}}
-{{--                                        <ul>--}}
-{{--                                            <li data-jstree='{"icon" : "ti ti-folder"}'>jquery.js</li>--}}
-{{--                                            <li data-jstree='{"icon" : "ti ti-folder"}'>app.js</li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li data-jstree='{"icon" : "ti ti-file-text"}'>index.html</li>--}}
-{{--                                    <li data-jstree='{"icon" : "ti ti-file-text"}'>page-one.html</li>--}}
-{{--                                    <li data-jstree='{"icon" : "ti ti-file-text"}'>page-two.html</li>--}}
                                 </ul>
                             </div>
+                            @else
+                                <span>В данный момент нет категорий</span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -88,7 +68,7 @@
 
         <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog">
-                <form class="modal-content">
+                <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="backDropModalTitle">Действительно удалить?</h5>
                         <button
@@ -105,10 +85,11 @@
                         <form action="" method="post">
                             @csrf
                             @method('DELETE')
+                            <button type="submit" class="btn btn-primary">Да</button>
                         </form>
-                        <button type="submit" class="btn btn-primary">Да</button>
+
                     </div>
-                </form>
+                </div>
             </div>
         </div>
 

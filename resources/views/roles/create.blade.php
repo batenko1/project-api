@@ -33,6 +33,8 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Права</label>
                                     <div class="col-sm-10">
+                                        <button type="button" class="btn btn-primary btn-select-all"
+                                                style="display: block; margin-bottom: 10px;">Выбрать все</button>
                                         @foreach($permissions as $permission)
                                             <div class="form-check">
                                                 <input class="form-check-input" name="permissions[]" type="checkbox" value="{{ $permission->id }}"
@@ -69,4 +71,22 @@
 @section('js')
     <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('assets/js/form-layouts.js') }}"></script>
+    <script>
+        $('.btn-select-all').click(function(e) {
+
+            e.preventDefault()
+
+            let first = $($('.form-check-input')[0])
+
+            if(first.prop('checked')) {
+                $('.form-check-input').prop('checked', false)
+            }
+            else {
+                $('.form-check-input').prop('checked', true)
+            }
+
+
+
+        })
+    </script>
 @endsection

@@ -100,6 +100,6 @@
 
 @section('js')
     <script>
-        $('.dataTable-js').DataTable()
+        $('.dataTable-js').DataTable({order: [[0, 'desc']]})
     </script>
 @endsection
