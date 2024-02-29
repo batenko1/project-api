@@ -110,7 +110,7 @@ class CreateOrderController extends Controller
         }
 
 
-        $path = 'orders/test.docx';
+        $path = 'orders/'. time().\Str::random(8) .'.docx';
         $orderContract = storage_path('app/public/'. $path);
 
         $directoryPath = pathinfo($orderContract, PATHINFO_DIRNAME);
