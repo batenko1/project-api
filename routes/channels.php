@@ -22,6 +22,11 @@ Broadcast::channel('channel-name', function(){
     return true;
 });
 
+
+Broadcast::channel('channel-order', function(){
+    return true;
+});
+
 Broadcast::channel('chat-message.{id}', function () {
     return true;
 });

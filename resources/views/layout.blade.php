@@ -106,6 +106,9 @@
 @endif
 <!-- / Layout wrapper -->
 
+<audio id="audio" class="d-none">
+    <source src="{{ asset('audio.mp3') }}" type="audio/mpeg">
+</audio>
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 
@@ -153,13 +156,22 @@
 <script>
 
     @if(auth()->user())
-    window.Echo.private('chat-message.{{ auth()->user()->id }}')
-        .listen('SendMessage', e => {
-            if(e) {
-                console.log('vlad')
-            }
+        window.Echo.private('chat-message.{{ auth()->user()->id }}')
+            .listen('SendMessage', e => {
+                if(e) {
+                    console.log('test event')
+                    $('#audio').play()
+                }
 
-        })
+            })
+
+        window.Echo.channel('chat-order')
+            .listen('OrderEvent', e => {
+                if(e) {
+                    $('#audio').play()
+                }
+
+            })
     @endif
 
 
