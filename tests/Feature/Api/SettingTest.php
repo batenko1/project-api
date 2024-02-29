@@ -17,6 +17,7 @@ use Tests\TestCase;
  *     summary="Получить список настроек",
  *     description="Этот метод позволяет получить список настроек",
  *     tags={"Settings"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Response(
  *         response=200,
  *         description="Список настроек из базы данных",

@@ -17,6 +17,7 @@ use Tests\TestCase;
  *     summary="Получить список продуктов",
  *     description="Этот метод позволяет получить список продуктов",
  *     tags={"Products"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Response(
  *         response=200,
  *         description="Список продуктов из базы данных",

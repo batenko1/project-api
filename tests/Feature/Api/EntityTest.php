@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api;
 
 use Illuminate\Http\JsonResponse;
+use OpenApi\Annotations as OA;
 use Tests\TestCase;
 
 /**
@@ -15,6 +16,7 @@ use Tests\TestCase;
  *     summary="Получить список сущностей",
  *     description="Этот метод позволяет получить список сущностей",
  *     tags={"Entities"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Response(
  *         response=200,
  *         description="Список сущностей из базы данных",

@@ -17,6 +17,7 @@ use Tests\TestCase;
  *     summary="Получить список шаблонов",
  *     description="Этот метод позволяет получить список шаблонов",
  *     tags={"Templates"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Response(
  *         response=200,
  *         description="Список шаблонов из базы данных",

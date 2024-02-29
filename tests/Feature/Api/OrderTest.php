@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api;
 
 use Illuminate\Http\JsonResponse;
+use OpenApi\Annotations as OA;
 use Tests\TestCase;
 
 
@@ -16,6 +17,7 @@ use Tests\TestCase;
  *     summary="Получить список заказов",
  *     description="Этот метод позволяет получить список заказов",
  *     tags={"Orders"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Response(
  *         response=200,
  *         description="Список заказов из базы данных",
