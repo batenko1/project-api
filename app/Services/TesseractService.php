@@ -6,11 +6,11 @@ use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class TesseractService {
 
-    public function check() {
-        $imagePath = public_path('image8.jpg');
+    public function check($image, $code) {
+        $imagePath = storage_path('app/public/'. $image);
 
         // Преобразование изображения в черно-белый формат
-        $bwImagePath = public_path('bw_image.jpg');
+        $bwImagePath = storage_path('app/public/bw_image.jpg');
         $this->convertToBlackAndWhite($imagePath, $bwImagePath);
 
         // Создание экземпляра TesseractOCR с указанием пути к черно-белому изображению
@@ -24,8 +24,15 @@ class TesseractService {
         // Выполнение распознавания текста
         $text = $ocr->executable('/opt/homebrew/Cellar/tesseract/5.3.4/bin/tesseract')->run();
 
+        $text = \Str::replace(' ', '', $text);
         // Вывод распознанного текста
-        echo $text;
+
+        if(str_contains($text, $code)) {
+            return true;
+        }
+
+        return false;
+//        echo $text;
     }
 
     private function convertToBlackAndWhite($inputImagePath, $outputImagePath)

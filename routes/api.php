@@ -43,6 +43,32 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 
 
+Route::group([
+    'middleware' => 'auth:sanctum'
+], function () {
+
+    Route::get('accounts/{id}/orders', [AccountController::class, 'orders']);
+
+    Route::apiResource('accounts', AccountController::class);
+
+    Route::apiResource('entities', EntityController::class);
+
+    Route::apiResource('permissions', PermissionController::class);
+
+    Route::apiResource('products', ProductController::class);
+
+    Route::apiResource('users', UserController::class);
+
+    Route::apiResource('roles', RoleController::class);
+
+    Route::apiResource('settings', SettingController::class);
+
+    Route::apiResource('templates', TemplateController::class);
+
+    Route::resource('orders', OrderController::class);
+
+
+});
 
 Route::get('filters/types', [FilterController::class, 'types']);
 
@@ -52,26 +78,6 @@ Route::apiResource('filters', FilterController::class);
 
 Route::get('products/get-filters/{entityId}', [ProductController::class, 'getFilters']);
 
-
-Route::get('accounts/{id}/orders', [AccountController::class, 'orders']);
-
-Route::apiResource('accounts', AccountController::class);
-
-Route::apiResource('entities', EntityController::class);
-
-Route::apiResource('permissions', PermissionController::class);
-
-Route::apiResource('products', ProductController::class);
-
-Route::apiResource('users', UserController::class);
-
-Route::apiResource('roles', RoleController::class);
-
-Route::apiResource('settings', SettingController::class);
-
-Route::apiResource('templates', TemplateController::class)->middleware('auth:sanctum');
-
-Route::resource('orders', OrderController::class);
 
 //-----------------------
 
