@@ -15,6 +15,8 @@ class StoreFilters
 
         foreach ($filters as $key => $filter) {
 
+
+
             $title = $request->filter_name[$key];
 
             $newFilter = new Filter();

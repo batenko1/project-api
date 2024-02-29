@@ -58,8 +58,8 @@
                                     <label class="col-sm-2 col-form-label" for="multicol-country">Фильтры</label>
 
                                     <div class="col-sm-3">
-                                        <a href="javascript:void(0);" class="btn btn-primary btn-create-filter">Добавить
-                                            фильтр</a>
+                                        <a href="javascript:void(0);"
+                                           class="btn btn-primary btn-create-filter">Добавить фильтр</a>
                                     </div>
 
                                     <div class="list-filters">
@@ -104,10 +104,19 @@
                 })
             })
 
-            $('body').on('click', '.btn-delete-filter', function() {
+            $('body').on('click', '.btn-delete-filter', function () {
 
                 let el = $(this)
                 el.closest('.one-filter').remove()
+
+            })
+
+            $('body').on('click', '.type-filter', function () {
+                let el = $(this)
+
+                if(el.val() == 'select') {
+                    el.closest('.one-filter').find('.form-control.d-none').removeClass('d-none')
+                }
 
             })
 
