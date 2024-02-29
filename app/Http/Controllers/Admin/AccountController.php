@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
 {
@@ -40,11 +41,27 @@ class AccountController extends Controller
 
         if (!Gate::allows('show product')) abort(404);
 
-        if($request->expectsJson()) {
-            return response()->json($account);
+        $user = DB::connection('mysql_bonuses')
+            ->table('users')
+            ->where('identification_code', $account->identification_code)
+            ->first();
+
+        $bonuses = [];
+
+        if($user) {
+            $bonuses = DB::connection('mysql_bonuses')
+                ->table('bonuses')
+                ->where('user_id', $user->id)
+                ->get();
+
         }
 
-        return view('accounts.show', compact('account'));
+
+        if($request->expectsJson()) {
+            return response()->json(compact('account', 'bonuses'));
+        }
+
+        return view('accounts.show', compact('account', 'bonuses'));
     }
 
 

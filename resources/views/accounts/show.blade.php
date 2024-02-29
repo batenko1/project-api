@@ -32,6 +32,30 @@
 
                                     @endforeach
                                 </dd>
+
+                                <dt class="col-sm-3">Бонусы</dt>
+                                <div class="col-sm-8">
+
+                                    {{ $bonuses->sum('bonuses') }}
+
+                                    <table>
+                                        <tr>
+                                            <td>Количество</td>
+                                            <td>Тип расчета</td>
+                                        </tr>
+
+                                        @foreach($bonuses as $bonus)
+
+                                            <tr>
+                                                <td>{{ $bonus->bonuses }}</td>
+                                                <td>{{ $bonus->type == 'add' ? 'Начислено' : 'Снято' }}</td>
+                                            </tr>
+
+                                        @endforeach
+
+                                    </table>
+
+                                </div>
                             </dl>
                         </div>
                     </div>

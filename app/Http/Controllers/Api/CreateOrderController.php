@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,15 +52,35 @@ class CreateOrderController extends Controller
                $replacements[$key] = $order->{$item};
            }
 
-//           $replacements = [
-//               'order_id' => $order->id,
-//               'fio' => $order->fio,
-//               'price' => $order->price
-//           ];
-
            $contract = $this->createContract($filePath, $replacements);
            $order->file_contract = $contract;
            $order->save();
+
+           $percent = Setting::query()->where('key', 'percent_discount')->first();
+
+           $sumDiscount = ($order->price * $percent->value) / 100;
+
+           $user = DB::connection('mysql_bonuses')
+               ->table('users')
+               ->where('identification_code', $order->account->identification_code)
+               ->first();
+
+           if(!$user) {
+               $user = DB::connection('mysql_bonuses')
+                   ->table('users')
+                   ->insert([
+                       'identification_code' => $order->account->identification_code
+                   ]);
+           }
+
+
+           DB::connection('mysql_bonuses')
+               ->table('bonuses')
+               ->insert([
+                   'user_id' => $user->id,
+                   'bonuses' => $sumDiscount,
+                   'type' => 'add'
+               ]);
 
 
            DB::commit();

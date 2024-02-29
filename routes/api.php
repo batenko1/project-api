@@ -40,7 +40,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/user', [UserController::class, 'getUser'])->middleware('auth:sanctum');
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login']);
 
 Route::post('registration', RegistrationController::class);
 
