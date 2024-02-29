@@ -18,7 +18,9 @@
                     <div class="card mb-4">
 
                         <div class="card-body">
-                            <form method="post" action="{{ route('admin.products.update', $product->id) }}">
+                            <form method="post"
+                                  enctype="multipart/form-data"
+                                  action="{{ route('admin.products.update', $product->id) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="row mb-3">
@@ -66,6 +68,18 @@
                                 </div>
 
 
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Фильтры</label>
+
+                                    <div class="col-sm-10">
+                                        <div class="filters-wrap">
+                                            {!! $html !!}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
 
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
@@ -88,4 +102,29 @@
 @section('js')
     <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
     <script src="{{ asset('assets/js/form-layouts.js') }}"></script>
+
+
+    <script>
+        $('#multicol-country').change(function() {
+            let el = $(this)
+
+            let val = el.val()
+
+            if(val) {
+
+                $.ajax({
+                    type: 'get',
+                    url: '/api/products/get-filters/' + val,
+                    success:function(result) {
+                        $('.filters-wrap').html(result)
+                    }
+                })
+
+            }
+
+        })
+
+        // $('#multicol-country').trigger('change')
+
+    </script>
 @endsection

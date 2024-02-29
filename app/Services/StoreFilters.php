@@ -13,16 +13,23 @@ class StoreFilters
 
         $filters = $request->filter_type;
 
+
+//        dd($request->all());
+
         foreach ($filters as $key => $filter) {
 
+            if(!$filter) {
+                continue;
+            }
 
 
             $title = $request->filter_name[$key];
 
-            $newFilter = new Filter();
 
-            if (property_exists($filter, 'id')) {
-                $newFilter = Filter::query()->where('id', $filter->id)->first();
+            $newFilter = Filter::query()->where('id', $key)->first();
+
+            if(!$newFilter) {
+                $newFilter = new Filter();
             }
 
             $newFilter->entity_id = $entity->id;
@@ -33,23 +40,19 @@ class StoreFilters
 
             $newFilter->save();
 
-            if (property_exists($filter, 'values')) {
-
-                $values = $filter->values;
+            if($filter == 'select') {
+                $values = $request->filter_values[$key];
+                $values = explode(',', $values);
 
                 foreach ($values as $value) {
-
-                    if(!FilterValue::query()->where('filter_id', $newFilter->id)
-                        ->where('value', $value)
-                        ->first()) {
-                        FilterValue::query()->create([
-                            'filter_id' => $newFilter->id,
-                            'value' => $value
-                        ]);
-                    }
+                    $newFilterValue = new FilterValue();
+                    $newFilterValue->filter_id = $newFilter->id;
+                    $newFilterValue->value = $value;
+                    $newFilterValue->save();
                 }
 
             }
+
 
         }
     }

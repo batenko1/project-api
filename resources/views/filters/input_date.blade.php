@@ -4,6 +4,9 @@
     <div class="col-sm-9">
         <input type="date" class="form-control"
                id="basic-default-name"
+               @if(isset($product) && $product->values->where('filter_id', $filter->id)->first())
+                   value="{{ $product->values->where('filter_id', $filter->id)->first()->value }}"
+               @endif
                name="filter_{{ $filter->id }}"/>
     </div>
 

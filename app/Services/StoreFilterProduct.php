@@ -16,7 +16,14 @@ class StoreFilterProduct {
 
                 list($word, $filterId) = explode('_', $key);
                 $filter = Filter::query()->findOrFail($filterId);
-                $productValue = new ProductValue();
+
+                if($product->values->where('filter_id', $filter->id)->first()) {
+                    $productValue = $product->values->where('filter_id', $filter->id)->first();
+                }
+                else {
+                    $productValue = new ProductValue();
+                }
+
 
                 switch ($filter->type) {
                     case('input_text'):
@@ -28,9 +35,10 @@ class StoreFilterProduct {
                     case('select'):
                         $productValue->filter_value_id = $value;
                         break;
-                    case('file'):
+                    case('input_file'):
                         $file = $value;
-                        $value = $file->store('filters');
+                        $value = \Str::replace('public/', '', $file->store('public/filters'));
+
                         break;
                 }
 

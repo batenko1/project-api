@@ -24,26 +24,30 @@ class ProductController extends Controller
 
         $data = $request->all();
 
+
         $products = Product::query()
-            ->when(count($data), function ($query) use($data) {
+            ->when(count($data), function ($query) use ($data) {
 
                 foreach ($data as $key => $value) {
 
                     $filterId = \Str::replace('filter_', '', $key);
 
-                    if(strpos($key, 'filter') !== false) {
-                        $query->whereHas('values', function ($query) use($value, $filterId) {
+
+                    if (strpos($key, 'filter') !== false) {
+                        $query->whereHas('values', function ($query) use ($value, $filterId) {
                             $query->where('value', $value)->where('filter_id', $filterId);
                         });
                     }
                 }
 
             })
-            ->get()->each(function ($product) {
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->each(function ($product) {
                 $product->entity_name = $product->entity->title;
             });
 
-        if($request->expectsJson()) {
+        if ($request->expectsJson()) {
             return response()->json($products);
         }
 
@@ -56,7 +60,8 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      */
 
-    public function create() {
+    public function create()
+    {
 
         $entities = Entity::all();
 
@@ -76,14 +81,13 @@ class ProductController extends Controller
             StoreFilterProduct::save($product, $request);
 
             DB::commit();
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             dd($e);
         }
 
 
-        if($request->expectsJson()) {
+        if ($request->expectsJson()) {
             return response()->json($product, 201);
         }
 
@@ -91,11 +95,19 @@ class ProductController extends Controller
 
     }
 
-    public function edit(Product $product) {
+    public function edit(Product $product)
+    {
 
         $entities = Entity::all();
 
-        return view('products.edit', compact('product', 'entities'));
+        $listEntities = $this->triesEntities($product->entity);
+
+        $filters = Filter::query()->whereIn('entity_id', $listEntities)->get();
+
+
+        $html = view('filters.template', compact('filters', 'product'))->render();
+
+        return view('products.edit', compact('product', 'entities', 'html'));
     }
 
     /**
@@ -106,7 +118,7 @@ class ProductController extends Controller
 
         if (!Gate::allows('show order')) abort(404);
 
-        if($request->expectsJson()) {
+        if ($request->expectsJson()) {
             return response()->json($product);
         }
 
@@ -120,11 +132,22 @@ class ProductController extends Controller
     {
         if (!Gate::allows('update order')) abort(404);
 
-        $product->update($request->validated());
+        DB::beginTransaction();
 
-        $product->values()->sync($request->filter_values);
+        try {
+            $product->update($request->validated());
 
-        if($request->expectsJson()) {
+            StoreFilterProduct::save($product, $request);
+
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+
+        if ($request->expectsJson()) {
             return response()->json($product, 201);
         }
 
@@ -142,14 +165,15 @@ class ProductController extends Controller
 
         $product->delete();
 
-        if($request->expectsJson()) {
+        if ($request->expectsJson()) {
             return response()->json(null, 204);
         }
 
         return redirect()->back()->with('message', 'Success');
     }
 
-    public function getFilters(Request $request, $entityId) {
+    public function getFilters(Request $request, $entityId)
+    {
 
         $entity = Entity::query()->findOrFail($entityId);
 
@@ -157,7 +181,7 @@ class ProductController extends Controller
 
         $filters = Filter::query()->whereIn('entity_id', $entities)->get();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
             $html = view('filters.template', compact('filters'))->render();
 
             return $html;
@@ -167,7 +191,8 @@ class ProductController extends Controller
 
     }
 
-    public function triesEntities($entity, &$parents = []) {
+    public function triesEntities($entity, &$parents = [])
+    {
 
         $parents[] = $entity->id;
         if ($entity->parent_id) {
@@ -178,5 +203,13 @@ class ProductController extends Controller
         // Возвращаем массив родительских категорий
         return $parents;
 
+    }
+
+    public function getEloquentSqlWithBindings($query): string
+    {
+        return vsprintf(str_replace('?', '%s', $query->toSql()), collect($query->getBindings())
+            ->map(function ($binding) {
+                return is_numeric($binding) ? $binding : "'{$binding}'";
+            })->toArray());
     }
 }

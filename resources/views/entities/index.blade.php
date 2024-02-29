@@ -30,7 +30,7 @@
                                             @if($entity->child)
                                                 <ul>
                                                     @foreach($entity->child as $child)
-                                                        <li data-jstree='{"icon" : "ti ti-folder"}'>{{ $child->title }}</li>
+                                                        <li data-jstree='{"icon" : "ti ti-folder"}'>{{ $child->title }} </li>
 
                                                         @if($child->child)
                                                             <ul>

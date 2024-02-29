@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Entity\StoreRequest;
 use App\Models\Entity;
+use App\Models\Filter;
 use App\Services\StoreFilters;
 use App\Traits\RoleControlTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class EntityController extends Controller
 {
@@ -53,13 +55,24 @@ class EntityController extends Controller
     {
         if (!Gate::allows('store entity')) abort(404);
 
-        $entity = Entity::query()->create($request->validated());
+        DB::beginTransaction();
 
-        if($request->get('filter_type')) {
-            StoreFilters::save($entity, $request);
+        try {
+            $entity = Entity::query()->create($request->validated());
+
+            if($request->get('filter_type')) {
+                StoreFilters::save($entity, $request);
+            }
+
+            $this->storePermissions('entity '.$entity->id);
+
+            DB::commit();
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
         }
 
-        $this->storePermissions('entity '.$entity->id);
 
         if($request->expectsJson()) {
             return response()->json($entity, 201);
@@ -89,7 +102,11 @@ class EntityController extends Controller
 
     public function edit(Entity $entity) {
 
-        return view('entities.edit', compact('entity'));
+        $listEntities = Entity::query()
+            ->where('id', '!=', $entity->id)
+            ->get();
+
+        return view('entities.edit', compact('entity', 'listEntities'));
     }
 
     /**
@@ -100,13 +117,35 @@ class EntityController extends Controller
 
         if (!Gate::allows('update entity')) abort(404);
 
-        $entity->update($request->validated());
+        DB::beginTransaction();
 
-        if($request->get('filters')) {
-            StoreFilters::save($entity, $request->get('filters'));
+        try {
+            $entity->update($request->validated());
+
+            if($request->get('filter_delete')) {
+                $filterDelete = $request->get('filter_delete');
+                $filterDelete = explode(',', $filterDelete);
+
+                foreach ($filterDelete as $item) {
+                    if($item) {
+                        Filter::query()->where('id', $item)->delete();
+                    }
+                }
+            }
+
+            if($request->get('filter_type')) {
+
+                StoreFilters::save($entity, $request);
+            }
+
+            $this->storePermissions('entity '.$entity->id);
+
+            DB::commit();
         }
-
-        $this->storePermissions('entity '.$entity->id);
+        catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
 
         if($request->expectsJson()) {
             return response()->json($entity, 201);
