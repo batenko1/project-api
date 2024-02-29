@@ -91,7 +91,7 @@ class ProductController extends Controller
             return response()->json($product, 201);
         }
 
-        return redirect()->route('admin.products.index')->with('message', 'Success');
+        return redirect()->route('admin.products.index')->with('message', 'Успешно создано');
 
     }
 
@@ -151,7 +151,7 @@ class ProductController extends Controller
             return response()->json($product, 201);
         }
 
-        return redirect()->route('admin.products.index')->with('message', 'Success');
+        return redirect()->route('admin.products.index')->with('message', 'Успешно обновлено');
 
     }
 
@@ -169,7 +169,7 @@ class ProductController extends Controller
             return response()->json(null, 204);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.products.index')->with('message', 'Успешно удалено');
     }
 
     public function getFilters(Request $request, $entityId)

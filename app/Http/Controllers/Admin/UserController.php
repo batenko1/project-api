@@ -56,7 +56,7 @@ class UserController
             return response()->json($user, 201);
         }
 
-        return redirect()->route('admin.users.index')->with('message', 'Success');
+        return redirect()->route('admin.users.index')->with('message', 'Успешно создано');
 
     }
 
@@ -96,7 +96,7 @@ class UserController
             return response()->json($user, 201);
         }
 
-        return redirect()->route('admin.users.index')->with('message', 'Success');
+        return redirect()->route('admin.users.index')->with('message', 'Успешно обновлено');
 
     }
 
@@ -111,7 +111,7 @@ class UserController
             return response()->json(null, 204);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.users.index')->with('message', 'Успешно удалено');
 
 
     }

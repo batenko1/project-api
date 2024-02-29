@@ -67,7 +67,7 @@ class TemplateController extends Controller
         }
 
 
-        return redirect()->route('admin.templates.index')->with('message', 'Success');
+        return redirect()->route('admin.templates.index')->with('message', 'Успешно сохранено');
 
     }
 
@@ -120,7 +120,7 @@ class TemplateController extends Controller
             return response()->json($template, 201);
         }
 
-        return redirect()->route('admin.templates.index')->with('message', 'Success');
+        return redirect()->route('admin.templates.index')->with('message', 'Успешно обновлено');
 
     }
 
@@ -138,7 +138,7 @@ class TemplateController extends Controller
             return response(null, 204);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.templates.index')->with('message', 'Успешно удалено');
 
     }
 }

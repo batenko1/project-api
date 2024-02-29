@@ -78,7 +78,7 @@ class EntityController extends Controller
             return response()->json($entity, 201);
         }
 
-        return redirect()->route('admin.entities.index')->with('message', 'Success');
+        return redirect()->route('admin.entities.index')->with('message', 'Успешно сохранено');
 
 
 
@@ -151,7 +151,7 @@ class EntityController extends Controller
             return response()->json($entity, 201);
         }
 
-        return redirect()->route('admin.entities.index')->with('message', 'Success');
+        return redirect()->route('admin.entities.index')->with('message', 'Успешно обновлено');
 
     }
 
@@ -168,7 +168,7 @@ class EntityController extends Controller
             return response()->json('Success delete', 204);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.entities.index')->with('message', 'Успешно удалено');
 
     }
 

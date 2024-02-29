@@ -119,6 +119,8 @@
                 <a href="{{ route('admin.chat.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons ti ti-layout-kanban"></i>
                     <div>Чат</div>
+                    <span class="badge bg-primary" style="display: inline-block; margin-left:10px;"
+                    >{{ \App\Models\Message::query()->where('is_read', 0)->count() }}</span>
                 </a>
             </li>
         @endcan

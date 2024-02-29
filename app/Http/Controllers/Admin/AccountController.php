@@ -87,7 +87,7 @@ class AccountController extends Controller
             return response()->json(null, 204);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.accounts.index')->with('message', 'Успешно удалено');
 
     }
 

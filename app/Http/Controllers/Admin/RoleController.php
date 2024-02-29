@@ -62,7 +62,7 @@ class RoleController extends Controller
             return response()->json('Success', 201);
         }
 
-        return redirect()->route('admin.roles.index')->with('message', 'Success');
+        return redirect()->route('admin.roles.index')->with('message', 'Успешно создано');
 
     }
 
@@ -112,7 +112,7 @@ class RoleController extends Controller
             return response()->json('Success', 201);
         }
 
-        return redirect()->route('admin.roles.index')->with('message', 'Success');
+        return redirect()->route('admin.roles.index')->with('message', 'Успешно обновлено');
     }
 
     /**
@@ -128,7 +128,7 @@ class RoleController extends Controller
             return response()->json(null, 204);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.roles.index')->with('message', 'Успешно удалено');
 
     }
 }

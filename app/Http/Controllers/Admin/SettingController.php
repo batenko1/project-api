@@ -46,7 +46,7 @@ class SettingController extends Controller
             return response()->json($setting, 201);
         }
 
-        return redirect()->route('admin.settings.index')->with('message', 'Success');
+        return redirect()->route('admin.settings.index')->with('message', 'Успешно сохранено');
 
     }
 
@@ -82,7 +82,7 @@ class SettingController extends Controller
             return response()->json($setting, 201);
         }
 
-        return redirect()->route('admin.settings.index')->with('message', 'Success');
+        return redirect()->route('admin.settings.index')->with('message', 'Успешно обновлено');
 
     }
 
@@ -99,6 +99,6 @@ class SettingController extends Controller
             return response()->json(null, 204);
         }
 
-        return redirect()->back()->with('message', 'Success');
+        return redirect()->route('admin.settings.index')->with('message', 'Успешно удалено');
     }
 }

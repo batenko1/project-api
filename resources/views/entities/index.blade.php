@@ -25,12 +25,13 @@
                             <div id="jstree-basic">
                                 <ul>
                                     @foreach($entities as $entity)
-                                        <li data-jstree='{"icon" : "ti ti-folder"}'>
+                                        <li data-jstree='{"icon" : "ti ti-folder"}' data-id="{{ $entity->id }}">
                                             {{ $entity->title }}
                                             @if($entity->child)
                                                 <ul>
                                                     @foreach($entity->child as $child)
-                                                        <li data-jstree='{"icon" : "ti ti-folder"}'>{{ $child->title }} </li>
+                                                        <li data-id="{{ $child->id }}"
+                                                            data-jstree='{"icon" : "ti ti-folder"}'>{{ $child->title }} </li>
 
                                                         @if($child->child)
                                                             <ul>
@@ -82,9 +83,38 @@
             <!-- /JSTree -->
         </div>
 
+
         <!-- / Footer -->
 
+        <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog">
+                <form class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="backDropModalTitle">Действительно удалить?</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                            Нет
+                        </button>
+                        <form action="" method="post">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                        <button type="submit" class="btn btn-primary">Да</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <div class="content-backdrop fade"></div>
+
+
     </div>
 @endsection
 
@@ -93,4 +123,38 @@
     <script src="{{ asset('assets/vendor/libs/jstree/jstree.js') }}"></script>
 
     <script src="{{ asset('assets/js/extended-ui-treeview.js') }}"></script>
+
+    <script>
+        $('#jstree-basic').on('ready.jstree', function() {
+            $('#jstree-basic').find('.jstree-anchor').each(function() {
+                // Для каждого элемента в дереве, добавляем кнопку
+                console.log('here')
+                var node = $(this).closest('.jstree-node');
+                node.append('<button class="btn btn-primary btn-sm btn-edit-entity" style="margin-left: 10px;">Редактировать</button>' +
+                    '<button class="btn btn-danger btn-sm btn-delete-entity" style="margin-left: 15px">Удалить</button>');
+            });
+        });
+
+        $('body').on('click', '.btn-edit-entity', function() {
+            let el = $(this)
+            let id = el.closest('li').data('id')
+
+            window.location.href = '/admin/entities/' + id + '/edit'
+        })
+
+        $('body').on('click', '.btn-delete-entity', function() {
+            let el = $(this)
+            let id = el.closest('li').data('id')
+
+            $('#backDropModal').find('form').attr('action', '/admin/entities/' + id)
+
+            var modal = new bootstrap.Modal(document.getElementById('backDropModal'));
+
+            // Открыть модальное окно
+            modal.show();
+
+            // window.location.href = '/admin/entities/' + id + '/edit'
+        })
+
+    </script>
 @endsection

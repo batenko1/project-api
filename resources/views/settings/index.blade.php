@@ -22,8 +22,8 @@
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
-                <div class="table-responsive text-nowrap">
-                    <table class="table">
+                <div class="table-responsive text-nowrap" style="padding: 20px;">
+                    <table class="table dataTable-js">
                         <thead>
                         <tr>
                             <th>#id</th>
@@ -86,4 +86,10 @@
 
         <div class="content-backdrop fade"></div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $('.dataTable-js').DataTable()
+    </script>
 @endsection
