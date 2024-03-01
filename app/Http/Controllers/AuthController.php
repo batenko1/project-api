@@ -41,7 +41,9 @@ class AuthController extends Controller
 
                 return redirect()->route('admin.main');
             } else {
-                return redirect()->back();
+                return redirect()->back()->withInput()->withErrors([
+                    'email' => 'Неправильный пароль'
+                ]);
             }
 
         }
