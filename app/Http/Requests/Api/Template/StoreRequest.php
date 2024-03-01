@@ -30,7 +30,18 @@ class StoreRequest extends FormRequest
         return [
             'title' => 'required|string',
             'variables' => 'required|string',
-            'file' => !$this->template ? 'required|file' : ''
+            'file' => !$this->template ? 'required|file|mimes:doc,docx' : ''
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Заголовок обязателен',
+            'variables' => 'Переменные обязательны',
+            'file.required' => 'Файл обязателен',
+            'file.file' => 'Неккоректный тип файла',
+            'file.mimes' => 'Неправильный формат файла'
         ];
     }
 }

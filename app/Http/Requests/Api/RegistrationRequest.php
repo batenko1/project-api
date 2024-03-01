@@ -33,6 +33,23 @@ class RegistrationRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'fio.required' => 'ФИО обязательное',
+            'identification_code.required' => 'Код обязателен',
+            'image1.required' => 'Изображение обязательное',
+            'image2.required' => 'Изображение обязательное',
+            'image3.required' => 'Изображение обязательное',
+            'image1.file' => 'Неправильный тип файла',
+            'image2.file' => 'Неправильный тип файла',
+            'image3.file' => 'Неправильный тип файла',
+            'image1.mimes' => 'Файл должен быть формата jpeg,png,jpg',
+            'image2.mimes' => 'Файл должен быть формата jpeg,png,jpg',
+            'image3.mimes' => 'Файл должен быть формата jpeg,png,jpg',
+        ];
+    }
+
     protected function failedValidation(Validator $validator): void
     {
         $response = response()->json($validator->errors());

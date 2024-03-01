@@ -27,4 +27,15 @@ class StoreRequest extends FormRequest
             'price' => 'required|numeric'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Заголовок обязателен',
+            'title.string' => 'Заголовок должен быть строкой',
+            'entity_id.required' => 'Категория обязательна',
+            'entity_id.exists' => 'Несуществующая категория',
+            'price.required' => 'Цена обязательная'
+        ];
+    }
 }

@@ -29,4 +29,13 @@ class StoreRequest extends FormRequest
             'filters_name' => 'sometimes'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Заголовок обязательный',
+            'title.string' => 'Заголовок должен быть строкой',
+            'parent_id.exists' => 'Несуществующая категория'
+        ];
+    }
 }

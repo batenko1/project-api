@@ -25,14 +25,43 @@ class CreateOrderController extends Controller
 
        $price = $products->sum('price');
 
+       $user = DB::connection('mysql_bonuses')
+           ->table('users')
+           ->where('identification_code', $account->identification_code)
+           ->first();
+
+       $bonuses = 0;
+
+       if($user) {
+           $bonuses = DB::connection('mysql_bonuses')
+               ->table('bonuses')
+               ->where('user_id', $user->id)
+               ->where('type', 'add')
+               ->sum('price');
+       }
+
+
+
 
        DB::beginTransaction();
+
+       if($bonuses > $price) {
+           $price = 0;
+           $bonuses = $price;
+       }
+
+       elseif($bonuses && $price > $bonuses) {
+           $price = $price - $bonuses;
+       }
+
+
 
        try {
            $order = new Order();
            $order->account_id = $account->id;
            $order->price = $price;
            $order->fio = $account->fio;
+           $order->bonuses = $bonuses;
            $order->save();
 
 
@@ -73,14 +102,27 @@ class CreateOrderController extends Controller
                    ]);
            }
 
+           if($bonuses) {
+               DB::connection('mysql_bonuses')
+                   ->table('bonuses')
+                   ->insert([
+                       'user_id' => $user->id,
+                       'bonuses' => $bonuses,
+                       'type' => 'remove'
+                   ]);
+           }
 
-           DB::connection('mysql_bonuses')
-               ->table('bonuses')
-               ->insert([
-                   'user_id' => $user->id,
-                   'bonuses' => $sumDiscount,
-                   'type' => 'add'
-               ]);
+           if($price) {
+               DB::connection('mysql_bonuses')
+                   ->table('bonuses')
+                   ->insert([
+                       'user_id' => $user->id,
+                       'bonuses' => $sumDiscount,
+                       'type' => 'add'
+                   ]);
+           }
+
+
 
 
            DB::commit();

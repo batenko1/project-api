@@ -27,4 +27,13 @@ class StoreRequest extends FormRequest
             'value' => 'required|string',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Заголовок обязателен',
+            'key.required' => 'Ключ обязателен',
+            'value' => 'Значение обязательное'
+        ];
+    }
 }

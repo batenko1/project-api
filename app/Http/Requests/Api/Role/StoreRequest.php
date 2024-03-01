@@ -26,4 +26,12 @@ class StoreRequest extends FormRequest
             'permissions' => 'required|array'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name' => 'Имя обязательное',
+            'permissions' => 'Права обязательны'
+        ];
+    }
 }

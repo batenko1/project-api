@@ -38,4 +38,17 @@ class StoreRequest extends FormRequest
             'role_id' => 'required|exists:roles,id'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Имя обязательное',
+            'email.required' => 'Почта обязательна',
+            'email.email' => 'Неккоректная почта',
+            'email.unique' => 'Данная почта уже занята',
+            'password.required' => 'Пароль обязателен',
+            'role_id.required' => 'Роль обязательна',
+            'role_id.exists' => 'Несуществующая почта'
+        ];
+    }
 }

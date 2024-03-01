@@ -26,6 +26,9 @@
                                         <input type="text" class="form-control @if($errors->first('name')) is-invalid @endif"
                                                id="basic-default-name"
                                                value="{{ old('name') }}" name="name"/>
+                                        @if($errors->first('name'))
+                                            <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+                                        @endif
                                     </div>
                                 </div>
 
