@@ -37,10 +37,8 @@ class CreateOrderController extends Controller
                ->table('bonuses')
                ->where('user_id', $user->id)
                ->where('type', 'add')
-               ->sum('price');
+               ->sum('bonuses');
        }
-
-
 
 
        DB::beginTransaction();

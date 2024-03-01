@@ -28,12 +28,14 @@
                                 <dd class="col-sm-8">
                                     @foreach($account->photos as $photo)
 
-                                        <img src="{{ asset('storage/'. $photo->image) }}" width="150" style="display:inline-block; margin-bottom: 10px;" alt="">
-                                        @if($photo->is_verified)
-                                            <span class="badge bg-success">Верифицирован</span>
-                                        @else
-                                            <span class="badge bg-danger">Не верифицирован</span>
-                                        @endif
+                                        <div style="display:inline-block">
+                                            <img src="{{ asset('storage/'. $photo->image) }}" width="150" style="display:inline-block; margin-bottom: 10px;" alt="">
+                                            @if($photo->is_verified)
+                                                <span class="badge bg-success" style="display: block; width:max-content;">Верифицирован</span>
+                                            @else
+                                                <span class="badge bg-danger" style="display: block; width:max-content;">Не верифицирован</span>
+                                            @endif
+                                        </div>
 
                                     @endforeach
                                 </dd>

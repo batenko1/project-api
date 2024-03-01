@@ -45,18 +45,19 @@
                                 <td>{{ $order->created_at->format('d.m.Y') }}</td>
                                 <td>{{ $order->fio }}</td>
                                 <td>
-                                    <a href="{{ route('admin.accounts.show', $order->account_id) }}" target="_blank">Посмотреть</a>
+                                    <a href="{{ route('admin.accounts.show', $order->account_id) }}"
+                                       target="_blank">Посмотреть</a>
                                 </td>
-                                <th>{{ $order->price }}</th>
-                                <th><span class="badge bg-info">{{ $order->status }}</span></th>
-                                @if($order->is_verified)
-                                    <th>
+                                <td>{{ $order->price }}</td>
+                                <td><span class="badge bg-info">{{ $order->status }}</span></td>
+                                @if($order->is_agree)
+                                    <td>
                                         <span class="badge bg-success">Да</span>
-                                    </th>
+                                    </td>
                                 @else
-                                    <th>
+                                    <td>
                                         <span class="badge bg-danger">Нет</span>
-                                    </th>
+                                    </td>
                                 @endif
 
                                 <td>
