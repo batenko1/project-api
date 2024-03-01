@@ -208,8 +208,6 @@
                 .listen('SendMessage', e => {
                     if (e) {
 
-                        console.log(e)
-
                         if(e.messageHtml) {
                             $('input[name="message"]').val('')
                             $('.chat-history').append(e.messageHtml)

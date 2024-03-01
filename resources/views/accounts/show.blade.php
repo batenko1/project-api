@@ -29,6 +29,11 @@
                                     @foreach($account->photos as $photo)
 
                                         <img src="{{ asset('storage/'. $photo->image) }}" width="150" style="display:inline-block; margin-bottom: 10px;" alt="">
+                                        @if($photo->is_verified)
+                                            <span class="badge bg-success">Верифицирован</span>
+                                        @else
+                                            <span class="badge bg-danger">Не верифицирован</span>
+                                        @endif
 
                                     @endforeach
                                 </dd>

@@ -160,7 +160,8 @@
             .listen('SendMessage', e => {
                 if(e) {
                     console.log('test event')
-                    $('#audio').play()
+                    var audio = document.getElementById('audio');
+                    audio.play();
                 }
 
             })
@@ -168,7 +169,8 @@
         window.Echo.channel('chat-order')
             .listen('OrderEvent', e => {
                 if(e) {
-                    $('#audio').play()
+                    var audio = document.getElementById('audio');
+                    audio.play();
                 }
 
             })

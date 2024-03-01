@@ -39,6 +39,9 @@
                                         <button type="button" class="btn btn-primary btn-select-all"
                                                 style="display: block; margin-bottom: 10px;">Выбрать все</button>
                                         @foreach($permissions as $permission)
+                                            @if(!$permission->title)
+                                                @continue
+                                            @endif
                                             <div class="form-check">
                                                 <input class="form-check-input" name="permissions[]" type="checkbox" value="{{ $permission->id }}"
                                                        id="defaultCheck3">

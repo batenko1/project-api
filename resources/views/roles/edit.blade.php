@@ -35,6 +35,9 @@
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Права</label>
                                     <div class="col-sm-10">
                                         @foreach($permissions as $permission)
+                                            @if(!$permission->title)
+                                                @continue
+                                            @endif
                                             <div class="form-check">
                                                 <input class="form-check-input"
                                                        @if(in_array($permission->id, $role->permissions->pluck('id')->toArray())) checked @endif
