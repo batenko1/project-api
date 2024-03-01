@@ -19,119 +19,119 @@ class CreateOrderController extends Controller
     public function __invoke(Request $request)
     {
 
-       $account = Account::query()->find($request->account_id);
-       $productsIds = json_decode($request->products);
-       $products = Product::query()->whereIn('id', $productsIds)->get();
+        $account = Account::query()->find($request->account_id);
+        $productsIds = json_decode($request->products);
+        $products = Product::query()->whereIn('id', $productsIds)->get();
 
-       $price = $products->sum('price');
+        $price = $products->sum('price');
 
-       $user = DB::connection('mysql_bonuses')
-           ->table('users')
-           ->where('identification_code', $account->identification_code)
-           ->first();
+        $user = DB::connection('mysql_bonuses')
+            ->table('users')
+            ->where('identification_code', $account->identification_code)
+            ->first();
 
-       $bonuses = 0;
+        $bonuses = 0;
 
-       if($user) {
-           $bonuses = DB::connection('mysql_bonuses')
-               ->table('bonuses')
-               ->where('user_id', $user->id)
-               ->where('type', 'add')
-               ->sum('bonuses');
-       }
-
-
-       DB::beginTransaction();
-
-       if($bonuses > $price) {
-           $price = 0;
-           $bonuses = $price;
-       }
-
-       elseif($bonuses && $price > $bonuses) {
-           $price = $price - $bonuses;
-       }
+        if ($user) {
+            $bonuses = DB::connection('mysql_bonuses')
+                ->table('bonuses')
+                ->where('user_id', $user->id)
+                ->where('type', 'add')
+                ->sum('bonuses');
+        }
 
 
+        DB::beginTransaction();
 
-       try {
-           $order = new Order();
-           $order->account_id = $account->id;
-           $order->price = $price;
-           $order->fio = $account->fio;
-           $order->bonuses = $bonuses;
-           $order->save();
-
-
-           foreach ($products as $product) {
-               $order->products()->attach($order->id, [
-                   'product_id' => $product->id,
-                   'price' => $product->price,
-                   'values' => '[]'
-               ]);
-           }
-
-           $template = Template::query()->first();
-           $filePath = storage_path('app/'. $template->file);
-           $replacements = explode(',', $template->variables);
-
-           foreach ($replacements as $key => $item) {
-               $replacements[$key] = $order->{$item};
-           }
-
-           $contract = $this->createContract($filePath, $replacements);
-           $order->file_contract = $contract;
-           $order->save();
-
-           $percent = Setting::query()->where('key', 'percent_discount')->first();
-
-           $sumDiscount = ($order->price * $percent->value) / 100;
-
-           $user = DB::connection('mysql_bonuses')
-               ->table('users')
-               ->where('identification_code', $order->account->identification_code)
-               ->first();
-
-           if(!$user) {
-               $user = DB::connection('mysql_bonuses')
-                   ->table('users')
-                   ->insert([
-                       'identification_code' => $order->account->identification_code
-                   ]);
-           }
-
-           if($bonuses) {
-               DB::connection('mysql_bonuses')
-                   ->table('bonuses')
-                   ->insert([
-                       'user_id' => $user->id,
-                       'bonuses' => $bonuses,
-                       'type' => 'remove'
-                   ]);
-           }
-
-           if($price) {
-               DB::connection('mysql_bonuses')
-                   ->table('bonuses')
-                   ->insert([
-                       'user_id' => $user->id,
-                       'bonuses' => $sumDiscount,
-                       'type' => 'add'
-                   ]);
-           }
+        if ($bonuses > $price) {
+            $price = 0;
+            $bonuses = $price;
+        } elseif ($bonuses && $price > $bonuses) {
+            $price = $price - $bonuses;
+        }
 
 
+        try {
+            $order = new Order();
+            $order->account_id = $account->id;
+            $order->price = $price;
+            $order->fio = $account->fio;
+            $order->bonuses = $bonuses;
+            $order->save();
 
 
-           DB::commit();
-       }
-       catch (\Exception $e) {
-           DB::rollBack();
-           dd($e);
-       }
+            foreach ($products as $product) {
+                $order->products()->attach($order->id, [
+                    'product_id' => $product->id,
+                    'price' => $product->price,
+                    'values' => '[]'
+                ]);
+            }
+
+            $template = Template::query()->first();
+            $filePath = storage_path('app/' . $template->file);
+            $replacements = explode(',', $template->variables);
+
+            foreach ($replacements as $key => $item) {
+                $replacements[$key] = $order->{$item};
+            }
+
+            $contract = $this->createContract($filePath, $replacements);
+            $order->file_contract = $contract;
+            $order->save();
+
+            $percent = Setting::query()->where('key', 'percent_discount')->first();
+
+            $sumDiscount = ($order->price * $percent->value) / 100;
+
+            $user = DB::connection('mysql_bonuses')
+                ->table('users')
+                ->where('identification_code', $order->account->identification_code)
+                ->first();
+
+            if (!$user) {
+                $id = DB::connection('mysql_bonuses')
+                    ->table('users')
+                    ->insertGetId([
+                        'identification_code' => $order->account->identification_code
+                    ]);
+
+                $user = DB::connection('mysql_bonuses')
+                    ->table('users')
+                    ->where('id', $id)
+                    ->first();
+            }
 
 
-       return response()->json($order, 201);
+            if ($bonuses) {
+                DB::connection('mysql_bonuses')
+                    ->table('bonuses')
+                    ->insert([
+                        'user_id' => $user->id,
+                        'bonuses' => $bonuses,
+                        'type' => 'remove'
+                    ]);
+            }
+
+            if ($price) {
+                DB::connection('mysql_bonuses')
+                    ->table('bonuses')
+                    ->insert([
+                        'user_id' => $user->id,
+                        'bonuses' => $sumDiscount,
+                        'type' => 'add'
+                    ]);
+            }
+
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
+
+
+        return response()->json($order, 201);
 
     }
 
@@ -140,7 +140,8 @@ class CreateOrderController extends Controller
      * @throws CopyFileException
      * @throws CreateTemporaryFileException
      */
-    public function createContract($filePath, $replacements) {
+    public function createContract($filePath, $replacements)
+    {
 
         $templateProcessor = new TemplateProcessor($filePath);
 
@@ -150,8 +151,8 @@ class CreateOrderController extends Controller
         }
 
 
-        $path = 'orders/'. time().\Str::random(8) .'.docx';
-        $orderContract = storage_path('app/public/'. $path);
+        $path = 'orders/' . time() . \Str::random(8) . '.docx';
+        $orderContract = storage_path('app/public/' . $path);
 
         $directoryPath = pathinfo($orderContract, PATHINFO_DIRNAME);
 
