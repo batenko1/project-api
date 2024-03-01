@@ -43,9 +43,9 @@
                                 <dt class="col-sm-3">Бонусы</dt>
                                 <div class="col-sm-8">
 
-                                    {{ $bonuses->sum('bonuses') }}
+                                    <span class="badge bg-info">{{ $bonuses->sum('bonuses') }}</span>
 
-                                    <table>
+                                    <table style="width:60%;" class="table">
                                         <tr>
                                             <td>Количество</td>
                                             <td>Тип расчета</td>
@@ -55,7 +55,13 @@
 
                                             <tr>
                                                 <td>{{ $bonus->bonuses }}</td>
-                                                <td>{{ $bonus->type == 'add' ? 'Начислено' : 'Снято' }}</td>
+                                                <td>
+                                                    @if($bonus->type == 'add')
+                                                    <span class="badge bg-success">Начислено</span>
+                                                    @else
+                                                        <span class="badge bg-danger">Снято</span>
+                                                    @endif
+                                                </td>
                                             </tr>
 
                                         @endforeach
