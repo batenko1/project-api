@@ -111,11 +111,14 @@
 
             })
 
-            $('body').on('click', '.type-filter', function () {
+            $('body').on('change', '.type-filter', function () {
                 let el = $(this)
 
                 if(el.val() == 'select') {
-                    el.closest('.one-filter').find('.col-sm-2.d-none').removeClass('d-none')
+                    el.closest('.one-filter').find('.select-values').removeClass('d-none')
+                }
+                else {
+                    el.closest('.one-filter').find('.select-values').addClass('d-none')
                 }
 
             })

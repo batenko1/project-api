@@ -34,7 +34,7 @@
         </div>
 
         @if(isset($filter) && $filter->type == 'select')
-            <div class="col-sm-2 ">
+            <div class="col-sm-2 select-values">
                 <input type="text" class="form-control"
                        placeholder="Значения(указывать через запятую)"
                        name="filter_values[{{$time}}]"
@@ -43,7 +43,7 @@
             </div>
 
         @else
-            <div class="col-sm-2 d-none">
+            <div class="col-sm-2 d-none select-values">
                 <input type="text" class="form-control"
                        placeholder="Значения(указывать через запятую)"
                        name="filter_values[{{$time}}]"
