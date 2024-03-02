@@ -20,6 +20,20 @@
                         id="app-chat-contacts">
 
                         <hr class="container-m-nx m-0"/>
+
+                        <div class="sidebar-header">
+                            <div class="d-flex align-items-center me-3 me-lg-0">
+
+                                <div class="flex-grow-1 input-group input-group-merge rounded-pill">
+                                    <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
+                                    <input type="text" class="form-control chat-search-input" placeholder="Поиск" aria-label="Search..." aria-describedby="basic-addon-search31">
+                                </div>
+                            </div>
+                            <i class="ti ti-x cursor-pointer d-lg-none d-block position-absolute mt-2 me-1 top-0 end-0" data-overlay="" data-bs-toggle="sidebar" data-target="#app-chat-contacts"></i>
+                        </div>
+
+                        <hr>
+
                         <div class="sidebar-body">
                             <div class="chat-contact-list-item-title">
                                 <h5 class="text-primary mb-0 px-4 pt-3 pb-2">Чаты</h5>
@@ -284,6 +298,18 @@
                 })
 
 
+
+            })
+
+            $('.chat-search-input').keyup(function() {
+                let el = $(this)
+                let val = el.val()
+
+                if(val.length) {
+
+
+
+                }
 
             })
 
