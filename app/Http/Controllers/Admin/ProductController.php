@@ -35,8 +35,16 @@ class ProductController extends Controller
 
                     if (strpos($key, 'filter') !== false) {
                         $query->whereHas('values', function ($query) use ($value, $filterId) {
-                            $query->whereIn('value', $value)
-                                ->where('filter_id', $filterId);
+
+                            if(is_array($value)) {
+                                $query->whereIn('value', $value)
+                                    ->where('filter_id', $filterId);
+                            }
+                            else {
+                                $query->where('value', $value)
+                                    ->where('filter_id', $filterId);
+                            }
+
                         });
                     }
                 }
