@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\PrepareFilterAction;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\ChangeStatusOrderController;
+use App\Http\Controllers\PaymentAction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
 
 Route::post('registration', RegistrationController::class);
+
+Route::post('payment/{orderId}', PaymentAction::class);
 
 
 Route::group([

@@ -132,10 +132,11 @@ class CreateOrderController extends Controller
         }
 
 
-        $result = PaymentAction::payment($order->id, $order->price);
+//        $result = PaymentAction::payment($order, $order->price);
 
 
-        return response()->json(compact('result'), 201);
+//        return response()->json(compact('result'), 201);
+        return response()->json($order, 201);
 
     }
 

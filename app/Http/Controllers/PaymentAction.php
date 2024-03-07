@@ -2,30 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
+use App\Models\Order;
+use App\Models\Setting;
 
 class PaymentAction extends Controller
 {
 
-
-
-    public static function payment($orderId, $price)
+    public function __invoke($orderId)
     {
+
+        $order = Order::query()->findOrFail($orderId);
 
         $ch = curl_init();
 
+
+        $paymentKey = Setting::query()->where('key', 'payment_key')->first()->value;
 
 
         curl_setopt($ch, CURLOPT_URL, "https://sandbox.payler.com/gapi/StartSession");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-            'order_id' => $orderId,
-            'key' => 'ca7782e8-161d-4b99-b5f5-d82795500da5',
+            'order_id' => $order->id,
+            'key' => $paymentKey,
             'type' => 'TwoStep',
             'currency' => 'RUB',
-            'amount' => $price,
+            'amount' => $order->price,
 //            'email' => 'batenko4@gmail.com',
             'return_url_success' => 'http://project-api.test/success',
             'return_url_decline' => 'http://project-api.test/failed'
@@ -33,6 +34,9 @@ class PaymentAction extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $result = curl_exec($ch);
+
+        $order->session_id = $result->session_id;
+        $order->save();
 
 
         curl_close($ch);
@@ -52,7 +56,7 @@ class PaymentAction extends Controller
         curl_setopt($ch, CURLOPT_URL, "https://sandbox.payler.com/gapi/Pay");
         curl_setopt($ch, CURLOPT_POST, 0);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-            'key' => 'ca7782e8-161d-4b99-b5f5-d82795500da5',
+            'key' => $paymentKey,
             'session_id' => $result->session_id
         ]));
 
