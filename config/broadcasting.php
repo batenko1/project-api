@@ -43,7 +43,7 @@ return [
 //                'encrypted' => true,
 //                'useTLS' => env('PUSHER_SCHEME', 'https') === 'https',
 
-                'host' => 'project-api.test',
+                'host' => env('APP_URL_WITHOUT_SCHEMA'),
                 'port' => 2053,
                 'scheme' => 'http',
                 'cluster' => env('PUSHER_APP_CLUSTER'),
