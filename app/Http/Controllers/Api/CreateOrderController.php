@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PaymentAction;
 use App\Models\Account;
 use App\Models\Order;
 use App\Models\Product;
@@ -131,7 +132,10 @@ class CreateOrderController extends Controller
         }
 
 
-        return response()->json($order, 201);
+        $result = PaymentAction::payment($order->id, $order->price);
+
+
+        return response()->json(compact('result'), 201);
 
     }
 

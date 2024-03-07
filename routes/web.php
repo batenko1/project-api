@@ -31,7 +31,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class);
 
-Route::get('payment', \App\Http\Controllers\PaymentAction::class);
 
 
 Route::group([
