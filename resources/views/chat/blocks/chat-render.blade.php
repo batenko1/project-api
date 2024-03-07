@@ -6,7 +6,7 @@
         <div class="chat-contact-info flex-grow-1 ms-2">
             <h6 class="chat-contact-name text-truncate m-0">Пользователь</h6>
             <p class="chat-contact-status text-muted text-truncate mb-0">
-                {{ \Str::replace($chat->messages->last()->message, 40, '...') }}
+                {{ \Str::limit($chat->messages->last()->message, 40, '...') }}
             </p>
         </div>
         <small class="text-muted mb-auto"

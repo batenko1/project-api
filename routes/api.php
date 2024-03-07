@@ -61,7 +61,7 @@ Route::group([
 
     Route::apiResource('permissions', PermissionController::class);
 
-//    Route::apiResource('products', ProductController::class);
+    Route::apiResource('products', ProductController::class);
 
     Route::apiResource('users', UserController::class);
 
