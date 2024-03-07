@@ -25,7 +25,7 @@ class SettingSeeder extends Seeder
                 'title' => 'Ключ эквайринга',
                 'key' => 'payment_key',
                 'value' => 'ca7782e8-161d-4b99-b5f5-d82795500da5',
-                'is_not_delete' => 1
+                'is_not_deleted' => 1
             ]
         ];
 
