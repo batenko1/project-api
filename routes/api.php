@@ -47,6 +47,7 @@ Route::post('registration', RegistrationController::class);
 
 Route::post('payment/{orderId}', PaymentAction::class);
 
+Route::get('product-filters', \App\Http\Controllers\Api\ProductController::class);
 
 Route::group([
     'middleware' => 'auth:sanctum'
@@ -60,7 +61,7 @@ Route::group([
 
     Route::apiResource('permissions', PermissionController::class);
 
-    Route::apiResource('products', ProductController::class);
+//    Route::apiResource('products', ProductController::class);
 
     Route::apiResource('users', UserController::class);
 
