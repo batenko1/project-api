@@ -52,6 +52,7 @@ use Tests\TestCase;
  *     summary="Получить данные одной настройки",
  *     description="Этот метод позволяет получить данные одной настройки",
  *     tags={"Settings"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="setting",
  *       in="path",
@@ -96,6 +97,7 @@ use Tests\TestCase;
  *     summary="Создание новой настройки",
  *     description="Этот метод позволяет создать новую настройку",
  *     tags={"Settings"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\RequestBody(
  *         description="Заголовок",
  *         required=true,
@@ -140,6 +142,7 @@ use Tests\TestCase;
  *     summary="Обновление текущей настройки по идентификатору",
  *     description="Этот метод позволяет обновить настройку по идентификатору",
  *     tags={"Settings"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="setting",
  *       in="path",
@@ -199,6 +202,7 @@ use Tests\TestCase;
  *     summary="Удаление настройки по идентификатору",
  *     description="Этот метод позволяет удалить настройку по идентификатору",
  *     tags={"Settings"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="setting",
  *       in="path",

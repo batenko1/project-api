@@ -44,6 +44,7 @@ use Tests\TestCase;
  *     summary="Получить данные одного продукта",
  *     description="Этот метод позволяет получить данные одного продукта",
  *     tags={"Products"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="product",
  *       in="path",
@@ -80,6 +81,7 @@ use Tests\TestCase;
  *     summary="Создание нового продуктак",
  *     description="Этот метод позволяет создать один продукт",
  *     tags={"Products"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\RequestBody(
  *         description="Заголовок",
  *         required=true,
@@ -113,6 +115,7 @@ use Tests\TestCase;
  *     summary="Обновление текущего продукта по идентификатору",
  *     description="Этот метод позволяет обновить продукт по идентификатору",
  *     tags={"Products"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="product",
  *       in="path",
@@ -161,6 +164,7 @@ use Tests\TestCase;
  *     summary="Удаление продукта по идентификатору",
  *     description="Этот метод позволяет удалить продукт по идентификатору",
  *     tags={"Products"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="product",
  *       in="path",

@@ -17,6 +17,7 @@ use Tests\TestCase;
  *     summary="Получить список фильтров",
  *     description="Этот метод позволяет получить список фильтров",
  *     tags={"Filters"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Response(
  *         response=200,
  *         description="Список фильтров из базы данных",
@@ -59,6 +60,7 @@ use Tests\TestCase;
  *     summary="Получить список видов фильтров",
  *     description="Этот метод позволяет получить виды фильтров",
  *     tags={"Filters"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Response(
  *          response=200,
  *          description="Список видов фильтров",
@@ -74,6 +76,7 @@ use Tests\TestCase;
  *     summary="Получить данные одного фильтра",
  *     description="Этот метод позволяет получить данные одного фильтра",
  *     tags={"Filters"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="filter",
  *       in="path",
@@ -123,6 +126,7 @@ use Tests\TestCase;
  *     summary="Создание нового фильтра",
  *     description="Этот метод позволяет создать новый фильтр",
  *     tags={"Filters"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\RequestBody(
  *         description="Заголовок",
  *         required=true,
@@ -177,6 +181,7 @@ use Tests\TestCase;
  *     summary="Обновление текущего фильтра по идентификатору",
  *     description="Этот метод позволяет обновить один фильтр по идентификатору",
  *     tags={"Filters"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="filter",
  *       in="path",
@@ -245,6 +250,7 @@ use Tests\TestCase;
  *     summary="Удаление текущего фильтра по идентификатору",
  *     description="Этот метод позволяет удалить один фильтр по идентификатору",
  *     tags={"Filters"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="filter",
  *       in="path",

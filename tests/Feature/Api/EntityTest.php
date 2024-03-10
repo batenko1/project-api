@@ -43,6 +43,7 @@ use Tests\TestCase;
  *     summary="Получить данные одной сущности",
  *     description="Этот метод позволяет получить данные одной сущности",
  *     tags={"Entities"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="entity",
  *       in="path",
@@ -79,6 +80,7 @@ use Tests\TestCase;
  *     summary="Создание новой сущности",
  *     description="Этот метод позволяет создать одну сущность",
  *     tags={"Entities"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\RequestBody(
  *         description="Заголовок",
  *         required=true,
@@ -117,6 +119,7 @@ use Tests\TestCase;
  *     summary="Обновление текущей сущности по идентификатору",
  *     description="Этот метод позволяет обновить одну сущность по идентификатору",
  *     tags={"Entities"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="entity",
  *       in="path",
@@ -170,6 +173,7 @@ use Tests\TestCase;
  *     summary="Удаление текущей сущности по идентификатору",
  *     description="Этот метод позволяет удалить одну сущность по идентификатору",
  *     tags={"Entities"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="entity",
  *       in="path",

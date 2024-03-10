@@ -15,6 +15,7 @@ use Tests\TestCase;
  *     summary="Получить список профилей",
  *     description="Этот метод позволяет получить список аккаунтов",
  *     tags={"Accounts"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Response(
  *         response=200,
  *         description="Список аккаунтов из базы данных",
@@ -41,6 +42,7 @@ use Tests\TestCase;
  *     summary="Получить данные одного аккаунта",
  *     description="Этот метод позволяет получить данные одного аккаунта",
  *     tags={"Accounts"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="account",
  *       in="path",
@@ -78,6 +80,7 @@ use Tests\TestCase;
  *     summary="Удаление аккаунта по идентификатору",
  *     description="Этот метод позволяет удалить один аккаунт по идентификатору",
  *     tags={"Accounts"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="account",
  *       in="path",
@@ -103,6 +106,7 @@ use Tests\TestCase;
  *     summary="Метод возвращает заказы для определенного аккаунта",
  *     description="Этот метод позволяет получить список аккаунтов",
  *     tags={"Accounts"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="account",
  *       in="path",

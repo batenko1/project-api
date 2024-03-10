@@ -52,6 +52,7 @@ use Tests\TestCase;
  *     summary="Получить данные одного шаблона",
  *     description="Этот метод позволяет получить данные одного шаблона",
  *     tags={"Templates"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="template",
  *       in="path",
@@ -99,6 +100,7 @@ use Tests\TestCase;
  *     summary="Создание нового шаблона",
  *     description="Этот метод позволяет создать новый шаблон",
  *     tags={"Templates"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\RequestBody(
  *         description="Заголовок",
  *         required=true,
@@ -151,6 +153,7 @@ use Tests\TestCase;
  *     summary="Обновление текущего шаблона по идентификатору",
  *     description="Этот метод позволяет обновить шаблон по идентификатору",
  *     tags={"Templates"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="template",
  *       in="path",
@@ -217,6 +220,7 @@ use Tests\TestCase;
  *     summary="Удаление шаблона по идентификатору",
  *     description="Этот метод позволяет удалить шаблон по идентификатору",
  *     tags={"Settings"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="template",
  *       in="path",

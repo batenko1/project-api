@@ -65,6 +65,7 @@ use Tests\TestCase;
  *     summary="Получить данные одного заказа",
  *     description="Этот метод позволяет получить данные одного сущности",
  *     tags={"Orders"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="order",
  *       in="path",
@@ -122,6 +123,7 @@ use Tests\TestCase;
  *     summary="Удаление заказа по идентификатору",
  *     description="Этот метод позволяет удалить заказ по идентификатору",
  *     tags={"Orders"},
+ *     security={{ "bearerAuth": {} }},
  *     @OA\Parameter(
  *       name="order",
  *       in="path",

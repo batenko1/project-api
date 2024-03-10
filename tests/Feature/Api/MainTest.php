@@ -17,6 +17,13 @@ use Tests\TestCase;
  *         email="admin@admin.com",
  *         name="API Support"
  *     )
+ * ),
+ *  * @OA\Components(
+ *     @OA\SecurityScheme(
+ *         securityScheme="bearerAuth",
+ *         type="http",
+ *         scheme="bearer"
+ *     )
  * )
  *
  */
