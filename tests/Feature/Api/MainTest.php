@@ -11,11 +11,11 @@ use Tests\TestCase;
  *
  * @OA\Info(
  *     version="2.0.0",
- *     title="Viyar API",
+ *     title="API",
  *     description="Документация запросов",
  *     @OA\Contact(
- *         email="olegzharko@egmail.com",
- *         name="Viyar API Support"
+ *         email="admin@admin.com",
+ *         name="API Support"
  *     )
  * )
  *

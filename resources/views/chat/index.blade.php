@@ -120,12 +120,12 @@
                                     <input
                                         class="form-control message-input border-0 me-3 shadow-none"
                                         name="message"
-                                        placeholder="Type your message here"/>
+                                        placeholder="Напиши свое сообщение"/>
                                     <div class="message-actions d-flex align-items-center">
 
                                         <button class="btn btn-primary d-flex send-msg-btn btn-send-message">
                                             <i class="ti ti-send me-md-1 me-0"></i>
-                                            <span class="align-middle d-md-inline-block d-none">Send</span>
+                                            <span class="align-middle d-md-inline-block d-none">Отправить</span>
                                         </button>
                                     </div>
                                 </form>

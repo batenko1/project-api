@@ -87,6 +87,11 @@
 
 @section('js')
     <script>
-        $('.dataTable-js').DataTable({order: [[0, 'desc']]})
+        $('.dataTable-js').DataTable({
+            order: [[0, 'desc']],
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Russian.json"
+            }
+        })
     </script>
 @endsection
