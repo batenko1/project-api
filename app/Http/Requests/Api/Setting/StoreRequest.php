@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'title' => 'required|string',
             'key' => 'required|string',
-            'value' => 'required|string',
+            'value' => 'required',
         ];
     }
 

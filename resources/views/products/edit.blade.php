@@ -83,7 +83,7 @@
 
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Создать</button>
+                                        <button type="submit" class="btn btn-primary">Обновить</button>
                                     </div>
                                 </div>
                             </form>

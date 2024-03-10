@@ -133,9 +133,16 @@ class EntityController extends Controller
                 }
             }
 
-            if($request->get('filter_type')) {
 
+            if($request->get('filter_type')) {
                 StoreFilters::save($entity, $request);
+            }
+            else {
+                foreach ($request->get('filter_name') as $key => $filterName) {
+                    Filter::query()->where('id', $key)->update([
+                        'title' => $filterName
+                    ]);
+                }
             }
 
             $this->storePermissions('entity '.$entity->id);

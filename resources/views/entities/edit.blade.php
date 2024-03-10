@@ -46,7 +46,7 @@
                                             <option value="">Укажите родителя</option>
                                             @foreach($listEntities as $listEntity)
                                                 <option
-                                                    @if($listEntity->id == $entity->id) selected @endif
+                                                    @if($listEntity->id == $entity->parent_id) selected @endif
                                                     value="{{ $listEntity->id }}">{{ $listEntity->title }}</option>
                                             @endforeach
 

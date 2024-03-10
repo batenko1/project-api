@@ -38,7 +38,9 @@
                                                         @if($child->child)
                                                             <ul>
                                                                 @foreach($child->child as $item)
-                                                                    <li data-jstree='{"icon" : "ti ti-folder"}'>{{ $item->title }}</li>
+                                                                    <li
+                                                                        data-id="{{ $item->id }}"
+                                                                        data-jstree='{"icon" : "ti ti-folder"}'>{{ $item->title }}</li>
                                                                 @endforeach
                                                             </ul>
                                                         @endif
@@ -97,6 +99,11 @@
 
 
     </div>
+    <style>
+        .jstree-default .jstree-anchor {
+            height: 40px;
+        }
+    </style>
 @endsection
 
 
@@ -106,15 +113,36 @@
     <script src="{{ asset('assets/js/extended-ui-treeview.js') }}"></script>
 
     <script>
-        $('#jstree-basic').on('ready.jstree', function() {
-            $('#jstree-basic').find('.jstree-anchor').each(function() {
-                // Для каждого элемента в дереве, добавляем кнопку
-                console.log('here')
-                var node = $(this).closest('.jstree-node');
-                node.append('<button class="btn btn-primary btn-sm btn-edit-entity" style="margin-left: 10px;">Редактировать</button>' +
-                    '<button class="btn btn-danger btn-sm btn-delete-entity" style="margin-left: 15px">Удалить</button>');
-            });
-        });
+
+
+            $('#jstree-basic').on('ready.jstree', function() {
+                $('#jstree-basic').find('.jstree-anchor').each(function() {
+
+                    // Для каждого элемента в дереве, добавляем кнопку
+                    console.log('here')
+                    var node = $(this).closest('.jstree-node');
+                    node.append('<button class="btn btn-primary btn-sm btn-edit-entity" style="margin-left: 10px;">Редактировать</button>' +
+                        '<button class="btn btn-danger btn-sm btn-delete-entity" style="margin-left: 15px">Удалить</button>');
+                });
+            })
+                .on('open_node.jstree', function (e, data) {
+
+                    var node = data.node
+                    var children = node.children
+
+
+                    $.each(children, function (el, item) {
+
+                        $('#jstree-basic').find('#' + item).each(function() {
+                            var node = $(this).closest('.jstree-node');
+                            node.append('<button class="btn btn-primary btn-sm btn-edit-entity" style="margin-left: 10px;">Редактировать</button>' +
+                                '<button class="btn btn-danger btn-sm btn-delete-entity" style="margin-left: 15px">Удалить</button>');
+                        })
+                    })
+
+
+
+                });
 
         $('body').on('click', '.btn-edit-entity', function() {
             let el = $(this)

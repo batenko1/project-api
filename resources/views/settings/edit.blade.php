@@ -18,7 +18,9 @@
                     <div class="card mb-4">
 
                         <div class="card-body">
-                            <form method="post" action="{{ route('admin.settings.update', $setting->id) }}">
+                            <form method="post"
+                                  enctype="multipart/form-data"
+                                  action="{{ route('admin.settings.update', $setting->id) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="row mb-3">
@@ -46,7 +48,14 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Значение</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control @if($errors->first('value')) is-invalid @endif"
+                                        <input
+                                            @if($setting->key == 'logo')
+                                                type="file"
+                                            @else
+                                                type="text"
+                                            @endif
+
+                                               class="form-control @if($errors->first('value')) is-invalid @endif"
                                                id="basic-default-name" value="{{ old('value') ?? $setting->value }}" name="value"/>
                                         @if($errors->first('value'))
                                             <div class="invalid-feedback">{{ $errors->first('value') }}</div>

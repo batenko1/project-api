@@ -76,7 +76,15 @@ class SettingController extends Controller
     {
         if (!Gate::allows('update setting')) abort(404);
 
-        $setting->update($request->validated());
+        $data = $request->validated();
+
+        if($request->file('value')) {
+            $file = $request->file('value');
+            $filePath = $file->store('public/settings');
+            $data['value'] = $filePath;
+        }
+
+        $setting->update($data);
 
         if($request->expectsJson()) {
             return response()->json($setting, 201);

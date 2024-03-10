@@ -41,7 +41,12 @@
                                 </td>
                                 <td>{{ $setting->title }}</td>
                                 <td>{{ $setting->key }}</td>
-                                <td>{{ $setting->value }}</td>
+                                @if($setting->key == 'logo')
+                                    <td><img width="50"
+                                            src="{{ asset('storage/'.\Str::replace('public', '', $setting->value)) }}" alt=""></td>
+                                @else
+                                    <td>{{ $setting->value }}</td>
+                                @endif
 
                                 <td>
                                     <div class="dropdown">
