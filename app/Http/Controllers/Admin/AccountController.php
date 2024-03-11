@@ -95,6 +95,8 @@ class AccountController extends Controller
 
         if (!Gate::allows('delete account')) abort(404);
 
+        $account->orders()->delete();
+        $account->photos()->delete();
         $account->delete();
 
         if($request->expectsJson()) {
