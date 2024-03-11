@@ -26,7 +26,7 @@ class PaymentAction extends Controller
             'key' => $paymentKey,
             'type' => 'TwoStep',
             'currency' => 'RUB',
-            'amount' => $order->price,
+            'amount' => intval($order->price),
 //            'email' => 'batenko4@gmail.com',
             'return_url_success' => 'http://project-api.test/success',
             'return_url_decline' => 'http://project-api.test/failed'
@@ -35,7 +35,14 @@ class PaymentAction extends Controller
 
         $result = curl_exec($ch);
 
+        $result = json_decode($result);
+
         $order->session_id = $result->session_id;
+
+        if(!$order->session_id) {
+            abort(404);
+        }
+
         $order->save();
 
 
@@ -46,8 +53,6 @@ class PaymentAction extends Controller
             echo 'Ошибка cURL: ' . curl_error($ch);
             return false;
         }
-
-        $result = json_decode($result);
 
 
         $ch = curl_init();

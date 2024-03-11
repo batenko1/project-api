@@ -132,7 +132,10 @@ class TemplateController extends Controller
 
         if (!Gate::allows('delete template')) abort(404);
 
-        $template->delete();
+        if(!$template->is_not_deleted) {
+            $template->delete();
+        }
+
 
         if($request->expectsJson()) {
             return response(null, 204);

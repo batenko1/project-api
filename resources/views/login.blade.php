@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}"/>
 @endsection
 
 @section('content')
@@ -16,9 +16,13 @@
                         <div class="app-brand justify-content-center mb-4 mt-2">
                             <a href="{{ route('login') }}" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
-                    <img src="{{ asset('storage/'. \Str::replace('public', '', \App\Models\Setting::query()->where('key', 'logo')->first()->value)) }}" alt="">
+                      @if(\App\Models\Setting::query()->where('key', 'logo')->first())
+                          <img
+                              src="{{ asset('storage/'. \Str::replace('public', '', \App\Models\Setting::query()->where('key', 'logo')->first()->value)) }}"
+                              alt="">
+                      @endif
                   </span>
-{{--                                <span class="app-brand-text demo text-body fw-bold ms-1">Vuexy</span>--}}
+                                {{--                                <span class="app-brand-text demo text-body fw-bold ms-1">Vuexy</span>--}}
                             </a>
                         </div>
                         <!-- /Logo -->
@@ -36,7 +40,7 @@
                                     name="email"
                                     value="{{ old('email') }}"
                                     placeholder="Введите свою почту"
-                                    autofocus />
+                                    autofocus/>
                                 @if($errors->first('email'))
                                     <div class="invalid-feedback">{{ $errors->first('email') }}</div>
                                 @endif
@@ -49,7 +53,7 @@
                                         class="form-control @if($errors->first('password')) is-invalid @endif"
                                         name="password"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                        aria-describedby="password" />
+                                        aria-describedby="password"/>
                                     <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                                     @if($errors->first('password'))
                                         <div class="invalid-feedback">{{ $errors->first('password') }}</div>
