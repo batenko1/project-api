@@ -20,7 +20,12 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+    @if(\App\Models\Setting::query()->where('key', 'title_site')->first())
+{{--        <title>{{ \App\Models\Setting::query()->where('key', 'title_site')->first()->value }}</title>--}}
+        <link rel="icon" type="image/x-icon"
+              href="{{ asset('storage'. \Str::replace('public', '', \App\Models\Setting::query()->where('key', 'logo')->first()->value)) }}" />
+    @endif
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
