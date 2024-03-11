@@ -39,6 +39,7 @@
                                         <input type="text" class="form-control @if($errors->first('variables')) is-invalid @endif"
                                                id="basic-default-name"
                                                value="{{ old('variables') }}" name="variables" />
+                                        <p>Список доступных переменных: id, fio, price, identification_code</p>
                                         @if($errors->first('variables'))
                                             <div class="invalid-feedback">{{ $errors->first('variables') }}</div>
                                         @endif

@@ -32,6 +32,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class);
 
 
+Route::get('php-info', function () {
+   phpinfo();
+});
 
 Route::group([
     'prefix' => 'admin',

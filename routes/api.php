@@ -32,14 +32,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-//Route::middleware('auth:sanctum')->get('/user', [UserController::class , 'getUser']);
 
 
-//Route::get('/user', [UserController::class, 'getUser'])->middleware('auth:sanctum');
+//-----------------------
+
+Route::post('create-order', CreateOrderController::class);
+
+Route::post('accept-contract', AcceptContractController::class);
+
+Route::post('change-status-order', ChangeStatusOrderController::class);
+
+Route::get('prepare-filter', PrepareFilterAction::class);
+
+
+Route::post('/get-chat', [ChatController::class, 'getChat']);
+Route::post('/send-message', [MessageController::class, 'sendMessage']);
+
 
 Route::post('login', [AuthController::class, 'login']);
 
@@ -85,16 +93,4 @@ Route::apiResource('filters', FilterController::class);
 Route::get('products/get-filters/{entityId}', [ProductController::class, 'getFilters']);
 
 
-//-----------------------
 
-Route::post('create-order', CreateOrderController::class);
-
-Route::post('accept-contract', AcceptContractController::class);
-
-Route::post('change-status-order', ChangeStatusOrderController::class);
-
-Route::get('prepare-filter', PrepareFilterAction::class);
-
-
-Route::post('/get-chat', [ChatController::class, 'getChat']);
-Route::post('/send-message', [MessageController::class, 'sendMessage']);

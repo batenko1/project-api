@@ -84,7 +84,17 @@
                                         <button type="submit" class="btn btn-primary">Сохранить</button>
                                     </div>
                                 </div>
+
                             </form>
+
+                                <form
+                                    style="float:right;"
+                                    action="{{ route('admin.entities.destroy', $entity->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="dropdown-item">
+                                        <i class="ti ti-trash me-1"></i> Удалить</button>
+                                </form>
                         </div>
                     </div>
                 </div>

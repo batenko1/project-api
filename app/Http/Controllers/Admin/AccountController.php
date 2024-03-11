@@ -64,14 +64,28 @@ class AccountController extends Controller
         return view('accounts.show', compact('account', 'bonuses'));
     }
 
+    public function edit(Account $account) {
+
+        return view('accounts.edit', compact('account'));
+    }
+
 
     public function update(Request $request, Account $account) {
 
-        if (!Gate::allows('update product')) abort(404);
+        if (!Gate::allows('update account')) abort(404);
 
-        if($request->expectsJson()) {
+        $account->fio = $request->fio;
+        $account->identification_code = $request->identification_code;
+        $account->is_verified = $request->is_verified;
+        $account->save();
 
+        if ($request->expectsJson()) {
+            return response()->json($account, 201);
         }
+
+        return redirect()->route('admin.accounts.index')->with('message', 'Успешно обновлено');
+
+
 
     }
 
@@ -79,7 +93,7 @@ class AccountController extends Controller
     public function destroy(Request $request, Account $account)
     {
 
-        if (!Gate::allows('delete product')) abort(404);
+        if (!Gate::allows('delete account')) abort(404);
 
         $account->delete();
 

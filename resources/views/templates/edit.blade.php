@@ -65,6 +65,14 @@
                                     </div>
                                 </div>
                             </form>
+                            <form
+                                style="float:right;"
+                                action="{{ route('admin.templates.destroy', $template->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger">
+                                    <i class="ti ti-trash me-1"></i> Удалить</button>
+                            </form>
                         </div>
                     </div>
                 </div>

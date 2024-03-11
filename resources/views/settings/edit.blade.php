@@ -67,8 +67,17 @@
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
                                         <button type="submit" class="btn btn-primary">Создать</button>
+
                                     </div>
                                 </div>
+                            </form>
+                            <form
+                                style="float:right;"
+                                action="{{ route('admin.products.destroy', $product->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="dropdown-item">
+                                    <i class="ti ti-trash me-1"></i> Удалить</button>
                             </form>
                         </div>
                     </div>

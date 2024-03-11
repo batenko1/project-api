@@ -79,7 +79,7 @@ class ProductController extends Controller
 
     public function store(StoreRequest $request)
     {
-        if (!Gate::allows('store order')) abort(404);
+        if (!Gate::allows('store product')) abort(404);
 
         DB::beginTransaction();
 
@@ -125,7 +125,7 @@ class ProductController extends Controller
     public function show(Request $request, Product $product)
     {
 
-        if (!Gate::allows('show order')) abort(404);
+        if (!Gate::allows('show product')) abort(404);
 
         if ($request->expectsJson()) {
             return response()->json($product);
@@ -139,7 +139,7 @@ class ProductController extends Controller
      */
     public function update(StoreRequest $request, Product $product)
     {
-        if (!Gate::allows('update order')) abort(404);
+        if (!Gate::allows('update product')) abort(404);
 
         DB::beginTransaction();
 
@@ -170,7 +170,7 @@ class ProductController extends Controller
     public function destroy(Request $request, Product $product)
     {
 
-        if (!Gate::allows('delete order')) abort(404);
+        if (!Gate::allows('delete product')) abort(404);
 
         $product->delete();
 

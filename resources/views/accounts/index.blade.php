@@ -58,17 +58,17 @@
                                                href="{{ route('admin.accounts.show', $account->id) }}">
                                                 <i class="ti ti-pencil me-1"></i> Посмотреть</a>
 
-                                            {{--                                            @can('edit account')--}}
-                                            {{--                                                <a class="dropdown-item"--}}
-                                            {{--                                                   href="{{ route('admin.accounts.edit', $account->id) }}">--}}
-                                            {{--                                                    <i class="ti ti-pencil me-1"></i> Редактировать</a>--}}
-                                            {{--                                            @endcan--}}
+                                            @can('edit account')
+                                                <a class="dropdown-item"
+                                                   href="{{ route('admin.accounts.edit', $account->id) }}">
+                                                    <i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                            @endcan
 
-                                            {{--                                            @can('delete account')--}}
-                                            {{--                                                <a class="dropdown-item"--}}
-                                            {{--                                                   href="{{ route('admin.accounts.destroy', $account->id) }}">--}}
-                                            {{--                                                    <i class="ti ti-trash me-1"></i> Удалить</a>--}}
-                                            {{--                                            @endcan--}}
+                                            @can('delete account')
+                                                <a class="dropdown-item"
+                                                   href="{{ route('admin.accounts.destroy', $account->id) }}">
+                                                    <i class="ti ti-trash me-1"></i> Удалить</a>
+                                            @endcan
                                         </div>
                                     </div>
                                 </td>

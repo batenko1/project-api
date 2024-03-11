@@ -20,6 +20,7 @@ class CreateOrderController extends Controller
     public function __invoke(Request $request)
     {
 
+
         $account = Account::query()->find($request->account_id);
 
         if(!$account) {
@@ -30,10 +31,23 @@ class CreateOrderController extends Controller
             abort(404);
         }
 
-        $productsIds = json_decode($request->products);
-        $products = Product::query()->whereIn('id', $productsIds)->get();
 
-        $price = $products->sum('price');
+
+        $productsIds = $request->products;
+
+        $products = [];
+        $price = 0;
+
+        foreach ($productsIds as $product) {
+            list($productId, $count) = explode(':', $product);
+            $product = Product::query()->where('id', $productId)->first();
+            $product->count = $count;
+            $products[] = $product;
+            $price += $product->price * $count;
+        }
+
+
+
 
         $user = DB::connection('mysql_bonuses')
             ->table('users')
@@ -73,8 +87,10 @@ class CreateOrderController extends Controller
             foreach ($products as $product) {
                 $order->products()->attach($order->id, [
                     'product_id' => $product->id,
-                    'price' => $product->price,
-                    'values' => '[]'
+                    'price' => $product->price * $product->count,
+                    'values' => '[]',
+                    'count' => $product->count,
+                    'price_for_one' => $product->price
                 ]);
             }
 
@@ -84,6 +100,11 @@ class CreateOrderController extends Controller
 
             foreach ($replacements as $key => $item) {
                 $replacements[$key] = $order->{$item};
+
+                if($key == 'identification_code') {
+                    $replacements[$key] = $order->account->identification_code;
+                }
+
             }
 
             $contract = $this->createContract($filePath, $replacements);
