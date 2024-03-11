@@ -10,6 +10,103 @@
         "version": "2.0.0"
     },
     "paths": {
+        "/api/accept-contract": {
+            "post": {
+                "tags": [
+                    "Logic"
+                ],
+                "summary": "Подтверждение контракта",
+                "description": "Этот метод позволяет подтвердить контракт",
+                "operationId": "1cc8d6984724c88863059bf41885dacf",
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "order_id",
+                                    "account_id"
+                                ],
+                                "properties": {
+                                    "order_id": {
+                                        "type": "number"
+                                    },
+                                    "account_id": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ответ сервера",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "account_id": {
+                                            "type": "number"
+                                        },
+                                        "fio": {
+                                            "type": "number"
+                                        },
+                                        "is_agree": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "number"
+                                        },
+                                        "payment_status": {
+                                            "type": "number"
+                                        },
+                                        "file_contract": {
+                                            "type": "number"
+                                        },
+                                        "price": {
+                                            "type": "number"
+                                        },
+                                        "bonuses": {
+                                            "type": "number"
+                                        },
+                                        "products": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
+                                                    "title": {
+                                                        "type": "string"
+                                                    },
+                                                    "entity_id": {
+                                                        "type": "number"
+                                                    },
+                                                    "price": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для входа"
+                    }
+                }
+            }
+        },
         "/api/accounts": {
             "get": {
                 "tags": [
@@ -197,6 +294,192 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/change-status-order": {
+            "post": {
+                "tags": [
+                    "Logic"
+                ],
+                "summary": "Изменение статуса заказа",
+                "description": "Этот метод позволяет изменить статус заказа",
+                "operationId": "4cad1ffe77105ed91af8090ee15ecf4a",
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "order_id",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "order_id": {
+                                        "type": "number"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ответ сервера",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "account_id": {
+                                            "type": "number"
+                                        },
+                                        "fio": {
+                                            "type": "number"
+                                        },
+                                        "is_agree": {
+                                            "type": "number"
+                                        },
+                                        "status": {
+                                            "type": "number"
+                                        },
+                                        "payment_status": {
+                                            "type": "number"
+                                        },
+                                        "file_contract": {
+                                            "type": "number"
+                                        },
+                                        "price": {
+                                            "type": "number"
+                                        },
+                                        "bonuses": {
+                                            "type": "number"
+                                        },
+                                        "products": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number"
+                                                    },
+                                                    "title": {
+                                                        "type": "string"
+                                                    },
+                                                    "entity_id": {
+                                                        "type": "number"
+                                                    },
+                                                    "price": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для входа"
+                    }
+                }
+            }
+        },
+        "/api/create-order": {
+            "post": {
+                "tags": [
+                    "Logic"
+                ],
+                "summary": "Создание заказа",
+                "description": "Этот метод позволяет создать заказ",
+                "operationId": "d9f23bd1f2e6aade8a0965eeb125d52b",
+                "requestBody": {
+                    "description": "Данные запроса",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "account_id",
+                                    "products"
+                                ],
+                                "properties": {
+                                    "account_id": {
+                                        "type": "number"
+                                    },
+                                    "products": {
+                                        "type": "string",
+                                        "example": "[21]"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Созданный заказ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "account_id": {
+                                            "type": "number"
+                                        },
+                                        "price": {
+                                            "type": "number"
+                                        },
+                                        "fio": {
+                                            "type": "string"
+                                        },
+                                        "bonuses": {
+                                            "type": "number"
+                                        },
+                                        "id": {
+                                            "type": "number"
+                                        },
+                                        "file_contract": {
+                                            "type": "string"
+                                        },
+                                        "account": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number"
+                                                },
+                                                "fio": {
+                                                    "type": "string"
+                                                },
+                                                "identification_code": {
+                                                    "type": "string"
+                                                },
+                                                "is_verified": {
+                                                    "type": "number"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Нету такого аккаунта или товаров"
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для входа"
+                    }
+                }
             }
         },
         "/api/entities": {
@@ -800,6 +1083,62 @@
                 ]
             }
         },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Logic"
+                ],
+                "summary": "Авторизация",
+                "description": "Этот метод позволяет авторизоваться",
+                "operationId": "bfafa8b471abb73b8de2be270b0d7cfb",
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Bearer token для Api запросов",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "token": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для входа"
+                    }
+                }
+            }
+        },
         "/api/orders": {
             "get": {
                 "tags": [
@@ -1195,6 +1534,80 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/registration": {
+            "post": {
+                "tags": [
+                    "Logic"
+                ],
+                "summary": "Регистрация тихая",
+                "description": "Этот метод позволяет регистрировать пользователя",
+                "operationId": "b302026b5d97b63c76a931fa8f33b410",
+                "requestBody": {
+                    "description": "Данные запроса",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "fio",
+                                    "identification_code",
+                                    "image1",
+                                    "image2",
+                                    "image3"
+                                ],
+                                "properties": {
+                                    "fio": {
+                                        "type": "string"
+                                    },
+                                    "identification_code": {
+                                        "type": "string"
+                                    },
+                                    "image1": {
+                                        "type": "file"
+                                    },
+                                    "image2": {
+                                        "type": "file"
+                                    },
+                                    "image3": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Успешная регистрация",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "fio": {
+                                                "type": "string"
+                                            },
+                                            "identification_code": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для регистрации"
+                    }
+                }
             }
         },
         "/api/settings": {

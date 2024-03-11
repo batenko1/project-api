@@ -21,6 +21,15 @@ class CreateOrderController extends Controller
     {
 
         $account = Account::query()->find($request->account_id);
+
+        if(!$account) {
+            abort(404);
+        }
+
+        if(!$request->products) {
+            abort(404);
+        }
+
         $productsIds = json_decode($request->products);
         $products = Product::query()->whereIn('id', $productsIds)->get();
 
