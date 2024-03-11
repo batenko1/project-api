@@ -56,7 +56,7 @@
 
                                             <a class="dropdown-item"
                                                href="{{ route('admin.accounts.show', $account->id) }}">
-                                                <i class="ti ti-pencil me-1"></i> Посмотреть</a>
+                                                <i class="ti ti-eye me-1"></i> Посмотреть</a>
 
                                             @can('edit account')
                                                 <a class="dropdown-item"
@@ -65,9 +65,6 @@
                                             @endcan
 
                                             @can('delete account')
-{{--                                                <a class="dropdown-item"--}}
-{{--                                                   href="{{ route('admin.accounts.destroy', $account->id) }}">--}}
-{{--                                                    <i class="ti ti-trash me-1"></i> Удалить</a>--}}
 
                                                 <form action="{{ route('admin.accounts.destroy', $account->id) }}" method="post">
                                                     @csrf
