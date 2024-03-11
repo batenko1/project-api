@@ -35,7 +35,11 @@ class OrderController extends Controller
             return response()->json($order);
         }
 
-        return view('order.show', compact('order'));
+        return view('orders.show', compact('order'));
+    }
+
+    public function edit(Order $order) {
+
     }
 
 

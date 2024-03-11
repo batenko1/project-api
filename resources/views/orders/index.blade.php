@@ -67,11 +67,18 @@
                                             <i class="ti ti-dots-vertical"></i>
                                         </button>
                                         <div class="dropdown-menu">
+
                                             @can('edit order')
                                                 <a class="dropdown-item"
-                                                   href="{{ route('admin.orders.edit', $order->id) }}">
-                                                    <i class="ti ti-pencil me-1"></i> Редактировать</a>
+                                                   href="{{ route('admin.orders.show', $order->id) }}">
+                                                    <i class="ti ti-eye me-1"></i> Просмотр</a>
                                             @endcan
+
+{{--                                            @can('edit order')--}}
+{{--                                                <a class="dropdown-item"--}}
+{{--                                                   href="{{ route('admin.orders.edit', $order->id) }}">--}}
+{{--                                                    <i class="ti ti-pencil me-1"></i> Редактировать</a>--}}
+{{--                                            @endcan--}}
 
                                             @can('delete order')
 
