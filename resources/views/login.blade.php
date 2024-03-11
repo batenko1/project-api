@@ -16,7 +16,7 @@
                         <div class="app-brand justify-content-center mb-4 mt-2">
                             <a href="{{ route('login') }}" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
-                    <img src="{{ asset('storage/'. \Str::replace('public', '', \App\Models\Setting::query()->where('key', 'logo')->first()->value)) }}" alt="">
+                    <img src="{{ asset('storage'. \Str::replace('public', '', \App\Models\Setting::query()->where('key', 'logo')->first()->value)) }}" alt="">
                   </span>
 {{--                                <span class="app-brand-text demo text-body fw-bold ms-1">Vuexy</span>--}}
                             </a>

@@ -3,7 +3,7 @@
         <a href="{{ route('admin.main') }}" class="app-brand-link">
             <img
                 width="50"
-                src="{{ asset('storage/'. \Str::replace('public', '', \App\Models\Setting::query()->where('key', 'logo')->first()->value)) }}" alt="">
+                src="{{ asset('storage'. \Str::replace('public', '', \App\Models\Setting::query()->where('key', 'logo')->first()->value)) }}" alt="">
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
