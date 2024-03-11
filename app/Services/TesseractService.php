@@ -78,7 +78,7 @@ class TesseractService {
         imagefilter($image, IMG_FILTER_CONTRAST, -100); // рабочее для jpg
 
 
-        $processedImagePath = 'processed_image.png';
+        $processedImagePath = public_path('processed_image.png');
         imagepng($resizedImage, $processedImagePath);
 
         // Сохранение черно-белого изображения в формате PNG
