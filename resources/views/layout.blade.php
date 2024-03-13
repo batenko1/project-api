@@ -23,7 +23,7 @@
     @if(\App\Models\Setting::query()->where('key', 'title_site')->first())
 {{--        <title>{{ \App\Models\Setting::query()->where('key', 'title_site')->first()->value }}</title>--}}
         <link rel="icon" type="image/x-icon"
-              href="{{ asset('storage'. \Str::replace('public', '', \App\Models\Setting::query()->where('key', 'logo')->first()->value)) }}" />
+              href="{{ asset('storage/'. \App\Models\Setting::query()->where('key', 'logo')->first()->value) }}" />
     @endif
 
 
@@ -107,6 +107,48 @@
 <audio id="audio" class="d-none">
     <source src="{{ asset('audio.mp3') }}" type="audio/mpeg">
 </audio>
+
+<div class="modal fade" id="changePassword" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="backDropModalTitle">Изменить пароль</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="{{ route('admin.change-password') }}" method="post">
+                    @csrf
+
+                    <div class="row mb-3">
+                        <label class="col-sm-5 col-form-label" for="basic-default-name">Пароль</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control"
+                                   id="basic-default-name" required name="password"/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-5 col-form-label" for="basic-default-name">Повторите пароля</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control"
+                                   id="basic-default-name" required name="repeat_password"/>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Изменить</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-backdrop fade"></div>
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 
@@ -163,24 +205,26 @@
 <script>
 
     @if(auth()->user())
-        window.Echo.private('chat-message.{{ auth()->user()->id }}')
-            .listen('SendMessage', e => {
-                if(e) {
-                    console.log('test event')
-                    var audio = document.getElementById('audio');
-                    audio.play();
-                }
+        @foreach(\App\Models\User::all() as $user)
+            window.Echo.private('chat-message.{{ $user->id }}')
+                .listen('SendMessage', e => {
+                    if(e) {
+                        var audio = document.getElementById('audio');
+                        audio.play();
+                    }
 
-            })
+                })
 
-        window.Echo.channel('chat-order')
-            .listen('OrderEvent', e => {
-                if(e) {
-                    var audio = document.getElementById('audio');
-                    audio.play();
-                }
+            window.Echo.channel('chat-order')
+                .listen('OrderEvent', e => {
+                    if(e) {
+                        var audio = document.getElementById('audio');
+                        audio.play();
+                    }
 
-            })
+                })
+        @endforeach
+
     @endif
 
 

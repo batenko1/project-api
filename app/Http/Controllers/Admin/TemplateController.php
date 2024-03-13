@@ -57,7 +57,7 @@ class TemplateController extends Controller
         $template->variables = $data['variables'];
 
         if($file) {
-            $template->file = $filePath;
+            $template->file = \Str::replace('public/', '', $filePath);
         }
 
         $template->save();
@@ -114,7 +114,7 @@ class TemplateController extends Controller
 
 
             if($file) {
-                $template->file = $filePath;
+                $template->file = \Str::replace('public/', '', $filePath);
             }
         }
 

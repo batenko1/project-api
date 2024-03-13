@@ -19,7 +19,7 @@
 
                       @if(\App\Models\Setting::query()->where('key', 'logo')->first())
                           <img
-                              src="{{ asset('storage'. \Str::replace('public', '', \App\Models\Setting::query()->where('key', 'logo')->first()->value)) }}"
+                              src="{{ asset('storage/'. \App\Models\Setting::query()->where('key', 'logo')->first()->value) }}"
                               alt="">
                       @endif
                   </span>

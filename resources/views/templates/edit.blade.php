@@ -40,6 +40,7 @@
                                         <input type="text" class="form-control @if($errors->first('variables')) is-invalid @endif"
                                                id="basic-default-name"
                                                value="{{ old('variables') ?? $template->variables }}" name="variables" />
+                                        <p>Список доступных переменных: id, fio, price, identification_code, count_products</p>
                                         @if($errors->first('variables'))
                                             <div class="invalid-feedback">{{ $errors->first('variables') }}</div>
                                         @endif
@@ -55,6 +56,11 @@
                                         @if($errors->first('file'))
                                             <div class="invalid-feedback">{{ $errors->first('file') }}</div>
                                         @endif
+
+                                        @if($template->file)
+                                            Файл загружен уже
+                                            <a href="{{ asset('storage/'. $template->file) }}">Файл</a>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -62,7 +68,7 @@
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
                                         <button type="submit" name="submit" class="btn btn-primary">Обновить</button>
-                                        <button type="submit" name="submit_and_reload" class="btn btn-primary">Обновить и вернуться назад</button>
+                                        <button type="submit" value="1" name="submit_and_reload" class="btn btn-primary">Обновить и вернуться назад</button>
                                     </div>
                                 </div>
                             </form>

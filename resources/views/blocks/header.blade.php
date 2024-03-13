@@ -122,8 +122,10 @@
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
 
-                        <a class="dropdown-item" href="javascript:void(0);">
-                            <i class="ti ti-logout me-2 ti-sm"></i>
+                        <a class="dropdown-item"
+                           data-bs-toggle="modal" data-bs-target="#changePassword"
+                           href="javascript:void(0);">
+                            <i class="ti ti-face-mask me-2 ti-sm"></i>
                             <span class="align-middle">Изменить пароль</span>
                         </a>
 

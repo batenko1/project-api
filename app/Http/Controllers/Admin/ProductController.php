@@ -185,7 +185,7 @@ class ProductController extends Controller
 
         foreach ($product->values as $value) {
             if($value->filter->type == 'input_file') {
-                Storage::disk('public')->delete('filters/'. $value->value);
+                Storage::disk('public')->delete($value->value);
             }
         }
 

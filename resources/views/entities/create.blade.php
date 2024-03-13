@@ -73,7 +73,7 @@
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
                                         <button type="submit" name="submit" class="btn btn-primary">Создать</button>
-                                        <button type="submit" name="submit_and_reload" class="btn btn-primary">Создать и обновить</button>
+                                        <button type="submit" value="1" name="submit_and_reload" class="btn btn-primary">Создать и обновить</button>
                                     </div>
                                 </div>
                             </form>

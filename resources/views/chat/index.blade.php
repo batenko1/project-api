@@ -218,33 +218,36 @@
 @section('js')
     <script>
         $(document).ready(function () {
-            window.Echo.private('chat-message.{{ auth()->user()->id }}')
-                .listen('SendMessage', e => {
-                    if (e) {
+            @foreach(\App\Models\User::all() as $user)
+                window.Echo.private('chat-message.{{ $user->id }}')
+                    .listen('SendMessage', e => {
+                        if (e) {
 
-                        if(e.messageHtml) {
-                            $('input[name="message"]').val('')
-                            $('.chat-history').append(e.messageHtml)
+                            if(e.messageHtml) {
+                                $('input[name="message"]').val('')
+                                $('.chat-history').append(e.messageHtml)
 
-                            setTimeout(() => {
-                                $('.chat-history-body.bg-body').scrollTop(99999999999999);
-                            }, 50)
-                        }
-
-                        if (e.html) {
-                            if($('.chat-contact-list-item[data-id="'+ e.message.chat_id +'"]')) {
-                                $('.chat-contact-list-item[data-id="'+ e.message.chat_id +'"]').replaceWith(e.html)
-                            }
-                            else {
-                                $('.chat-contact-list').prepend(e.html)
+                                setTimeout(() => {
+                                    $('.chat-history-body.bg-body').scrollTop(99999999999999);
+                                }, 50)
                             }
 
+                            if (e.html) {
+                                if($('.chat-contact-list-item[data-id="'+ e.message.chat_id +'"]')) {
+                                    $('.chat-contact-list-item[data-id="'+ e.message.chat_id +'"]').replaceWith(e.html)
+                                }
+                                else {
+                                    $('.chat-contact-list').prepend(e.html)
+                                }
+
+
+                            }
 
                         }
 
-                    }
+                    })
+            @endforeach
 
-                })
 
             $('body').on('click', '.chat-contact-list-item', function() {
                 let el = $(this)
@@ -307,7 +310,7 @@
 
                 if(val.length) {
 
-                    
+
 
                 }
 

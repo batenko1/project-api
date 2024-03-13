@@ -39,7 +39,7 @@
                                         <input type="text" class="form-control @if($errors->first('variables')) is-invalid @endif"
                                                id="basic-default-name"
                                                value="{{ old('variables') }}" name="variables" />
-                                        <p>Список доступных переменных: id, fio, price, identification_code</p>
+                                        <p>Список доступных переменных: id, fio, price, identification_code,count_products</p>
                                         @if($errors->first('variables'))
                                             <div class="invalid-feedback">{{ $errors->first('variables') }}</div>
                                         @endif
@@ -62,7 +62,7 @@
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
                                         <button type="submit" name="submit" class="btn btn-primary">Создать</button>
-                                        <button type="submit" name="submit_and_reload" class="btn btn-primary">Создать и обновить</button>
+                                        <button type="submit" value="1" name="submit_and_reload" class="btn btn-primary">Создать и обновить</button>
                                     </div>
                                 </div>
                             </form>

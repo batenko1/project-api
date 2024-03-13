@@ -105,6 +105,10 @@ class CreateOrderController extends Controller
                     $replacements[$key] = $order->account->identification_code;
                 }
 
+                if($key == 'count_products') {
+                    $replacements[$key] = $order->products->count();
+                }
+
             }
 
             $contract = $this->createContract($filePath, $replacements);

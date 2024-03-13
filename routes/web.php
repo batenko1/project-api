@@ -42,6 +42,7 @@ Route::group([
     'middleware' => 'checkUser'
 ], function () {
     Route::get('/', MainController::class)->name('main');
+    Route::post('change-password', [UserController::class, 'changePassword'])->name('change-password');
 
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);

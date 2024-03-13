@@ -138,4 +138,21 @@ class UserController
             return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
+
+    public function changePassword(Request $request) {
+
+        $password = $request->password;
+        $repeatPassword = $request->repeat_password;
+
+        if($password == $repeatPassword) {
+            $user = auth()->user();
+            $user->password = bcrypt(bcrypt($password));
+            $user->save();
+
+            return redirect()->back()->with('message', 'Успешно изменено');
+        }
+
+        return redirect()->back()->with('message', 'Не совпадают пароли');
+
+    }
 }

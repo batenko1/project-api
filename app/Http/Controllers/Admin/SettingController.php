@@ -85,7 +85,7 @@ class SettingController extends Controller
         if($request->file('value')) {
             $file = $request->file('value');
             $filePath = $file->store('public/settings');
-            $data['value'] = $filePath;
+            $data['value'] = \Str::replace('public/', '', $filePath);
         }
 
         $setting->update($data);

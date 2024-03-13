@@ -60,6 +60,11 @@
                                         @if($errors->first('value'))
                                             <div class="invalid-feedback">{{ $errors->first('value') }}</div>
                                         @endif
+
+                                        @if($setting->key == 'logo')
+                                            <img src="{{ asset('storage/'. $setting->value) }}" width="50" alt="">
+                                        @endif
+
                                     </div>
                                 </div>
 
@@ -67,14 +72,14 @@
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
                                         <button type="submit" name="submit" class="btn btn-primary">Обновить</button>
-                                        <button type="submit" name="submit_and_reload" class="btn btn-primary">Обновить и вернуться назад</button>
+                                        <button type="submit" value="1" name="submit_and_reload" class="btn btn-primary">Обновить и вернуться назад</button>
 
                                     </div>
                                 </div>
                             </form>
                             <form
                                 style="float:right;"
-                                action="{{ route('admin.products.destroy', $product->id) }}" method="post">
+                                action="{{ route('admin.settings.destroy', $setting->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="dropdown-item">
