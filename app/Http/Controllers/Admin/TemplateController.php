@@ -67,6 +67,10 @@ class TemplateController extends Controller
             return response()->json($template, 201);
         }
 
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.templates.edit', $template->id)->with('message', 'Успешно создано');
+        }
+
 
         return redirect()->route('admin.templates.index')->with('message', 'Успешно сохранено');
 
@@ -119,6 +123,10 @@ class TemplateController extends Controller
 
         if($request->expectsJson()) {
             return response()->json($template, 201);
+        }
+
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.templates.edit', $template->id)->with('message', 'Успешно создано');
         }
 
         return redirect()->route('admin.templates.index')->with('message', 'Успешно обновлено');

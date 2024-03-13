@@ -56,6 +56,10 @@ class UserController
             return response()->json($user, 201);
         }
 
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.users.edit', $user->id)->with('message', 'Успешно создано');
+        }
+
         return redirect()->route('admin.users.index')->with('message', 'Успешно создано');
 
     }
@@ -94,6 +98,10 @@ class UserController
 
         if ($request->expectsJson()) {
             return response()->json($user, 201);
+        }
+
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.users.edit', $user->id)->with('message', 'Успешно создано');
         }
 
         return redirect()->route('admin.users.index')->with('message', 'Успешно обновлено');

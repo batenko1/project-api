@@ -62,6 +62,10 @@ class RoleController extends Controller
             return response()->json('Success', 201);
         }
 
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.roles.edit', $role->id)->with('message', 'Успешно создано');
+        }
+
         return redirect()->route('admin.roles.index')->with('message', 'Успешно создано');
 
     }
@@ -110,6 +114,10 @@ class RoleController extends Controller
 
         if($request->expectsJson()) {
             return response()->json('Success', 201);
+        }
+
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.roles.edit', $role->id)->with('message', 'Успешно обновлено');
         }
 
         return redirect()->route('admin.roles.index')->with('message', 'Успешно обновлено');

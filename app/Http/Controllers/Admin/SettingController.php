@@ -46,6 +46,10 @@ class SettingController extends Controller
             return response()->json($setting, 201);
         }
 
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.settings.edit', $setting->id)->with('message', 'Успешно создано');
+        }
+
         return redirect()->route('admin.settings.index')->with('message', 'Успешно сохранено');
 
     }
@@ -88,6 +92,10 @@ class SettingController extends Controller
 
         if($request->expectsJson()) {
             return response()->json($setting, 201);
+        }
+
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.settings.edit', $setting->id)->with('message', 'Успешно создано');
         }
 
         return redirect()->route('admin.settings.index')->with('message', 'Успешно обновлено');

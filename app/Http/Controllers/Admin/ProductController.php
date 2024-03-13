@@ -101,6 +101,10 @@ class ProductController extends Controller
             return response()->json($product, 201);
         }
 
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.products.edit', $product->id)->with('message', 'Успешно создано');
+        }
+
         return redirect()->route('admin.products.index')->with('message', 'Успешно создано');
 
     }
@@ -159,6 +163,10 @@ class ProductController extends Controller
 
         if ($request->expectsJson()) {
             return response()->json($product, 201);
+        }
+
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.products.edit', $product->id)->with('message', 'Успешно обновлено');
         }
 
         return redirect()->route('admin.products.index')->with('message', 'Успешно обновлено');

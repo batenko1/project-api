@@ -81,7 +81,8 @@
 
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                                        <button type="submit" name="submit" class="btn btn-primary">Сохранить</button>
+                                        <button type="submit" name="submit_and_reload" class="btn btn-primary">Обновить и вернуться назад</button>
                                     </div>
                                 </div>
 

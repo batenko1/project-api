@@ -43,7 +43,6 @@ class EntityController extends Controller
         $entities = Entity::query()->get();
 
 
-
         return view('entities.create', compact('entities'));
     }
 
@@ -76,6 +75,10 @@ class EntityController extends Controller
 
         if($request->expectsJson()) {
             return response()->json($entity, 201);
+        }
+
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.entities.edit', $entity->id)->with('message', 'Успешно сохранено');
         }
 
         return redirect()->route('admin.entities.index')->with('message', 'Успешно сохранено');
@@ -156,6 +159,10 @@ class EntityController extends Controller
 
         if($request->expectsJson()) {
             return response()->json($entity, 201);
+        }
+
+        if($request->submit_and_reload) {
+            return redirect()->route('admin.entities.edit', $entity->id)->with('message', 'Успешно обновлено');
         }
 
         return redirect()->route('admin.entities.index')->with('message', 'Успешно обновлено');
