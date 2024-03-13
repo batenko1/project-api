@@ -11,6 +11,7 @@ use App\Services\StoreFilterProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -173,6 +174,12 @@ class ProductController extends Controller
         if (!Gate::allows('delete product')) abort(404);
 
         $product->delete();
+
+        foreach ($product->values as $value) {
+            if($value->filter->type == 'input_file') {
+                Storage::disk('public')->delete('filters/'. $value->value);
+            }
+        }
 
         if ($request->expectsJson()) {
             return response()->json(null, 204);
