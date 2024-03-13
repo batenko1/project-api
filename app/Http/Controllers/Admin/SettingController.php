@@ -101,7 +101,9 @@ class SettingController extends Controller
     {
         if (!Gate::allows('delete setting')) abort(404);
 
-        $setting->delete();
+        if(!$setting->is_not_deleted) {
+            $setting->delete();
+        }
 
         if($request->expectsJson()) {
             return response()->json(null, 204);

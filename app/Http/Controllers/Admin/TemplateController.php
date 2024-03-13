@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Template\StoreRequest;
 use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class TemplateController extends Controller
 {
@@ -132,10 +133,9 @@ class TemplateController extends Controller
 
         if (!Gate::allows('delete template')) abort(404);
 
-        if(!$template->is_not_deleted) {
-            $template->delete();
-        }
+        $template->delete();
 
+        Storage::disk('public')->delete($template->file);
 
         if($request->expectsJson()) {
             return response(null, 204);
