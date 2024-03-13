@@ -62,15 +62,6 @@
 
     <!-- Page CSS -->
 
-
-    <!-- Helpers -->
-    <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-{{--    <script src="{{ asset('assets/vendor/js/template-customizer.js') }}"></script>--}}
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('assets/js/config.js') }}"></script>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
@@ -119,6 +110,15 @@
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 
+<!-- Helpers -->
+<script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
+<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+<!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
+{{--    <script src="{{ asset('assets/vendor/js/template-customizer.js') }}"></script>--}}
+<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<script src="{{ asset('assets/js/config.js') }}"></script>
+
+
 <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
 <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
@@ -140,7 +140,7 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
 <!-- Page JS -->
-<script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+{{--<script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>--}}
 
 <script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
 

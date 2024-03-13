@@ -121,6 +121,12 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
+
+                        <a class="dropdown-item" href="javascript:void(0);">
+                            <i class="ti ti-logout me-2 ti-sm"></i>
+                            <span class="align-middle">Изменить пароль</span>
+                        </a>
+
                         <a class="dropdown-item" href="{{ route('logout') }}">
                             <i class="ti ti-logout me-2 ti-sm"></i>
                             <span class="align-middle">Выйти</span>
