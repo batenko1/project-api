@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\EntityController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
@@ -78,6 +79,8 @@ Route::group([
     Route::apiResource('settings', SettingController::class);
 
     Route::apiResource('templates', TemplateController::class);
+
+    Route::apiResource('pages', PageController::class);
 
     Route::resource('orders', OrderController::class);
 
