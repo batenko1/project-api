@@ -146,7 +146,7 @@ class UserController
 
         if($password == $repeatPassword) {
             $user = auth()->user();
-            $user->password = bcrypt(bcrypt($password));
+            $user->password = bcrypt($password);
             $user->save();
 
             return redirect()->back()->with('message', 'Успешно изменено');
