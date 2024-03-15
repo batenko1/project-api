@@ -139,7 +139,7 @@
             ];
             const fullEditor = new Quill('#full-editor', {
                 bounds: '#full-editor',
-                placeholder: 'Type Something...',
+                placeholder: 'Напишите текст',
                 modules: {
                     formula: true,
                     toolbar: fullToolbar
