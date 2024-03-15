@@ -1292,6 +1292,326 @@
                 ]
             }
         },
+        "/api/pages": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Получить список страниц",
+                "description": "Этот метод позволяет получить список страниц",
+                "operationId": "4456eb37e9a4142be88bd10afb4d2441",
+                "responses": {
+                    "200": {
+                        "description": "Список страниц из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "slug": {
+                                                "type": "string"
+                                            },
+                                            "text": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Создание новой страницы",
+                "description": "Этот метод позволяет создать новую страницу",
+                "operationId": "fbbf8f239ee9ea3978c1a161304c15dc",
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "text"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "text": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о странице после создания из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "slug": {
+                                            "type": "string"
+                                        },
+                                        "text": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания страницы"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/pages/{page}": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Получить данные одной страницы",
+                "description": "Этот метод позволяет получить данные одной страницы",
+                "operationId": "a381fbd0e4e850649c987e949de59faf",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Идентификатор страницы",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Страница по идентификатору из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "slug": {
+                                            "type": "string"
+                                        },
+                                        "text": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что страницы с таким идентификатором не существует"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Обновление текущей страницы по идентификатору",
+                "description": "Этот метод позволяет обновить страницу по идентификатору",
+                "operationId": "ed6d7cd9c032ec905e33cf35aca66fc2",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Идентификатор страницы",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Заголовок",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "text"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "text": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Данные о странице после обновления из базы данных",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "format": "int64"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "slug": {
+                                            "type": "string"
+                                        },
+                                        "text": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Ответ что страницы с таким идентификатором не существует"
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для создания страницы"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Удаление страницы по идентификатору",
+                "description": "Этот метод позволяет удалить страницу по идентификатору",
+                "operationId": "1441a659d69eeaa8666ebe3983f7177e",
+                "parameters": [
+                    {
+                        "name": "setting",
+                        "in": "path",
+                        "description": "Идентификатор страницы",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Ответ что страница удалена"
+                    },
+                    "404": {
+                        "description": "Ответ что страницы с таким идентификатором не существует"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/payment/{orderId}": {
+            "post": {
+                "tags": [
+                    "Logic"
+                ],
+                "summary": "Создание платежа",
+                "description": "Этот метод позволяет создать платеж по идентификатору заказа",
+                "operationId": "9263a31e055befaeebf41c2c7f10f205",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "Идентификатор заказа",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ответ сервера",
+                        "content": {
+                            "text/html": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "<html><body><h1>Hello, World!</h1></body></html>"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ответ сервера что нет нужных данных для входа"
+                    }
+                }
+            }
+        },
         "/api/products": {
             "get": {
                 "tags": [

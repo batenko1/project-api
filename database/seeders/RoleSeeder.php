@@ -93,7 +93,16 @@ class RoleSeeder extends Seeder
             'update filter' => "Обновление фильтра",
             'delete filter' => 'Удаление фильтра',
 
-            'index chat' => 'Доступ к чату'
+            'index chat' => 'Доступ к чату',
+
+
+            'index page' => 'Список страниц',
+            'show page' => 'Информация по одной странице',
+            'create page' => 'Создание страницы',
+            'store page' => 'Сохранение страницы',
+            'edit page' => 'Редактирование страницы',
+            'update page' => "Обновление страницы",
+            'delete page' => 'Удаление страницы',
 
 
         ];

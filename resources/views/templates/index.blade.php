@@ -13,7 +13,7 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4><span class="text-muted fw-light">Шаблоны</h4>
+            <h4><span class="text-muted fw-light">Шаблоны</span></h4>
             @can('create template')
             <a href="{{ route('admin.templates.create') }}"
                class="btn btn-primary waves-effect waves-light mb-4">Создать</a>

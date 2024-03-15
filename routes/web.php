@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\EntityController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
@@ -56,6 +57,8 @@ Route::group([
 
     Route::resource('settings', SettingController::class);
     Route::resource('accounts', AccountController::class);
+
+    Route::resource('pages', PageController::class);
 
 
 });

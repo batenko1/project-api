@@ -32,6 +32,8 @@ class TemplateController extends Controller
 
     public function create() {
 
+        if (!Gate::allows('create template')) abort(404);
+
         return view('templates.create');
 
     }

@@ -101,6 +101,18 @@
             </li>
         @endcan
 
+
+        @can('index page')
+            <li class="menu-item @if(str_contains(Route::currentRouteName(), 'admin.pages')) active @endif">
+                <a href="{{ route('admin.pages.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-vaccine"></i>
+                    <div>Страницы</div>
+                </a>
+
+            </li>
+        @endcan
+
+
         @can('index setting')
             <li class="menu-item @if(str_contains(Route::currentRouteName(), 'admin.settings')) active @endif">
                 <a href="{{ route('admin.settings.index') }}" class="menu-link">
