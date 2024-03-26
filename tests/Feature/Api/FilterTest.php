@@ -35,6 +35,10 @@ use Tests\TestCase;
  *                      type="string"
  *                  ),
  *                  @OA\Property(
+ *                       property="alias",
+ *                       type="string"
+ *                   ),
+ *                  @OA\Property(
  *                      property="is_default",
  *                      type="boolean"
  *                  ),
@@ -102,6 +106,10 @@ use Tests\TestCase;
  *                  type="string"
  *              ),
  *              @OA\Property(
+ *                        property="alias",
+ *                        type="string"
+ *                    ),
+ *              @OA\Property(
  *                  property="is_default",
  *                  type="boolean"
  *              ),
@@ -132,6 +140,7 @@ use Tests\TestCase;
  *         required=true,
  *         @OA\JsonContent(
  *             @OA\Property(property="title", type="string"),
+ *             @OA\Property(property="alias", type="string"),
  *             @OA\Property(property="entity_id", type="integer"),
  *             @OA\Property(property="is_default", type="boolean"),
  *             @OA\Property(property="is_required", type="boolean"),
@@ -152,6 +161,10 @@ use Tests\TestCase;
  *                  property="title",
  *                  type="string"
  *              ),
+ *              @OA\Property(
+ *                        property="alias",
+ *                        type="string"
+ *                    ),
  *              @OA\Property(
  *                  property="entity_id",
  *                  type="integer"
@@ -197,6 +210,7 @@ use Tests\TestCase;
  *         required=true,
  *         @OA\JsonContent(
  *             @OA\Property(property="title", type="string"),
+ *             @OA\Property(property="alias", type="string"),
  *             @OA\Property(property="entity_id", type="integer"),
  *             @OA\Property(property="is_default", type="integer"),
  *             @OA\Property(property="is_required", type="integer"),
@@ -217,6 +231,10 @@ use Tests\TestCase;
  *                  property="title",
  *                  type="string"
  *              ),
+ *     @OA\Property(
+ *                        property="alias",
+ *                        type="string"
+ *                    ),
  *              @OA\Property(
  *                  property="entity_id",
  *                  type="integer"

@@ -762,6 +762,9 @@
                                             "title": {
                                                 "type": "string"
                                             },
+                                            "alias": {
+                                                "type": "string"
+                                            },
                                             "is_default": {
                                                 "type": "boolean"
                                             },
@@ -805,6 +808,9 @@
                                     "title": {
                                         "type": "string"
                                     },
+                                    "alias": {
+                                        "type": "string"
+                                    },
                                     "entity_id": {
                                         "type": "integer"
                                     },
@@ -835,6 +841,9 @@
                                             "format": "int64"
                                         },
                                         "title": {
+                                            "type": "string"
+                                        },
+                                        "alias": {
                                             "type": "string"
                                         },
                                         "entity_id": {
@@ -932,6 +941,9 @@
                                         "title": {
                                             "type": "string"
                                         },
+                                        "alias": {
+                                            "type": "string"
+                                        },
                                         "is_default": {
                                             "type": "boolean"
                                         },
@@ -986,6 +998,9 @@
                                     "title": {
                                         "type": "string"
                                     },
+                                    "alias": {
+                                        "type": "string"
+                                    },
                                     "entity_id": {
                                         "type": "integer"
                                     },
@@ -1016,6 +1031,9 @@
                                             "format": "int64"
                                         },
                                         "title": {
+                                            "type": "string"
+                                        },
+                                        "alias": {
                                             "type": "string"
                                         },
                                         "entity_id": {
