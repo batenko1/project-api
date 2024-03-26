@@ -26,14 +26,14 @@
 
             </select>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <input type="text" class="form-control" placeholder="Название фильтра"
                    name="filter_name[{{$time}}]"
                    @if(isset($filter)) value="{{ $filter->title }}" @endif
                    id="basic-default-name"/>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <input type="text" class="form-control" placeholder="Алиас"
                    name="filter_alias[{{$time}}]"
                    @if(isset($filter)) value="{{ $filter->alias }}" @endif
