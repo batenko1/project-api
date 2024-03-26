@@ -24,6 +24,7 @@ class StoreFilters
 
 
             $title = $request->filter_name[$key];
+            $alias = $request->filter_alias[$key];
 
 
             $newFilter = Filter::query()->where('id', $key)->first();
@@ -34,6 +35,7 @@ class StoreFilters
 
             $newFilter->entity_id = $entity->id;
             $newFilter->title = $title;
+            $newFilter->alias = $alias;
             $newFilter->type = $filter;
             $newFilter->is_required = $filter->is_required ?? 0;
             $newFilter->is_default = $filter->is_default ?? 0;

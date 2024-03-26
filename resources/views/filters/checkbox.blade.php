@@ -7,6 +7,6 @@
                class="form-check-input"
                 value="1"
                name="filter_{{ $filter->id }}" />
-        <span class="form-check-label">{{ $filter->title }}</span>
+        <span class="form-check-label">{{ $filter->title }} / {{$filter->alias}}</span>
     </label>
 </div>

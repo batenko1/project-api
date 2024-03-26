@@ -11,6 +11,7 @@ class Filter extends Model
 
     protected $fillable = [
         'title',
+        'alias',
         'entity_id',
         'type',
         'is_default',
