@@ -36,6 +36,14 @@ class Entity extends Model
     }
 
     public function filters() {
-        return $this->hasMany(Filter::class, 'entity_id');
+        return $this->hasMany(Filter::class, 'entity_id')->where('is_entity', 0);
+    }
+
+    public function fields() {
+        return $this->hasMany(Filter::class, 'entity_id')->where('is_entity', 1);
+    }
+
+    public function values() {
+        return $this->hasMany(EntityValue::class);
     }
 }

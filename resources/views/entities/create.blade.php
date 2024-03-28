@@ -53,6 +53,23 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="multicol-country">Доп поля</label>
+
+                                    <div class="col-sm-3">
+                                        <a href="javascript:void(0);"
+                                           class="btn btn-primary btn-create-filter-entity">Добавить поле</a>
+                                    </div>
+
+                                    <div class="list-filters-entity">
+
+                                    </div>
+
+                                </div>
+
+
+                                <hr>
+
 
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="multicol-country">Фильтры</label>
@@ -101,6 +118,17 @@
                     url: '/api/prepare-filter',
                     success: function (result) {
                         $('.list-filters').append(result)
+                    }
+                })
+            })
+
+            $('.btn-create-filter-entity').click(function () {
+                $.ajax({
+                    type: 'get',
+                    url: '/api/prepare-filter',
+                    data: {name:'entity_'},
+                    success: function (result) {
+                        $('.list-filters-entity').append(result)
                     }
                 })
             })

@@ -15,7 +15,7 @@
                 @if(isset($filter)) disabled @endif
 
                 class="select2 form-select type-filter"
-                name="filter_type[{{$time}}]"
+                name="filter_{{ $name ?? '' }}type[{{$time}}]"
                 data-allow-clear="true">
                 <option value="">Тип фильтра</option>
 
@@ -28,14 +28,14 @@
         </div>
         <div class="col-sm-2">
             <input type="text" class="form-control" placeholder="Название фильтра"
-                   name="filter_name[{{$time}}]"
+                   name="filter_{{ $name ?? '' }}name[{{$time}}]"
                    @if(isset($filter)) value="{{ $filter->title }}" @endif
                    id="basic-default-name"/>
         </div>
 
         <div class="col-sm-2">
             <input type="text" class="form-control" placeholder="Алиас"
-                   name="filter_alias[{{$time}}]"
+                   name="filter_{{ $name ?? '' }}alias[{{$time}}]"
                    @if(isset($filter)) value="{{ $filter->alias }}" @endif
                    id="basic-default-name"/>
         </div>
@@ -45,7 +45,7 @@
             <div class="col-sm-2 select-values">
                 <input type="text" class="form-control"
                        placeholder="Значения(указывать через запятую)"
-                       name="filter_values[{{$time}}]"
+                       name="filter_{{ $name ?? '' }}values[{{$time}}]"
                        value="{{ implode(',', $filter->values->pluck('value')->toArray()) }}"
                        id="basic-default-name"/>
             </div>
@@ -54,7 +54,7 @@
             <div class="col-sm-2 d-none select-values">
                 <input type="text" class="form-control"
                        placeholder="Значения(указывать через запятую)"
-                       name="filter_values[{{$time}}]"
+                       name="filter_{{ $name ?? '' }}values[{{$time}}]"
                        id="basic-default-name"/>
             </div>
         @endif

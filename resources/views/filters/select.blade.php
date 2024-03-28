@@ -1,7 +1,7 @@
 <div class="row mb-3">
     <label class="col-sm-3 col-form-label" for="multicol-country">{{ $filter->title }} / {{ $filter->alias }}</label>
     <div class="col-sm-9">
-        <select name="filter_{{ $filter->id }}" class="select2 form-select" data-allow-clear="true">
+        <select name="{{$name ?? ''}}filter_{{ $filter->id }}" class="select2 form-select" data-allow-clear="true">
             @foreach($filter->values as $value)
                 <option
                     @if(isset($product) && $product->values->where('filter_id', $filter->id)->first())

@@ -7,7 +7,7 @@
                @if(isset($product) && $product->values->where('filter_id', $filter->id)->first())
                    value="{{ $product->values->where('filter_id', $filter->id)->first()->value }}"
                @endif
-               name="filter_{{ $filter->id }}"/>
+               name="{{$name ?? ''}}filter_{{ $filter->id }}"/>
     </div>
 
 

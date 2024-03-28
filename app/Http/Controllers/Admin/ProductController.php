@@ -203,7 +203,7 @@ class ProductController extends Controller
 
         $entities = $this->triesEntities($entity);
 
-        $filters = Filter::query()->whereIn('entity_id', $entities)->get();
+        $filters = Filter::query()->whereIn('entity_id', $entities)->where('is_entity', 0)->get();
 
         if ($request->ajax()) {
             $html = view('filters.template', compact('filters'))->render();

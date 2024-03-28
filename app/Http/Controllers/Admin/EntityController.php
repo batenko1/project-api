@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Entity\StoreRequest;
 use App\Models\Entity;
 use App\Models\Filter;
+use App\Services\StoreFilterProduct;
 use App\Services\StoreFilters;
 use App\Traits\RoleControlTrait;
 use Illuminate\Http\Request;
@@ -25,7 +26,34 @@ class EntityController extends Controller
 
         if (!Gate::allows('index entity')) abort(404);
 
+        $data = $request->all();
+
         $entities = Entity::query()
+            ->with(['values', 'fields'])
+            ->when(count($data), function ($query) use ($data) {
+
+                foreach ($data as $key => $value) {
+
+                    $filterId = \Str::replace('filter_', '', $key);
+
+
+                    if (strpos($key, 'filter') !== false) {
+                        $query->whereHas('values', function ($query) use ($value, $filterId) {
+
+                            if(is_array($value)) {
+                                $query->whereIn('value', $value)
+                                    ->where('filter_id', $filterId);
+                            }
+                            else {
+                                $query->where('value', $value)
+                                    ->where('filter_id', $filterId);
+                            }
+
+                        });
+                    }
+                }
+
+            })
             ->whereNull('parent_id')
             ->orderBy('id', 'desc')
             ->get();
@@ -61,6 +89,10 @@ class EntityController extends Controller
 
             if($request->get('filter_type')) {
                 StoreFilters::save($entity, $request);
+            }
+
+            if($request->get('filter_entity_type')) {
+                StoreFilters::saveEntity($entity, $request);
             }
 
             $this->storePermissions('entity '.$entity->id);
@@ -109,7 +141,16 @@ class EntityController extends Controller
             ->where('id', '!=', $entity->id)
             ->get();
 
-        return view('entities.edit', compact('entity', 'listEntities'));
+        $filters = Filter::query()->where('entity_id', $entity->id)->where('is_entity', 1)->get();
+        $name = 'entity_';
+
+        $html = view('filters.template', [
+            'filters' => $filters,
+            'name' => $name,
+            'product' => $entity
+        ])->render();
+
+        return view('entities.edit', compact('entity', 'listEntities', 'html'));
     }
 
     /**
@@ -132,6 +173,7 @@ class EntityController extends Controller
                 foreach ($filterDelete as $item) {
                     if($item) {
                         Filter::query()->where('id', $item)->delete();
+
                     }
                 }
             }
@@ -141,12 +183,38 @@ class EntityController extends Controller
                 StoreFilters::save($entity, $request);
             }
             else {
-                foreach ($request->get('filter_name') as $key => $filterName) {
-                    Filter::query()->where('id', $key)->update([
-                        'title' => $filterName
-                    ]);
+                if($request->get('filter_name')) {
+                    foreach ($request->get('filter_name') as $key => $filterName) {
+                        Filter::query()->where('id', $key)->update([
+                            'title' => $filterName
+                        ]);
+                    }
+                }
+
+            }
+
+            if($request->get('filter_entity_type')) {
+                StoreFilters::saveEntity($entity, $request);
+            }
+            else {
+                if($request->get('filter_entity_name')) {
+
+                    foreach ($request->get('filter_entity_name') as $key => $filterName) {
+                        $filter = Filter::query()->where('id', $key)->first();
+
+                        if($filter) {
+                            Filter::query()->where('id', $key)->update([
+                                'title' => $filterName
+                            ]);
+                        }
+
+                    }
                 }
             }
+
+
+            StoreFilterProduct::saveEntity($entity, $request);
+
 
             $this->storePermissions('entity '.$entity->id);
 
@@ -154,7 +222,7 @@ class EntityController extends Controller
         }
         catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
+            dd($e, $e->getLine());
         }
 
         if($request->expectsJson()) {

@@ -58,6 +58,40 @@
                                 </div>
 
                                 <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Поля</label>
+
+                                    <div class="col-sm-10">
+                                        <div class="filters-wrap">
+                                            {!! $html !!}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <hr>
+
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="multicol-country">Доп поля</label>
+
+                                    <div class="col-sm-3">
+                                        <a href="javascript:void(0);"
+                                           class="btn btn-primary btn-create-filter-entity">Добавить поле</a>
+                                    </div>
+
+                                    <div class="list-filters-entity">
+
+                                        @foreach($entity->fields as $filter)
+                                            @include('entities.blocks.prepare-filter', ['name' => 'entity_'])
+                                        @endforeach
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="multicol-country">Фильтры</label>
 
                                     <div class="col-sm-3">
@@ -115,12 +149,26 @@
 
     <script>
         $(document).ready(function () {
+
+
             $('.btn-create-filter').click(function () {
                 $.ajax({
                     type: 'get',
                     url: '/api/prepare-filter',
                     success: function (result) {
                         $('.list-filters').append(result)
+                    }
+                })
+            })
+
+
+            $('.btn-create-filter-entity').click(function () {
+                $.ajax({
+                    type: 'get',
+                    url: '/api/prepare-filter',
+                    data: {name:'entity_'},
+                    success: function (result) {
+                        $('.list-filters-entity').append(result)
                     }
                 })
             })

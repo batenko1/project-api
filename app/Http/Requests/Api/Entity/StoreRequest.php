@@ -26,7 +26,18 @@ class StoreRequest extends FormRequest
             'title' => 'required|string',
             'parent_id' => $this->request->get('parent_id') ? 'sometimes|numeric|exists:entities,id' : '',
             'filters_type' => 'sometimes',
-            'filters_name' => 'sometimes'
+            'filters_name' => 'sometimes',
+            'filters_alias' => 'sometimes',
+            'filters_values' => 'sometimes',
+
+
+            'filters_entity_type' => 'sometimes',
+            'filters__entity_name' => 'sometimes',
+            'filters_entity_alias' => 'sometimes',
+            'filters_entity_values' => 'sometimes',
+
+
+
         ];
     }
 

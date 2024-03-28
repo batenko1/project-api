@@ -4,7 +4,7 @@
     <div class="col-sm-9">
         <input type="file" class="form-control"
                id="basic-default-name"
-               name="filter_{{ $filter->id }}"/>
+               name="{{$name ?? ''}}filter_{{ $filter->id }}"/>
 
         @if(isset($product) && $product->values->where('filter_id', $filter->id)->first())
             <img
