@@ -91,6 +91,8 @@
 
                                 </div>
 
+                                <hr>
+
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="multicol-country">Фильтры</label>
 
