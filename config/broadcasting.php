@@ -45,7 +45,7 @@ return [
 
                 'host' => env('APP_URL_WITHOUT_SCHEMA'),
                 'port' => 2053,
-                'scheme' => 'http',
+                'scheme' => env('APP_SCHEME'),
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => false,
 
