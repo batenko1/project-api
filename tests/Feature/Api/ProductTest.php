@@ -20,7 +20,7 @@ use Tests\TestCase;
  *     security={{ "bearerAuth": {} }},
  *     @OA\Response(
  *         response=200,
- *         description="Список продуктов из базы данных",
+ *         description="Список продуктов из базы данных, что бы отфильтровать нужно передавать как ?name_filter=[30, 44]&name_filter=[12]&name_filter=[68, 72, 91]",
  *         @OA\JsonContent(
  *              type="array",
  *              @OA\Items(

@@ -26,6 +26,7 @@
                                 <div id="jstree-basic">
                                 <ul>
 
+
                                     @foreach($entities as $entity)
                                         <li data-jstree='{"icon" : "ti ti-folder"}' data-id="{{ $entity->id }}">
                                             {{ $entity->title }}
@@ -33,17 +34,31 @@
                                                 <ul>
                                                     @foreach($entity->child as $child)
                                                         <li data-id="{{ $child->id }}"
-                                                            data-jstree='{"icon" : "ti ti-folder"}'>{{ $child->title }} </li>
+                                                            data-jstree='{"icon" : "ti ti-folder"}'>{{ $child->title }}
 
-                                                        @if($child->child)
-                                                            <ul>
-                                                                @foreach($child->child as $item)
-                                                                    <li
-                                                                        data-id="{{ $item->id }}"
-                                                                        data-jstree='{"icon" : "ti ti-folder"}'>{{ $item->title }}</li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @endif
+                                                            @if($child->child)
+                                                                <ul>
+                                                                    @foreach($child->child as $item)
+                                                                        <li
+                                                                            data-id="{{ $item->id }}"
+                                                                            data-jstree='{"icon" : "ti ti-folder"}'>{{ $item->title }}
+
+                                                                            @if($item->child)
+                                                                                <ul>
+                                                                                    @foreach($item->child as $child)
+                                                                                        <li
+                                                                                            data-id="{{ $child->id }}"
+                                                                                            data-jstree='{"icon" : "ti ti-folder"}'>{{ $child->title }}</li>
+                                                                                    @endforeach
+                                                                                </ul>
+                                                                            @endif
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+                                                        </li>
+
+
                                                     @endforeach
 
 
