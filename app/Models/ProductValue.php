@@ -9,6 +9,8 @@ class ProductValue extends Model
 {
     use HasFactory;
 
+    protected $with = ['filter'];
+
 
     public function filter() {
         return $this->belongsTo(Filter::class, 'filter_id');
