@@ -43,7 +43,7 @@
                                             @foreach($entities as $entity)
                                                 @if(!$entity->child->count())
                                                     <option
-                                                        @if($entity->id == $product->id) selected @endif
+                                                        @if($entity->id == $product->entity_id) selected @endif
                                                         value="{{ $entity->id }}">{{ $entity->title }}</option>
                                                 @endif
                                             @endforeach
