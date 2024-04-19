@@ -186,7 +186,8 @@ class EntityController extends Controller
                 if($request->get('filter_name')) {
                     foreach ($request->get('filter_name') as $key => $filterName) {
                         Filter::query()->where('id', $key)->update([
-                            'title' => $filterName
+                            'title' => $filterName,
+                            'alias' => isset($request->get('filter_alias')[$key]) ? $request->get('filter_alias')[$key] : ''
                         ]);
                     }
                 }
@@ -204,7 +205,8 @@ class EntityController extends Controller
 
                         if($filter) {
                             Filter::query()->where('id', $key)->update([
-                                'title' => $filterName
+                                'title' => $filterName,
+                                'alias' => isset($request->get('filter_entity_alias')[$key]) ? $request->get('filter_entity_alias')[$key] : ''
                             ]);
                         }
 
