@@ -37,8 +37,15 @@ class StoreFilterProduct {
                         $productValue->filter_value_id = $value;
                         break;
                     case('input_file'):
-                        $file = $value;
-                        $value = \Str::replace('public/', '', $file->store('public/filters'));
+
+                        $files = $value;
+                        $link = [];
+
+                        foreach ($files as $file) {
+                            $link[] = \Str::replace('public/', '', $file->store('public/filters'));
+                        }
+
+                        $value = json_encode($link);
 
                         break;
                 }

@@ -14,15 +14,31 @@ class ProductValue extends Model
     protected $appends = ['fullFile'];
 
 
-    public function filter() {
+    public function filter()
+    {
         return $this->belongsTo(Filter::class, 'filter_id');
     }
 
-    public function getFullFileAttribute() {
+    public function getFullFileAttribute()
+    {
 
-        if($this->filter->type == 'input_file') {
-            return asset('storage/' . $this->value);
+        $result = [];
+
+        if ($this->filter->type == 'input_file') {
+            $data = json_decode($this->value);
+
+            if(is_array($data)) {
+                foreach (json_decode($this->value) as $img) {
+                    $result[] = asset('storage/' . $img);
+                }
+            }
+            else {
+                return asset('storage/' . $this->getArrayAttributeWithValue());
+            }
+
         }
+
+        return $result;
 
     }
 
