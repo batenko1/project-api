@@ -1,5 +1,5 @@
 @php
-    $time = time();
+    $time = time().\Str::random(10);
 
     if(isset($filter)) {
         $time = $filter->id;
