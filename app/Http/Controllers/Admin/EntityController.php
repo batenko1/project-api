@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Entity\StoreRequest;
 use App\Models\Entity;
 use App\Models\Filter;
+use App\Models\FilterValue;
 use App\Services\StoreFilterProduct;
 use App\Services\StoreFilters;
 use App\Traits\RoleControlTrait;
@@ -185,10 +186,29 @@ class EntityController extends Controller
             else {
                 if($request->get('filter_name')) {
                     foreach ($request->get('filter_name') as $key => $filterName) {
+
+                        $filter = Filter::query()->where('id', $key)->first();
+
                         Filter::query()->where('id', $key)->update([
                             'title' => $filterName,
                             'alias' => isset($request->get('filter_alias')[$key]) ? $request->get('filter_alias')[$key] : ''
                         ]);
+
+                        if($filter->type == 'select') {
+                            $values = $request->filter_values[$key];
+                            $values = explode(',', $values);
+
+                            $filter->values()->delete();
+
+                            foreach ($values as $value) {
+                                $newFilterValue = new FilterValue();
+                                $newFilterValue->filter_id = $filter->id;
+                                $newFilterValue->value = $value;
+                                $newFilterValue->save();
+                            }
+                        }
+
+
                     }
                 }
 
@@ -203,11 +223,13 @@ class EntityController extends Controller
                     foreach ($request->get('filter_entity_name') as $key => $filterName) {
                         $filter = Filter::query()->where('id', $key)->first();
 
+                        $data = [
+                            'title' => $filterName,
+                            'alias' => isset($request->get('filter_entity_alias')[$key]) ? $request->get('filter_entity_alias')[$key] : ''
+                        ];
+
                         if($filter) {
-                            Filter::query()->where('id', $key)->update([
-                                'title' => $filterName,
-                                'alias' => isset($request->get('filter_entity_alias')[$key]) ? $request->get('filter_entity_alias')[$key] : ''
-                            ]);
+                            Filter::query()->where('id', $key)->update($data);
                         }
 
                     }
