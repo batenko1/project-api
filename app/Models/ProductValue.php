@@ -24,7 +24,7 @@ class ProductValue extends Model
 
         $result = [];
 
-        if ($this->filter->type == 'input_file') {
+        if ($this->filter && $this->filter->type == 'input_file') {
             $data = json_decode($this->value);
 
             if(is_array($data)) {
