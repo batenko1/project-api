@@ -25,7 +25,8 @@ class EntityController extends Controller
     public function index(Request $request)
     {
 
-        if (!Gate::allows('index entity')) abort(404);
+
+        if (!Gate::allows('index entity') && !str_contains($request->path(), 'api')) abort(404);
 
         $data = $request->all();
 
