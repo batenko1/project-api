@@ -25,7 +25,6 @@ class ProductController extends Controller
 
         $data = $request->all();
 
-
         $products = Product::query()
             ->when(count($data), function ($query) use ($data) {
 

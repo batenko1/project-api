@@ -33,7 +33,7 @@ class ProductValue extends Model
                 }
             }
             else {
-                return asset('storage/' . $this->getArrayAttributeWithValue());
+                return asset('storage/' . $this->value);
             }
 
         }

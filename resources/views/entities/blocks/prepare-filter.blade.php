@@ -9,7 +9,7 @@
 <div class="one-filter mt-3">
     <div class="row">
         <div class="col-sm-2"></div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <select
 
                 @if(isset($filter)) disabled @endif
@@ -63,7 +63,9 @@
 
         <div class="col-sm-2">
             <a href="javascript:void(0);"
-               class="btn btn-primary btn-delete-filter" @if(isset($filter)) data-id="{{ $filter->id }}" @endif>Удалить</a>
+               class="btn btn-primary btn-delete-filter" @if(isset($filter)) data-id="{{ $filter->id }}" @endif>
+                <i class="fa fa-trash"></i>
+            </a>
         </div>
     </div>
 
