@@ -59,7 +59,7 @@ Route::post('payment/{orderId}', PaymentAction::class);
 Route::get('product-filters', \App\Http\Controllers\Api\ProductController::class);
 
 Route::group([
-//    'middleware' => 'auth:sanctum'
+    'middleware' => 'auth:sanctum'
 ], function () {
 
     Route::get('accounts/{id}/orders', [AccountController::class, 'orders']);
