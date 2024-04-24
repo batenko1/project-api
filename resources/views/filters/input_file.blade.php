@@ -7,12 +7,14 @@
                name="{{$name ?? ''}}filter_{{ $filter->id }}[]"/>
 
         @if(isset($product) && $product->values->where('filter_id', $filter->id)->first())
-            @foreach(json_decode($product->values->where('filter_id', $filter->id)->first()->value) as $img)
-                <img
-                    style="display:inline-block; margin-top: 10px"
-                    src="{{ asset('storage/'. $img) }}"
-                    width="100" alt="">
-            @endforeach
+            @if(json_decode($product->values->where('filter_id', $filter->id)->first()->value))
+                @foreach(json_decode($product->values->where('filter_id', $filter->id)->first()->value) as $img)
+                    <img
+                        style="display:inline-block; margin-top: 10px"
+                        src="{{ asset('storage/'. $img) }}"
+                        width="100" alt="">
+                @endforeach
+            @endif
 
         @endif
     </div>
