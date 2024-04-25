@@ -69,6 +69,7 @@ class StoreFilterProduct {
 
         foreach ($request->all() as $key => $value) {
 
+
             if(str_contains($key, 'entity_filter')) {
 
                 list($word, $entity, $filterId) = explode('_', $key);
@@ -78,8 +79,10 @@ class StoreFilterProduct {
                     continue;
                 }
 
-                if($entityModel->values->where('filter_id', $filter->id)->where('is_entity', 1)->first()) {
-                    $entityValue = $entityModel->values->where('filter_id', $filter->id)->where('is_entity', 1)->first();
+
+
+                if($entityModel->values->where('filter_id', $filter->id)->first()) {
+                    $entityValue = $entityModel->values->where('filter_id', $filter->id)->first();
                 }
                 else {
                     $entityValue = new EntityValue();
@@ -104,12 +107,10 @@ class StoreFilterProduct {
                         break;
                 }
 
-                if($value) {
-                    $entityValue->value = $value;
-                    $entityValue->filter_id = $filter->id;
-                    $entityValue->entity_id = $entityModel->id;
-                    $entityValue->save();
-                }
+                $entityValue->value = $value;
+                $entityValue->filter_id = $filter->id;
+                $entityValue->entity_id = $entityModel->id;
+                $entityValue->save();
 
 
             }

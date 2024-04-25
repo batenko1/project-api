@@ -221,6 +221,7 @@ class EntityController extends Controller
             else {
                 if($request->get('filter_entity_name')) {
 
+
                     foreach ($request->get('filter_entity_name') as $key => $filterName) {
                         $filter = Filter::query()->where('id', $key)->first();
 

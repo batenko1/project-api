@@ -44,6 +44,6 @@ class Entity extends Model
     }
 
     public function values() {
-        return $this->hasMany(EntityValue::class);
+        return $this->hasMany(EntityValue::class, 'entity_id');
     }
 }
