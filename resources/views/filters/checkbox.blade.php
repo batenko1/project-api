@@ -1,5 +1,12 @@
 <div class="row mb-3">
     <label class="form-check m-0">
+
+        <input type="hidden"
+               class="form-check-input"
+               value="0"
+               name="{{$name ?? ''}}filter_{{ $filter->id }}" />
+
+
         <input type="checkbox"
                @if(isset($product) && $product->values->where('filter_id', $filter->id)->first())
                    @if($product->values->where('filter_id', $filter->id)->first()->value) checked @endif
