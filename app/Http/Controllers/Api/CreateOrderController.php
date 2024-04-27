@@ -34,7 +34,7 @@ class CreateOrderController extends Controller
 
 
 
-        $productsIds = $request->products;
+        $productsIds = explode(',', $request->products);
 
         $products = [];
         $price = 0;
