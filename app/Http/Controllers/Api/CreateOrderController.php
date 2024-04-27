@@ -118,7 +118,7 @@ class CreateOrderController extends Controller
             }
 
             $contract = $this->createContract($filePath, $replacements);
-            $order->file_contract = $contract;
+            $order->file_contract = asset($contract);
             $order->save();
 
             $percent = Setting::query()->where('key', 'percent_discount')->first();
