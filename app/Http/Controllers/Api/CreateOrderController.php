@@ -24,11 +24,12 @@ class CreateOrderController extends Controller
         $account = Account::query()->find($request->account_id);
 
         if(!$account) {
-            abort(404);
+            return response()->json(['message' => 'Dont isset profile', 'code' => 404]);
+
         }
 
         if(!$request->products) {
-            abort(404);
+            return response()->json(['message' => 'Dont isset products', 'code' => 404]);
         }
 
 
@@ -41,6 +42,11 @@ class CreateOrderController extends Controller
         foreach ($productsIds as $product) {
             list($productId, $count) = explode(':', $product);
             $product = Product::query()->where('id', $productId)->first();
+
+            if(!$product) {
+                return response()->json(['message' => 'Dont isset product with id '.$productId, 'code' => 404]);
+            }
+
             $product->count = $count;
             $products[] = $product;
             $price += $product->price * $count;
