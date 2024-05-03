@@ -49,11 +49,13 @@ class Filter extends Model
     ];
 
 
-    public function entity() {
+    public function entity()
+    {
         return $this->belongsTo(Entity::class);
     }
 
-    public function values() {
+    public function values()
+    {
         return $this->hasMany(FilterValue::class, 'filter_id');
     }
 

@@ -1,6 +1,7 @@
 @php
+
     if(isset($product) && $product->values->where('filter_id', $filter->id)->count() > 0) {
-        $listValues = $product->values->where('filter_id', $filter->id)->get()->pluck('filter_value_id')->toArray();
+        $listValues = $product->values->where('filter_id', $filter->id)->pluck('filter_value_id')->toArray();
     }
 
 @endphp

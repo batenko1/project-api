@@ -13,6 +13,7 @@ use App\Traits\RoleControlTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EntityController extends Controller
 {
@@ -174,7 +175,18 @@ class EntityController extends Controller
 
                 foreach ($filterDelete as $item) {
                     if($item) {
-                        Filter::query()->where('id', $item)->delete();
+                        $filter = Filter::query()->where('id', $item)->first();
+
+                        if($filter->type == 'input_file') {
+                            $filterValues = $entity->values->where('filter_id', $filter->id)->first();
+
+
+                            foreach (json_decode($filterValues->value) as $filterValue) {
+                                Storage::disk('public')->delete($filterValue);
+                            }
+                        }
+
+                        $filter->delete();
 
                     }
                 }
@@ -194,6 +206,14 @@ class EntityController extends Controller
                             'title' => $filterName,
                             'alias' => isset($request->get('filter_alias')[$key]) ? $request->get('filter_alias')[$key] : ''
                         ]);
+
+//                        if($filter->type == 'input_file') {
+//                            $filterValues = $filter->values;
+//
+//                            foreach ($filterValues as $filterValue) {
+//                                Storage::disk('public')->delete($filterValue);
+//                            }
+//                        }
 
                         if($filter->type == 'select') {
                             $values = $request->filter_values[$key];

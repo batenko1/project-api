@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\EntityValue;
 use App\Models\Filter;
 use App\Models\ProductValue;
+use Illuminate\Support\Facades\Storage;
 
 class StoreFilterProduct {
 
@@ -40,12 +41,14 @@ class StoreFilterProduct {
 
                         if(is_array($value)) {
 
+                            $product->values()->where('filter_id', $filter->id)->delete();
+
                             foreach ($value as $item) {
                                 $productValue = new ProductValue();
                                 $productValue->value = $item;
                                 $productValue->filter_id = $filter->id;
                                 $productValue->product_id = $product->id;
-                                $productValue->filter_value_id = $value;
+                                $productValue->filter_value_id = $item;
                                 $productValue->save();
 
                             }
@@ -56,6 +59,12 @@ class StoreFilterProduct {
 //                        $productValue->filter_value_id = $value;
                         break;
                     case('input_file'):
+
+                        $filterValues = $product->values->where('filter_id', $filter->id);
+
+                        foreach ($filterValues as $filterValue) {
+                            Storage::disk('public')->delete($filterValue);
+                        }
 
                         $files = $value;
                         $link = [];
@@ -120,8 +129,16 @@ class StoreFilterProduct {
                         $entityValue->filter_value_id = $value;
                         break;
                     case('input_file'):
-                        $file = $value;
-                        $value = \Str::replace('public/', '', $file->store('public/filters'));
+                        $files = $value;
+                        if(is_array($files)) {
+                            $result = [];
+                            foreach ($files as $file) {
+                                $result[] = \Str::replace('public/', '', $file->store('public/filters'));
+                            }
+
+                            $value = json_encode($result);
+                        }
+
 
                         break;
                 }

@@ -184,7 +184,12 @@ class ProductController extends Controller
 
         foreach ($product->values as $value) {
             if($value->filter->type == 'input_file') {
-                Storage::disk('public')->delete($value->value);
+                $files = json_decode($value->value);
+
+                foreach ($files as $file) {
+                    Storage::disk('public')->delete($file);
+                }
+
             }
         }
 
