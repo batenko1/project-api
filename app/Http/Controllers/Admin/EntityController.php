@@ -290,7 +290,31 @@ class EntityController extends Controller
     {
         if (!Gate::allows('delete entity')) abort(404);
 
-        $entity->delete();
+
+        DB::beginTransaction();
+
+        try {
+
+            foreach ($entity->values as $value) {
+                if($value->filter->type == 'input_file') {
+                    $files = json_decode($value->value);
+
+                    foreach ($files as $file) {
+                        Storage::disk('public')->delete($file);
+                    }
+
+                }
+            }
+
+            $entity->delete();
+
+            DB::commit();
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+        }
+
 
         if($request->expectsJson()) {
             return response()->json('Success delete', 204);
