@@ -13,6 +13,9 @@ class StoreFilterProduct {
 
         foreach ($request->all() as $key => $value) {
 
+            $marker = true; //for select
+
+
             if(str_contains($key, 'filter')) {
 
                 list($word, $filterId) = explode('_', $key);
@@ -34,7 +37,23 @@ class StoreFilterProduct {
                         $productValue->value = $value;
                         break;
                     case('select'):
-                        $productValue->filter_value_id = $value;
+
+                        if(is_array($value)) {
+
+                            foreach ($value as $item) {
+                                $productValue = new ProductValue();
+                                $productValue->value = $item;
+                                $productValue->filter_id = $filter->id;
+                                $productValue->product_id = $product->id;
+                                $productValue->filter_value_id = $value;
+                                $productValue->save();
+
+                            }
+
+                            $marker = false;
+                        }
+
+//                        $productValue->filter_value_id = $value;
                         break;
                     case('input_file'):
 
@@ -50,7 +69,7 @@ class StoreFilterProduct {
                         break;
                 }
 
-                if($value) {
+                if($value && $marker) {
                     $productValue->value = $value;
                     $productValue->filter_id = $filter->id;
                     $productValue->product_id = $product->id;
