@@ -296,7 +296,7 @@ class EntityController extends Controller
         try {
 
             foreach ($entity->values as $value) {
-                if($value->filter->type == 'input_file') {
+                if($value->filter && $value->filter->type == 'input_file') {
                     $files = json_decode($value->value);
 
                     foreach ($files as $file) {
