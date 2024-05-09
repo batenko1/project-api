@@ -43,7 +43,12 @@
                                 <dt class="col-sm-3">Бонусы</dt>
                                 <div class="col-sm-8">
 
+
+                                    @if(count($bonuses) > 0)
                                     <span class="badge bg-info">{{ $bonuses->sum('bonuses') }}</span>
+                                    @else
+                                        <span class="badge bg-info">0</span>
+                                    @endif
 
                                     <table style="width:60%;" class="table">
                                         <tr>
