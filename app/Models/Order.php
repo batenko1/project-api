@@ -15,7 +15,7 @@ class Order extends Model
 
     const CANCEL_STATUS = 'cancel';
 
-    const REFUSAL_STATUS = 'refulas';
+    const REFUSAL_STATUS = 'refusal';
 
     const DELETE_STATUS = 'delete';
 
