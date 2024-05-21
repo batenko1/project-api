@@ -15,8 +15,13 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         if (!Gate::allows('index order')) abort(404);
+        $accountId = $request->get('account_id');
 
-        $orders = Order::all();
+        $orders = Order::query()
+            ->when($accountId, function ($query) use($accountId) {
+                $query->where('account_id', $accountId);
+            })
+            ->get();
 
         if($request->expectsJson()) {
             return response()->json($orders);

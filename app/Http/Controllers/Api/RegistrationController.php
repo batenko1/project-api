@@ -39,6 +39,9 @@ class RegistrationController extends Controller
                 $account->is_verified = 1;
                 $account->save();
             }
+            else {
+                $account->is_verified = 0;
+            }
 
         }
 
