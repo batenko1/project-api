@@ -22,6 +22,7 @@ class CreateOrderController extends Controller
 
 
         $account = Account::query()->find($request->account_id);
+        $bonusesRequest = $request->get('bonuses') ?? 0;
 
         if(!$account) {
             return response()->json(['message' => 'Dont isset profile', 'code' => 404]);
@@ -73,12 +74,27 @@ class CreateOrderController extends Controller
 
         DB::beginTransaction();
 
-        if ($bonuses > $price) {
-            $price = 0;
-            $bonuses = $price;
-        } elseif ($bonuses && $price > $bonuses) {
-            $price = $price - $bonuses;
+
+        if($bonusesRequest) {
+
+            if($bonusesRequest > $bonuses) {
+                return response()->json('Не достаточно бонусных балов', 422);
+            }
+
+            $bonuses = $bonusesRequest;
+
+            if ($bonuses > $price) {
+                $price = 0;
+                $bonuses = $price;
+            } elseif ($bonuses && $price > $bonuses) {
+                $price = $price - $bonuses;
+            }
         }
+        else {
+            $bonuses = $bonusesRequest;
+        }
+
+
 
 
         try {

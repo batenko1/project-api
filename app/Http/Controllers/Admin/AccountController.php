@@ -47,6 +47,7 @@ class AccountController extends Controller
             ->first();
 
         $bonuses = [];
+        $countBonuses = 0;
 
         if($user) {
             $bonuses = DB::connection('mysql_bonuses')
@@ -54,14 +55,16 @@ class AccountController extends Controller
                 ->where('user_id', $user->id)
                 ->get();
 
+            $countBonuses = $bonuses->count('bonuses');
+
         }
 
 
         if($request->expectsJson()) {
-            return response()->json(compact('account', 'bonuses'));
+            return response()->json(compact('account', 'bonuses', 'countBonuses'));
         }
 
-        return view('accounts.show', compact('account', 'bonuses'));
+        return view('accounts.show', compact('account', 'bonuses', 'countBonuses'));
     }
 
     public function edit(Account $account) {
