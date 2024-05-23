@@ -91,10 +91,20 @@ class CreateOrderController extends Controller
 
 
             foreach ($products as $product) {
+
+                $productValues = [];
+                $values = $product->values;
+
+                foreach ($values as $item) {
+                    $productValues[$item->filter_id] = $item->value;
+                }
+
+
+
                 $order->products()->attach($order->id, [
                     'product_id' => $product->id,
                     'price' => $product->price * $product->count,
-                    'values' => '[]',
+                    'values' => json_encode($productValues),
                     'count' => $product->count,
                     'price_for_one' => $product->price
                 ]);
@@ -118,7 +128,7 @@ class CreateOrderController extends Controller
             }
 
             $contract = $this->createContract($filePath, $replacements);
-            $order->file_contract = asset($contract);
+            $order->file_contract = asset('storage/'.$contract);
             $order->save();
 
             $percent = Setting::query()->where('key', 'percent_discount')->first();
