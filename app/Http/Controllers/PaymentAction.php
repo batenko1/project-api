@@ -28,8 +28,8 @@ class PaymentAction extends Controller
             'currency' => 'RUB',
             'amount' => intval($order->price),
 //            'email' => 'batenko4@gmail.com',
-            'return_url_success' => 'http://project-api.test/success',
-            'return_url_decline' => 'http://project-api.test/failed'
+            'return_url_success' => env('APP_URL').'/success?order_id='. $order->id,
+            'return_url_decline' => env('APP_URL'). '/failed?order_id='.$order->id
         ]));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -55,25 +55,51 @@ class PaymentAction extends Controller
         }
 
 
-        $ch = curl_init();
+//        $ch = curl_init();
+//
+//
+//        curl_setopt($ch, CURLOPT_URL, "https://sandbox.payler.com/gapi/Pay");
+//        curl_setopt($ch, CURLOPT_POST, 0);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+//            'key' => $paymentKey,
+//            'session_id' => $result->session_id
+//        ]));
+//
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//
+//        $result = curl_exec($ch);
+//
+//
+//        curl_close($ch);
+
+//        $ch = curl_init();
+//
+//        $queryParams = http_build_query([
+//            'session_id' => $result->session_id
+//        ]);
+//
+//        curl_setopt($ch, CURLOPT_URL, "https://sandbox.payler.com/gapi/Pay?" . $queryParams);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//
+//        $result = curl_exec($ch);
+//
+//        dd($result);
+//
+//        curl_close($ch);
 
 
-        curl_setopt($ch, CURLOPT_URL, "https://sandbox.payler.com/gapi/Pay");
-        curl_setopt($ch, CURLOPT_POST, 0);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-            'key' => $paymentKey,
+        $queryParams = http_build_query([
             'session_id' => $result->session_id
-        ]));
+        ]);
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $url = "https://sandbox.payler.com/gapi/Pay?" . $queryParams;
 
-        $result = curl_exec($ch);
+// Перенаправление пользователя на страницу платежного шлюза
+        header("Location: $url");
+        exit();
 
 
-        curl_close($ch);
-
-
-        return $result;
+//        return $result;
 
 
 

@@ -54,7 +54,7 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::post('registration', RegistrationController::class);
 
-Route::post('payment/{orderId}', PaymentAction::class);
+Route::match(['get', 'post'], 'payment/{orderId}', PaymentAction::class);
 
 Route::get('product-filters', \App\Http\Controllers\Api\ProductController::class);
 

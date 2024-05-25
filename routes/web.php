@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Api\SuccessOrderAction;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,8 @@ Route::get('/', HomeController::class);
 Route::get('php-info', function () {
    phpinfo();
 });
+
+Route::match(['get', 'post'], 'success', SuccessOrderAction::class);
 
 Route::group([
     'prefix' => 'admin',
