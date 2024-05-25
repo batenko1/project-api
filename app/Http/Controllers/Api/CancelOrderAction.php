@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
-class SuccessOrderAction extends Controller
+class CancelOrderAction extends Controller
 {
     public function __invoke(Request $request)
     {
@@ -14,11 +14,10 @@ class SuccessOrderAction extends Controller
 
         $order = Order::query()->findOrFail($orderId);
 
-        $order->payment_status = 'success';
-        $order->status = 'completed';
+        $order->status = 'cancel';
 
         $order->save();
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['status' => 'cancel']);
     }
 }

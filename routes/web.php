@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TemplateController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Api\CancelOrderAction;
 use App\Http\Controllers\Api\SuccessOrderAction;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -39,6 +40,7 @@ Route::get('php-info', function () {
 });
 
 Route::match(['get', 'post'], 'success', SuccessOrderAction::class);
+Route::match(['get', 'post'], 'cancel', CancelOrderAction::class);
 
 Route::group([
     'prefix' => 'admin',
