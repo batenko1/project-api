@@ -130,20 +130,25 @@ class CreateOrderController extends Controller
             $filePath = storage_path('app/' . $template->file);
             $replacements = explode(',', $template->variables);
 
+            $resultReplacements = [];
+
             foreach ($replacements as $key => $item) {
-                $replacements[$key] = $order->{$item};
+
+                $item = trim($item);
+
+                $resultReplacements[$item] = $order->{$item};
 
                 if($key == 'identification_code') {
-                    $replacements[$key] = $order->account->identification_code;
+                    $resultReplacements[$item] = $order->account->identification_code;
                 }
 
                 if($key == 'count_products') {
-                    $replacements[$key] = $order->products->count();
+                    $resultReplacements[$item] = $order->products->count();
                 }
 
             }
 
-            $contract = $this->createContract($filePath, $replacements);
+            $contract = $this->createContract($filePath, $resultReplacements);
             $order->file_contract = asset('storage/'.$contract);
             $order->save();
 

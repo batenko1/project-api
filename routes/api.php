@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\AcceptContractController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Chat\ChatController;
 use App\Http\Controllers\Api\Chat\MessageController;
+use App\Http\Controllers\Api\CreateContractController;
 use App\Http\Controllers\Api\CreateOrderController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\Api\PermissionController;
@@ -38,6 +39,8 @@ use Illuminate\Support\Facades\Route;
 //-----------------------
 
 Route::post('create-order', CreateOrderController::class);
+
+Route::get('create-contract/{templateId}/{accountId}', CreateContractController::class);
 
 Route::post('accept-contract', AcceptContractController::class);
 
