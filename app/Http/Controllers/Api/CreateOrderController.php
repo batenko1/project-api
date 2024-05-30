@@ -136,14 +136,15 @@ class CreateOrderController extends Controller
 
                 $item = trim($item);
 
-                $resultReplacements[$item] = $order->{$item};
-
-                if($key == 'identification_code') {
+                if($item == 'identification_code') {
                     $resultReplacements[$item] = $order->account->identification_code;
                 }
 
-                if($key == 'count_products') {
+                elseif($item == 'count_products') {
                     $resultReplacements[$item] = $order->products->count();
+                }
+                else {
+                    $resultReplacements[$item] = $order->{$item};
                 }
 
             }
