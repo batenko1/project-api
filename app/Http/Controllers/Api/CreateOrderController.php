@@ -127,7 +127,7 @@ class CreateOrderController extends Controller
             }
 
             $template = Template::query()->first();
-            $filePath = storage_path('app/' . $template->file);
+            $filePath = storage_path('app/public/' . $template->file);
             $replacements = explode(',', $template->variables);
 
             $resultReplacements = [];
