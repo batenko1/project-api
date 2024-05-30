@@ -126,7 +126,14 @@ class CreateOrderController extends Controller
                 ]);
             }
 
-            $template = Template::query()->first();
+            if($request->template_id) {
+                $template = Template::query()->findOrFail($request->template_id);
+            }
+            else {
+                $template = Template::query()->first();
+            }
+
+
             $filePath = storage_path('app/public/' . $template->file);
             $replacements = explode(',', $template->variables);
 
