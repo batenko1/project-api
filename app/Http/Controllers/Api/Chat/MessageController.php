@@ -50,7 +50,7 @@ class MessageController extends Controller
         } else {
             $message->account_id = $user->id;
             $message->is_read = 1;
-            $companionId = $request->uuid;
+            $companionId = $request->uuid ?? $chat->uuid;
         }
 
 

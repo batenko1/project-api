@@ -34,6 +34,6 @@ class SendMessage implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new PrivateChannel('chat-message.'. $this->profile);
+        return new Channel('chat-message.'. $this->profile);
     }
 }

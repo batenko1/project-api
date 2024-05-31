@@ -219,7 +219,7 @@
     <script>
         $(document).ready(function () {
             @foreach(\App\Models\User::all() as $user)
-                window.Echo.private('chat-message.{{ $user->id }}')
+                window.Echo.channel('chat-message.{{ $user->id }}')
                     .listen('SendMessage', e => {
                         if (e) {
 
