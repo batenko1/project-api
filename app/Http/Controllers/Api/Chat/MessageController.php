@@ -73,6 +73,10 @@ class MessageController extends Controller
             return view('chat.blocks.message-render', compact('message'))->render();
         }
 
+        return [
+            'chat' => $chat
+        ];
+
 
     }
 }
