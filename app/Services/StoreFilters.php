@@ -24,6 +24,10 @@ class StoreFilters
             $title = $request->filter_name[$key];
             $alias = $request->filter_alias[$key];
 
+            if(!$title) {
+                continue;
+            }
+
 
             $newFilter = Filter::query()->where('id', $key)->first();
 
@@ -72,6 +76,10 @@ class StoreFilters
 
             $title = $request->filter_entity_name[$key];
             $alias = $request->filter_entity_alias[$key];
+
+            if(!$title) {
+                continue;
+            }
 
 
 
