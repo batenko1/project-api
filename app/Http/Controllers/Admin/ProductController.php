@@ -115,7 +115,8 @@ class ProductController extends Controller
 
         $listEntities = $this->triesEntities($product->entity);
 
-        $filters = Filter::query()->whereIn('entity_id', $listEntities)->get();
+        $filters = Filter::query()->whereIn('entity_id', $listEntities)->where('is_entity', 0)->get();
+
 
 
         $html = view('filters.template', compact('filters', 'product'))->render();
