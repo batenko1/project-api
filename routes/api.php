@@ -50,6 +50,7 @@ Route::get('prepare-filter', PrepareFilterAction::class);
 
 
 Route::post('/get-chat', [ChatController::class, 'getChat']);
+
 Route::post('/send-message', [MessageController::class, 'sendMessage']);
 
 
@@ -83,12 +84,13 @@ Route::group([
 
     Route::apiResource('templates', TemplateController::class);
 
-    Route::apiResource('pages', PageController::class);
-
     Route::resource('orders', OrderController::class);
 
 
 });
+
+Route::apiResource('pages', PageController::class);
+
 
 Route::get('filters/types', [FilterController::class, 'types']);
 

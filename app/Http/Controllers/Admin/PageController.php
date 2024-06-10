@@ -16,7 +16,10 @@ class PageController extends Controller
     public function index(Request $request)
     {
 
-        if (!Gate::allows('index page')) abort(404);
+        if(!$request->get('without_token')) {
+            if (!Gate::allows('index page')) abort(404);
+        }
+
 
         $pages = Page::query()->orderBy('id', 'desc')->get();
 
@@ -65,9 +68,11 @@ class PageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Page $page)
+    public function show(Request $request, Page $page)
     {
-        if (!Gate::allows('show page')) abort(404);
+        if(!$request->get('without_token')) {
+            if (!Gate::allows('show page')) abort(404);
+        }
 
         return response()->json($page);
     }
