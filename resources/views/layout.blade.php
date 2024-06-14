@@ -191,7 +191,7 @@
 <!-- Page JS -->
 <script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
 
-<script src="{{ asset('build/assets/app-8UGkboQB.js') }}"></script>
+<script src="{{ asset('build/assets/app-MbONHuUF.js') }}"></script>
 
 @yield('js')
 
@@ -206,7 +206,7 @@
 
     @if(auth()->user())
         @foreach(\App\Models\User::all() as $user)
-            window.Echo.private('chat-message.{{ $user->id }}')
+            window.Echo.channel('chat-message.{{ $user->id }}')
                 .listen('SendMessage', e => {
                     if(e) {
                         var audio = document.getElementById('audio');
