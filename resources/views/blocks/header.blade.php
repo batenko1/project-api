@@ -111,6 +111,10 @@
             <!--/ Notification -->
 
             <!-- User -->
+
+            <li>
+                <a style="padding-right: 30px;" href="javascript:void(0);">Статус сокетов: <span id="status"></span></a>
+            </li>
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     {{auth()->user()->name }} / {{ auth()->user()->email }}

@@ -26,11 +26,45 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 123,
     cluster: "mt1",
-    forceTLS: false,
+    forceTLS: true,
     wsHost: window.location.hostname,
     wsPort: 2053,
     wssPort: 2053,
     disableStats: true,
-    enabledTransports: ['ws', 'wss'],
+    enabledTransports: ['ws'],
     // host: window.location.hostname + ':2053'
+});
+
+
+function updateConnectionStatus() {
+    let statusElement = document.getElementById('status');
+    if (!statusElement) return;
+
+    // Проверка состояния соединения
+    if (window.Echo.connector.pusher.connection.state === 'connected') {
+        statusElement.textContent = 'подключено';
+        statusElement.style.color = 'green';
+    } else {
+        statusElement.textContent = 'не подключено';
+        statusElement.style.color = 'red';
+    }
+}
+
+// Обновление каждую секунду
+setInterval(updateConnectionStatus, 1000);
+
+// Обработчик для ошибок WebSocket
+window.Echo.connector.pusher.connection.bind('error', function(error) {
+    console.error('WebSocket error observed:', error);
+
+    let statusElement = document.getElementById('status');
+    if (statusElement) {
+        statusElement.textContent = 'покдлючено';
+        statusElement.style.color = 'green';
+    }
+});
+
+// Инициализация проверки статуса сразу при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    updateConnectionStatus();
 });
