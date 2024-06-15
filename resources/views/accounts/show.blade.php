@@ -52,6 +52,7 @@
 
                                     <table style="width:60%;" class="table">
                                         <tr>
+                                            <td>Дата</td>
                                             <td>Количество</td>
                                             <td>Тип расчета</td>
                                         </tr>
@@ -59,6 +60,7 @@
                                         @foreach($bonuses as $bonus)
 
                                             <tr>
+                                                <td>{{ \Carbon\Carbon::parse($bonus->created_at)->format('d.m.Y H:i') }}</td>
                                                 <td>{{ $bonus->bonuses }}</td>
                                                 <td>
                                                     @if($bonus->type == 'add')
