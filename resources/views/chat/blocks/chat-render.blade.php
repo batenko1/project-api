@@ -4,7 +4,12 @@
             <img src="{{ asset('assets/img/avatars/13.png') }}" alt="Avatar" class="rounded-circle"/>
         </div>
         <div class="chat-contact-info flex-grow-1 ms-2">
-            <h6 class="chat-contact-name text-truncate m-0">Пользователь</h6>
+            @if($chat->account)
+                <h6 class="chat-contact-name text-truncate m-0">{{ $chat->account?->fio }}</h6>
+            @else
+                <h6 class="chat-contact-name text-truncate m-0">{{ $chat->uuid }}</h6>
+            @endif
+
             <p class="chat-contact-status text-muted text-truncate mb-0">
                 {{ \Str::limit($chat->messages->last()->message, 40, '...') }}
             </p>

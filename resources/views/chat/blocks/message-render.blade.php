@@ -11,7 +11,7 @@
                 <p class="mb-0">{{ $message->message }}</p>
             </div>
             <div class="text-muted mt-1">
-                <small>{{ $message->created_at->format('d.m.Y H:i') }}</small>
+                <small>{{ $message->created_at?->format('d.m.Y H:i') }}</small>
             </div>
         </div>
     </div>

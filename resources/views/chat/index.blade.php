@@ -25,11 +25,14 @@
                             <div class="d-flex align-items-center me-3 me-lg-0">
 
                                 <div class="flex-grow-1 input-group input-group-merge rounded-pill">
-                                    <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
-                                    <input type="text" class="form-control chat-search-input" placeholder="Поиск" aria-label="Search..." aria-describedby="basic-addon-search31">
+                                    <span class="input-group-text" id="basic-addon-search31"><i
+                                            class="ti ti-search"></i></span>
+                                    <input type="text" class="form-control chat-search-input" placeholder="Поиск"
+                                           aria-label="Search..." aria-describedby="basic-addon-search31">
                                 </div>
                             </div>
-                            <i class="ti ti-x cursor-pointer d-lg-none d-block position-absolute mt-2 me-1 top-0 end-0" data-overlay="" data-bs-toggle="sidebar" data-target="#app-chat-contacts"></i>
+                            <i class="ti ti-x cursor-pointer d-lg-none d-block position-absolute mt-2 me-1 top-0 end-0"
+                               data-overlay="" data-bs-toggle="sidebar" data-target="#app-chat-contacts"></i>
                         </div>
 
                         <hr>
@@ -70,41 +73,41 @@
                                             data-overlay
                                             data-target="#app-chat-contacts"></i>
                                         <div class="flex-shrink-0 avatar">
-{{--                                            <img--}}
-{{--                                                src="../../assets/img/avatars/2.png"--}}
-{{--                                                alt="Avatar"--}}
-{{--                                                class="rounded-circle"--}}
-{{--                                                data-bs-toggle="sidebar"--}}
-{{--                                                data-overlay--}}
-{{--                                                data-target="#app-chat-sidebar-right"/>--}}
+                                            {{--                                            <img--}}
+                                            {{--                                                src="../../assets/img/avatars/2.png"--}}
+                                            {{--                                                alt="Avatar"--}}
+                                            {{--                                                class="rounded-circle"--}}
+                                            {{--                                                data-bs-toggle="sidebar"--}}
+                                            {{--                                                data-overlay--}}
+                                            {{--                                                data-target="#app-chat-sidebar-right"/>--}}
                                         </div>
                                         <div class="chat-contact-info flex-grow-1 ms-2">
-{{--                                            <h6 class="m-0">Felecia Rower</h6>--}}
-{{--                                            <small class="user-status text-muted">NextJS developer</small>--}}
+                                            {{--                                            <h6 class="m-0">Felecia Rower</h6>--}}
+                                            {{--                                            <small class="user-status text-muted">NextJS developer</small>--}}
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center">
 
-{{--                                        <div class="dropdown d-flex align-self-center">--}}
-{{--                                            <button--}}
-{{--                                                class="btn p-0"--}}
-{{--                                                type="button"--}}
-{{--                                                id="chat-header-actions"--}}
-{{--                                                data-bs-toggle="dropdown"--}}
-{{--                                                aria-haspopup="true"--}}
-{{--                                                aria-expanded="false">--}}
-{{--                                                <i class="ti ti-dots-vertical"></i>--}}
-{{--                                            </button>--}}
-{{--                                            <div class="dropdown-menu dropdown-menu-end"--}}
-{{--                                                 aria-labelledby="chat-header-actions">--}}
-{{--                                                <a class="dropdown-item" href="javascript:void(0);">View Contact</a>--}}
-{{--                                                <a class="dropdown-item" href="javascript:void(0);">Mute--}}
-{{--                                                    Notifications</a>--}}
-{{--                                                <a class="dropdown-item" href="javascript:void(0);">Block Contact</a>--}}
-{{--                                                <a class="dropdown-item" href="javascript:void(0);">Clear Chat</a>--}}
-{{--                                                <a class="dropdown-item" href="javascript:void(0);">Report</a>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+                                        {{--                                        <div class="dropdown d-flex align-self-center">--}}
+                                        {{--                                            <button--}}
+                                        {{--                                                class="btn p-0"--}}
+                                        {{--                                                type="button"--}}
+                                        {{--                                                id="chat-header-actions"--}}
+                                        {{--                                                data-bs-toggle="dropdown"--}}
+                                        {{--                                                aria-haspopup="true"--}}
+                                        {{--                                                aria-expanded="false">--}}
+                                        {{--                                                <i class="ti ti-dots-vertical"></i>--}}
+                                        {{--                                            </button>--}}
+                                        {{--                                            <div class="dropdown-menu dropdown-menu-end"--}}
+                                        {{--                                                 aria-labelledby="chat-header-actions">--}}
+                                        {{--                                                <a class="dropdown-item" href="javascript:void(0);">View Contact</a>--}}
+                                        {{--                                                <a class="dropdown-item" href="javascript:void(0);">Mute--}}
+                                        {{--                                                    Notifications</a>--}}
+                                        {{--                                                <a class="dropdown-item" href="javascript:void(0);">Block Contact</a>--}}
+                                        {{--                                                <a class="dropdown-item" href="javascript:void(0);">Clear Chat</a>--}}
+                                        {{--                                                <a class="dropdown-item" href="javascript:void(0);">Report</a>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
@@ -219,11 +222,12 @@
     <script>
         $(document).ready(function () {
             @foreach(\App\Models\User::all() as $user)
+            if (window.Echo) {
                 window.Echo.channel('chat-message.{{ $user->id }}')
                     .listen('SendMessage', e => {
                         if (e) {
 
-                            if(e.messageHtml) {
+                            if (e.messageHtml) {
                                 $('input[name="message"]').val('')
                                 $('.chat-history').append(e.messageHtml)
 
@@ -233,10 +237,9 @@
                             }
 
                             if (e.html) {
-                                if($('.chat-contact-list-item[data-id="'+ e.message.chat_id +'"]')) {
-                                    $('.chat-contact-list-item[data-id="'+ e.message.chat_id +'"]').replaceWith(e.html)
-                                }
-                                else {
+                                if ($('.chat-contact-list-item[data-id="' + e.message.chat_id + '"]')) {
+                                    $('.chat-contact-list-item[data-id="' + e.message.chat_id + '"]').replaceWith(e.html)
+                                } else {
                                     $('.chat-contact-list').prepend(e.html)
                                 }
 
@@ -246,10 +249,12 @@
                         }
 
                     })
+            }
+
             @endforeach
 
 
-            $('body').on('click', '.chat-contact-list-item', function() {
+            $('body').on('click', '.chat-contact-list-item', function () {
                 let el = $(this)
 
                 $('.chat-contact-list-item').removeClass('active')
@@ -261,8 +266,8 @@
                 $.ajax({
                     type: 'post',
                     url: '/api/get-chat',
-                    data: {chat_id:id},
-                    success:function(result) {
+                    data: {chat_id: id},
+                    success: function (result) {
                         $('input[name="chat_id"]').val(id)
                         $('.chat-history-body').html(result)
 
@@ -273,7 +278,7 @@
                 })
             })
 
-            $('.btn-send-message').click(function(e) {
+            $('.btn-send-message').click(function (e) {
                 e.preventDefault()
                 let el = $(this)
                 let form = new FormData(el.closest('form')[0])
@@ -282,7 +287,7 @@
 
                 let messageVal = message.val()
 
-                if(!messageVal.length) return
+                if (!messageVal.length) return
 
                 $.ajax({
                     type: 'post',
@@ -301,15 +306,13 @@
                 })
 
 
-
             })
 
-            $('.chat-search-input').keyup(function() {
+            $('.chat-search-input').keyup(function () {
                 let el = $(this)
                 let val = el.val()
 
-                if(val.length) {
-
+                if (val.length) {
 
 
                 }
