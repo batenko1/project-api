@@ -19,7 +19,8 @@
                                 </dd>
 
                                 <dt class="col-sm-3">Верификация</dt>
-                                <dd class="col-sm-9"><span class="badge bg-info">{{ $account->is_verified ? 'Да' : 'Нет' }}</span></dd>
+                                <dd class="col-sm-9"><span
+                                        class="badge bg-info">{{ $account->is_verified ? 'Да' : 'Нет' }}</span></dd>
 
                                 <dt class="col-sm-3 text-truncate">Дата создания</dt>
                                 <dd class="col-sm-9">{{ $account->created_at->format('d.m.Y') }}</dd>
@@ -29,11 +30,14 @@
                                     @foreach($account->photos as $photo)
 
                                         <div style="display:inline-block">
-                                            <img src="{{ asset('storage/'. $photo->image) }}" width="150" style="display:inline-block; margin-bottom: 10px;" alt="">
+                                            <img src="{{ asset('storage/'. $photo->image) }}" width="150"
+                                                 style="display:inline-block; margin-bottom: 10px;" alt="">
                                             @if($photo->is_verified)
-                                                <span class="badge bg-success" style="display: block; width:max-content;">Верифицирован</span>
+                                                <span class="badge bg-success"
+                                                      style="display: block; width:max-content;">Верифицирован</span>
                                             @else
-                                                <span class="badge bg-danger" style="display: block; width:max-content;">Не верифицирован</span>
+                                                <span class="badge bg-danger"
+                                                      style="display: block; width:max-content;">Не верифицирован</span>
                                             @endif
                                         </div>
 
@@ -45,18 +49,22 @@
 
 
                                     @if(count($bonuses) > 0)
-                                    <span class="badge bg-info">{{ $bonuses->sum('bonuses') }}</span>
+                                        <span class="badge bg-info">{{ $bonuses->sum('bonuses') }}</span>
                                     @else
                                         <span class="badge bg-info">0</span>
                                     @endif
 
-                                    <table style="width:60%;" class="table">
+                                    <table style="width:60%;" class="table dataTable-js">
+                                        <thead>
                                         <tr>
-                                            <td>Дата</td>
-                                            <td>Количество</td>
-                                            <td>Тип расчета</td>
+                                            <th>Дата</th>
+                                            <th>Количество</th>
+                                            <th>Тип расчета</th>
                                         </tr>
 
+                                        </thead>
+
+                                        <tbody>
                                         @foreach($bonuses as $bonus)
 
                                             <tr>
@@ -64,7 +72,7 @@
                                                 <td>{{ $bonus->bonuses }}</td>
                                                 <td>
                                                     @if($bonus->type == 'add')
-                                                    <span class="badge bg-success">Начислено</span>
+                                                        <span class="badge bg-success">Начислено</span>
                                                     @else
                                                         <span class="badge bg-danger">Снято</span>
                                                     @endif
@@ -72,6 +80,8 @@
                                             </tr>
 
                                         @endforeach
+                                        </tbody>
+
 
                                     </table>
 
@@ -84,4 +94,16 @@
         </div>
     </div>
 
+@endsection
+
+
+@section('js')
+    <script>
+        $('.dataTable-js').DataTable({
+            order: [[0, 'desc']],
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Russian.json"
+            }
+        })
+    </script>
 @endsection

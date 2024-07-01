@@ -76,7 +76,7 @@
             <li class="menu-item @if(strpos(Route::currentRouteName(), 'admin.orders') !== false) active @endif">
                 <a href="{{ route('admin.orders.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons ti ti-calendar"></i>
-                    <div>Заказы</div>
+                    <div>Заказы <span class="badge bg-success">{{ \App\Models\Order::count() }}</span></div>
                 </a>
             </li>
         @endcan

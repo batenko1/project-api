@@ -18,3 +18,11 @@ yarn-error.log
 /.idea
 /.vscode
 storage
+
+.DS_Store
+ tests/.DS_Store
+ storage/.DS_Store
+ resources/.DS_Store
+ database/.DS_Store
+bootstrap/.DS_Store
+app/.DS_Store
